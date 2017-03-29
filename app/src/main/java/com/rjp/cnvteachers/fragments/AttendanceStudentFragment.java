@@ -27,6 +27,7 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.rjp.cnvteachers.R;
 import com.rjp.cnvteachers.api.API;
 import com.rjp.cnvteachers.api.RetrofitClient;
+import com.rjp.cnvteachers.beans.AdmissionBean;
 import com.rjp.cnvteachers.beans.ApiResults;
 import com.rjp.cnvteachers.beans.AttendanceBean;
 import com.rjp.cnvteachers.beans.StudentBean;
@@ -72,6 +73,8 @@ public class AttendanceStudentFragment extends Fragment {
     public static AttendanceBean obj;
     public static StudentBean objStud=null;
     private ArrayList<StudentBean> arrStud = new ArrayList<StudentBean>();
+    private ArrayList<AdmissionBean> arrStudAdm = new ArrayList<AdmissionBean>();
+
 
 
     @Override
@@ -135,7 +138,7 @@ public class AttendanceStudentFragment extends Fragment {
                         prog.dismiss();
                         if (apiResults != null) {
                             if (apiResults.getAdmno_no() != null) {
-                                arrStud = apiResults.getAdmno_no();
+                                arrStudAdm = apiResults.getAdmno_no();
                                 ArrayAdapter<StudentBean> adapter = new ArrayAdapter<StudentBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrStud);
                                 etAdmno.setThreshold(1);
                                 etAdmno.setAdapter(adapter);

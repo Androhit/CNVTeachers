@@ -83,6 +83,7 @@ public class AchievmentListAdapter extends RecyclerView.Adapter<AchievmentListAd
         holder.tvVenue.setText(objStud.getVenu());
         holder.tvBy.setText(objStud.getOrganized_by());
 
+
         if(objStud.getAchivement()!=null)
         {
             if(objStud.getAchivement().length()>10)

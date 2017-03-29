@@ -4,7 +4,7 @@ package com.rjp.cnvteachers.beans;
  * Created by Shraddha on 3/29/2017.
  */
 public class AchievementsBean {
-    private String id,event_name,subevent_name,organized_by,event_date,venu,achivement,prize;
+    private String id,event_name,subevent_name,organized_by,event_date,venu,achivement,prize,name;
 
     public String getId() {
         return id;
@@ -68,5 +68,13 @@ public class AchievementsBean {
 
     public void setPrize(String prize) {
         this.prize = prize;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
