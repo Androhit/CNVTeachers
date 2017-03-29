@@ -72,6 +72,7 @@ public class AttendanceStudentFragment extends Fragment {
 
     public static AttendanceBean obj;
     public static StudentBean objStud=null;
+    public static AdmissionBean objStudAdm=null;
     private ArrayList<StudentBean> arrStud = new ArrayList<StudentBean>();
     private ArrayList<AdmissionBean> arrStudAdm = new ArrayList<AdmissionBean>();
 
@@ -139,7 +140,7 @@ public class AttendanceStudentFragment extends Fragment {
                         if (apiResults != null) {
                             if (apiResults.getAdmno_no() != null) {
                                 arrStudAdm = apiResults.getAdmno_no();
-                                ArrayAdapter<StudentBean> adapter = new ArrayAdapter<StudentBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrStud);
+                                ArrayAdapter<AdmissionBean> adapter = new ArrayAdapter<AdmissionBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrStudAdm);
                                 etAdmno.setThreshold(1);
                                 etAdmno.setAdapter(adapter);
                             }
@@ -186,11 +187,12 @@ public class AttendanceStudentFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
             {
-                objStud= (StudentBean) adapterView.getItemAtPosition(i);
+                objStudAdm= (AdmissionBean) adapterView.getItemAtPosition(i);
             }
         });
 
     }
+
 
     private void updateDisplay()
     {
