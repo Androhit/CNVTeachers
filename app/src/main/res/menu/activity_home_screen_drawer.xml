@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Dashboard" />
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="My Profile" />
+        <item
+            android:id="@+id/nav_studdetails"
+            android:icon="@drawable/ic_menu_studdetails"
+            android:title="Student Details" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Slideshow" />
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Tools" />
+    </group>
+
+            <item
+                android:id="@+id/nav_mytt"
+                android:icon="@drawable/ic_menu_today"
+                android:title="My TimeTable" />
+            <item
+                android:id="@+id/nav_classtt"
+                android:icon="@drawable/ic_menu_today"
+                android:title="Class TimeTable" />
+
+        <item
+            android:id="@+id/nav_circular"
+            android:icon="@drawable/circular"
+            android:title="Circular" />
+
+        <item
+            android:id="@+id/nav_att"
+            android:icon="@drawable/attend"
+            android:title="Attendance" />
+
+        <item
+            android:id="@+id/nav_exam_tt"
+            android:icon="@drawable/ic_menu_today"
+            android:title="Exam TimeTable" />
+
+        <item
+            android:id="@+id/nav_achievment"
+            android:icon="@drawable/achievment"
+            android:title="Achievement" />
+
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_menu_share"
+            android:title="Share" />
+
+        <item
+            android:id="@+id/nav_send"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Send" />
+
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/logout"
+            android:title="Logout" />
+
+</menu>
