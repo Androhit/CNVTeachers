@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 /**
- * Created by Arun on 3/29/2017.
+ * Created by Shraddha on 3/29/2017.
  */
 public class AchievmentListAdapter extends RecyclerView.Adapter<AchievmentListAdapter.MyViewHolder>{
     private ArrayList<AchievementsBean> taskList;
