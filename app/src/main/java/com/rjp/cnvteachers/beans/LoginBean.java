@@ -163,8 +163,6 @@ public class LoginBean
         this.birthdate = birthdate;
     }
 
-
-
     public String getCaste() {
         return caste;
     }
