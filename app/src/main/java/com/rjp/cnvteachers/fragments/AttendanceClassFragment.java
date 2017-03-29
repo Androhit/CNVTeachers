@@ -186,8 +186,9 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
                     }
                     final AlertDialog alert = new AlertDialog.Builder(mContext).create();
                     alert.setTitle("Alert");
-                    alert.setMessage("Please Select a Class name:");
-                    alert.setCancelable(false);
+                    alert.setMessage("Server Network Error");
+                    alert.show();
+                    alert.setCancelable(true);
                 }
 
             });
@@ -219,8 +220,9 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
                     }
                     final AlertDialog alert = new AlertDialog.Builder(mContext).create();
                     alert.setTitle("Alert");
-                    alert.setMessage("Please Select a Division name:");
-                    alert.setCancelable(false);
+                    alert.setMessage("Server Network Error");
+                    alert.show();
+                    alert.setCancelable(true);
                 }
             });
         }
@@ -306,8 +308,9 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
                             }
                             final AlertDialog alert = new AlertDialog.Builder(mContext).create();
                             alert.setTitle("Alert");
-                            alert.setMessage("Time Table For This Class Not Found");
-                            alert.setCancelable(false);
+                            alert.setMessage("Server Network Error");
+                            alert.show();
+                            alert.setCancelable(true);
                             Toast.makeText(mContext,"Data Error "+error,Toast.LENGTH_LONG).show();
                         }
                     });

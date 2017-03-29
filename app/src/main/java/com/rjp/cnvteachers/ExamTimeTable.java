@@ -1,5 +1,6 @@
 package com.rjp.cnvteachers;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -127,6 +128,12 @@ public class ExamTimeTable extends AppCompatActivity {
                         if (prog.isShowing()) {
                             prog.dismiss();
                         }
+
+                        final AlertDialog alert = new AlertDialog.Builder(mContext).create();
+                        alert.setTitle("Alert");
+                        alert.setMessage("Server Network Error");
+                        alert.show();
+                        alert.setCancelable(true);
                         refreshView.setRefreshing(false);
                     }
                 });

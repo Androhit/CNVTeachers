@@ -163,8 +163,9 @@ public class ClassTimeTableFragment extends Fragment{
                     }
                     final AlertDialog alert = new AlertDialog.Builder(mContext).create();
                     alert.setTitle("Alert");
-                    alert.setMessage("Please Select a Class name:");
-                    alert.setCancelable(false);
+                    alert.setMessage("Server Network Error");
+                    alert.show();
+                    alert.setCancelable(true);
                 }
 
             });
@@ -195,8 +196,9 @@ public class ClassTimeTableFragment extends Fragment{
                     }
                     final AlertDialog alert = new AlertDialog.Builder(mContext).create();
                     alert.setTitle("Alert");
-                    alert.setMessage("Please Select a Division name:");
-                    alert.setCancelable(false);
+                    alert.setMessage("Server Network Error");
+                    alert.show();
+                    alert.setCancelable(true);
                 }
             });
         }
@@ -321,8 +323,9 @@ public class ClassTimeTableFragment extends Fragment{
                     }
                     final AlertDialog alert = new AlertDialog.Builder(mContext).create();
                     alert.setTitle("Alert");
-                    alert.setMessage("Time Table Not Loaded Completely");
-                    alert.setCancelable(false);
+                    alert.setMessage("Server Network Error");
+                    alert.show();
+                    alert.setCancelable(true);
                     Log.e(TAG, "Retrofit Error " + error);
                 }
             });

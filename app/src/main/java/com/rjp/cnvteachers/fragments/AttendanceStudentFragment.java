@@ -155,8 +155,9 @@ public class AttendanceStudentFragment extends Fragment {
                     }
                     final AlertDialog alert = new AlertDialog.Builder(mContext).create();
                     alert.setTitle("Alert");
-                    alert.setMessage("There is no student with this Admno");
-                    alert.setCancelable(false);
+                    alert.setMessage("Server Network Error");
+                    alert.show();
+                    alert.setCancelable(true);
                 }
 
             });
@@ -291,8 +292,9 @@ public class AttendanceStudentFragment extends Fragment {
                               }
                               final AlertDialog alert = new AlertDialog.Builder(mContext).create();
                               alert.setTitle("Alert");
-                              alert.setMessage("Attendance Record Not Found");
-                              alert.setCancelable(false);
+                              alert.setMessage("Server Network Error");
+                              alert.show();
+                              alert.setCancelable(true);
                           }
                       });
                    }
@@ -338,8 +340,9 @@ public class AttendanceStudentFragment extends Fragment {
                      }
                      final AlertDialog alert = new AlertDialog.Builder(mContext).create();
                      alert.setTitle("Alert");
-                     alert.setMessage("There is no student with this name");
-                     alert.setCancelable(false);
+                     alert.setMessage("Server Network Error");
+                     alert.show();
+                     alert.setCancelable(true);
                  }
 
              });

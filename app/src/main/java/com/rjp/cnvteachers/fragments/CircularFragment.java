@@ -118,8 +118,9 @@ public class CircularFragment extends Fragment {
                     }
                     final AlertDialog alert = new AlertDialog.Builder(mContext).create();
                     alert.setTitle("Alert");
-                    alert.setMessage("Please Select a Class name:");
-                    alert.setCancelable(false);
+                    alert.setMessage("Server Network Error");
+                    alert.show();
+                    alert.setCancelable(true);
                 }
 
             });
@@ -246,8 +247,9 @@ public class CircularFragment extends Fragment {
 
                         final AlertDialog alert = new AlertDialog.Builder(mContext).create();
                         alert.setTitle("Alert");
-                        alert.setMessage("Not Valid Input");
-                        alert.setCancelable(false);
+                        alert.setMessage("Server Network Error");
+                        alert.show();
+                        alert.setCancelable(true);
                     }
                 });
             }

@@ -54,6 +54,11 @@
             android:title="Achievement" />
 
         <item
+            android:id="@+id/nav_hos"
+            android:icon="@drawable/hand_on"
+            android:title="Hands On Science" />
+
+        <item
             android:id="@+id/nav_share"
             android:icon="@drawable/ic_menu_share"
             android:title="Share" />

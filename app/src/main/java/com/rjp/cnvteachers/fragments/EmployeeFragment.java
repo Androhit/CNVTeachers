@@ -127,9 +127,10 @@ public class EmployeeFragment extends Fragment {
                         }
 
                         final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                        alert.setTitle("Invalid");
-                        alert.setMessage("Profile Not Loaded Completely");
-                        alert.setCancelable(false);
+                        alert.setTitle("Alert");
+                        alert.setMessage("Server Network Error");
+                        alert.show();
+                        alert.setCancelable(true);
 
                     }
                 });
@@ -276,10 +277,10 @@ public class EmployeeFragment extends Fragment {
                         prog.dismiss();
                     }
                     final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                    alert.setTitle("Invalid");
+                    alert.setTitle("Alert");
                     alert.setMessage("Server Network Error");
-                    alert.setCancelable(false);
-                    Toast.makeText(mContext,"Server Network Error 2",Toast.LENGTH_LONG).show();
+                    alert.setCancelable(true);
+                   // Toast.makeText(mContext,"Server Network Error 2",Toast.LENGTH_LONG).show();
                     Log.e(TAG,"Retrofit Error "+error);
 
                 }

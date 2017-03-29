@@ -1,5 +1,6 @@
 package com.rjp.cnvteachers;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -157,6 +158,12 @@ public class LoginActivity extends AppCompatActivity {
                         if (dialog.isShowing()) {
                             dialog.dismiss();
                         }
+
+                        final AlertDialog alert = new AlertDialog.Builder(mContext).create();
+                        alert.setTitle("Alert");
+                        alert.setMessage("Server Network Error");
+                        alert.show();
+                        alert.setCancelable(true);
 //                                    objDialog.okDialog("Error", "Server failuer occured. Please try again some times later " + error);
                         ConfirmationDialogs.serverFailuerDialog(mContext,"");
                     }

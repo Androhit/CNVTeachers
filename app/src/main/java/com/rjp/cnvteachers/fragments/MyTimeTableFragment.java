@@ -132,8 +132,9 @@ public class MyTimeTableFragment extends Fragment {
                     }
                     final AlertDialog alert = new AlertDialog.Builder(mContext).create();
                     alert.setTitle("Alert");
-                    alert.setMessage("Time Table Not Loaded Completely");
-                    alert.setCancelable(false);
+                    alert.setMessage("Server Network Error");
+                    alert.show();
+                    alert.setCancelable(true);
                     Log.e(TAG, "Retrofit Error " + error);
                 }
             });

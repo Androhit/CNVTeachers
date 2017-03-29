@@ -171,4 +171,18 @@ public interface API
             @Field("acad_year") String acad_year,
             Callback<ApiResults> leaveList);
 
+    @FormUrlEncoded
+    @POST("/get_hos.php?method_name=hos_info")
+    void getHandsonList(
+            @Field("code") String code,
+            @Field("name") String name,
+            @Field("admno") String admno,
+            @Field("class_id") String class_id,
+            @Field("division_name") String division_name,
+            @Field("empid") String empid,
+            @Field("branch_id") String branch_id,
+            @Field("acad_year") String acad_year,
+            Callback<ApiResults> leaveList);
+
+
 }

@@ -132,8 +132,9 @@ public class ExamFragment extends Fragment {
                             }
                             final AlertDialog alert = new AlertDialog.Builder(mContext).create();
                             alert.setTitle("Alert");
-                            alert.setMessage("Exam Time Table Not Found");
-                            alert.setCancelable(false);
+                            alert.setMessage("Server Network Error");
+                            alert.show();
+                            alert.setCancelable(true);
                         }
                     });
                 }
@@ -218,8 +219,9 @@ public class ExamFragment extends Fragment {
                     }
                     final AlertDialog alert = new AlertDialog.Builder(mContext).create();
                     alert.setTitle("Alert");
-                    alert.setMessage("Please Select a Class name:");
-                    alert.setCancelable(false);
+                    alert.setMessage("Server Network Error");
+                    alert.show();
+                    alert.setCancelable(true);
                 }
             });
         }

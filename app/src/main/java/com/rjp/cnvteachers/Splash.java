@@ -160,6 +160,12 @@ public class Splash extends AppCompatActivity {
                     {
                         prog.dismiss();
                         ConfirmationDialogs.serverFailuerDialog(mContext,"");
+
+                        final AlertDialog alert = new AlertDialog.Builder(mContext).create();
+                        alert.setTitle("Alert");
+                        alert.setMessage("Server Network Error");
+                        alert.show();
+                        alert.setCancelable(true);
                     }
                 });
             }

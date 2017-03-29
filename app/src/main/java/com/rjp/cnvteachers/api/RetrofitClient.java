@@ -17,7 +17,7 @@ public class RetrofitClient
     private static OkHttpClient okHttpClient = null;
     private static RetrofitEndPoint retrofitEndPoint;
     //private static String ROOT_URL = "http://115.112.185.145/cvscloudcrm/android/";
-    private static String ROOT_URL = "http://115.112.185.145/android_webservices/school_teacher_app/";
+    public static String ROOT_URL = "http://115.112.185.145/android_webservices/school_teacher_app/";
     //private static String ROOT_URL = "http://115.112.186.62/schoolems/mobandroid/";
 
     private RetrofitClient(){}

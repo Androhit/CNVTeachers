@@ -29,6 +29,15 @@ public class ApiResults
     public ArrayList<CircularBean> circular_info;
     public ArrayList<CircularBean> circular_info_det;
     public ArrayList<AchievementsBean> special_achiv;
+    public ArrayList<HandsOnScienceBeans> hos_info;
+
+    public ArrayList<HandsOnScienceBeans> getHos_info() {
+        return hos_info;
+    }
+
+    public void setHos_info(ArrayList<HandsOnScienceBeans> hos_info) {
+        this.hos_info = hos_info;
+    }
 
     public ArrayList<AchievementsBean> getSpecial_achiv() {
         return special_achiv;

@@ -153,6 +153,7 @@ public class ExamListAdapter extends RecyclerView.Adapter<ExamListAdapter.MyView
 
     public void showResults(ExamBean objStud) {
         try {
+
             marks = 0;
             outOff = 0;
             AlertDialog alert = new AlertDialog.Builder(mContext).create();
@@ -184,6 +185,11 @@ public class ExamListAdapter extends RecyclerView.Adapter<ExamListAdapter.MyView
 
                 @Override
                 public void failure(RetrofitError error) {
+                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
+                    alert.setTitle("Alert");
+                    alert.setMessage("Server Network Error");
+                    alert.show();
+                    alert.setCancelable(true);
 
                 }
 

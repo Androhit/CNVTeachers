@@ -29,6 +29,7 @@ import com.rjp.cnvteachers.fragments.CircularFragment;
 import com.rjp.cnvteachers.fragments.ClassTimeTableFragment;
 import com.rjp.cnvteachers.fragments.EmployeeFragment;
 import com.rjp.cnvteachers.fragments.ExamFragment;
+import com.rjp.cnvteachers.fragments.HandsOnScienceFragment;
 import com.rjp.cnvteachers.fragments.MyTimeTableFragment;
 import com.rjp.cnvteachers.fragments.StudFragment;
 import com.rjp.cnvteachers.utils.AppPreferences;
@@ -158,6 +159,10 @@ public class HomeScreen extends AppCompatActivity
 
             case R.id.nav_achievment :
                 fragmentClass = AchievmentFragment.class;
+                break;
+
+            case R.id.nav_hos :
+                fragmentClass = HandsOnScienceFragment.class;
                 break;
 
             case R.id.nav_manage  :  break;

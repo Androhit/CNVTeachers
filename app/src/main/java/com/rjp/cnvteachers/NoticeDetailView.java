@@ -121,8 +121,9 @@ public class NoticeDetailView extends AppCompatActivity{
 
                     final AlertDialog alert = new AlertDialog.Builder(mContext).create();
                     alert.setTitle("Alert");
-                    alert.setMessage("Details not found for this notice");
-                    alert.setCancelable(false);
+                    alert.setMessage("Server Network Error");
+                    alert.show();
+                    alert.setCancelable(true);
 
                 }
 
