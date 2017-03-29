@@ -26,6 +26,7 @@ import com.rjp.cnvteachers.adapters.AchievmentListAdapter;
 import com.rjp.cnvteachers.api.API;
 import com.rjp.cnvteachers.api.RetrofitClient;
 import com.rjp.cnvteachers.beans.AchievementsBean;
+import com.rjp.cnvteachers.beans.AdmissionBean;
 import com.rjp.cnvteachers.beans.ApiResults;
 import com.rjp.cnvteachers.beans.StudentBean;
 import com.rjp.cnvteachers.common.ConfirmationDialogs;
@@ -57,6 +58,7 @@ public class AchievmentFragment extends Fragment{
 
     public static StudentBean objStud=null;
     private ArrayList<StudentBean> arrStud = new ArrayList<StudentBean>();
+    private ArrayList<AdmissionBean> arrStudAdm = new ArrayList<AdmissionBean>();
 
 
 
@@ -174,7 +176,7 @@ public class AchievmentFragment extends Fragment{
                         prog.dismiss();
                         if (apiResults != null) {
                             if (apiResults.getAdmno_no() != null) {
-                                arrStud = apiResults.getAdmno_no();
+                                arrStudAdm = apiResults.getAdmno_no();
                                 ArrayAdapter<StudentBean> adapter = new ArrayAdapter<StudentBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrStud);
                                 auto_admno.setThreshold(1);
                                 auto_admno.setAdapter(adapter);

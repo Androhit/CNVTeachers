@@ -12,7 +12,7 @@ public class ApiResults
     public ArrayList<LoginBean> login_det;
     public ArrayList<StudentBean> student_list;
     public ArrayList<StudentBean> student;
-    public ArrayList<StudentBean> admno_no;
+    public ArrayList<AdmissionBean> admno_no;
     public ArrayList<ClassBean> class_list;
     public ArrayList<DivisonBean> divison_list;
     public ArrayList<EmployeeBean> employee_list;
@@ -55,11 +55,11 @@ public class ApiResults
         this.circular_info = circular_info;
     }
 
-    public ArrayList<StudentBean> getAdmno_no() {
+    public ArrayList<AdmissionBean> getAdmno_no() {
         return admno_no;
     }
 
-    public void setAdmno_no(ArrayList<StudentBean> admno_no) {
+    public void setAdmno_no(ArrayList<AdmissionBean> admno_no) {
         this.admno_no = admno_no;
     }
 
