@@ -475,7 +475,9 @@ public class AttendanceStudentFragment extends Fragment {
             ArrayList<BarEntry> valueSet3 = new ArrayList<>();
             BarEntry v3e1 = null;
 
-            int i = Integer.parseInt(obj.getMonth())-6;
+            int i = 0;
+
+            for(AttendanceBean obj : arr) {
 
                 v1e1 = new BarEntry(Long.valueOf(obj.getPresent_day()), i);
                 valueSet1.add(v1e1);
@@ -483,9 +485,12 @@ public class AttendanceStudentFragment extends Fragment {
                 v2e1 = new BarEntry(Long.valueOf(obj.getAbsent_days()), i);
                 valueSet2.add(v2e1);
 
-                v3e1 = new BarEntry(Long.valueOf(obj.getWorking_days()),i);
+                long total = Long.valueOf(obj.getPresent_day())+Long.valueOf(obj.getAbsent_days());
+                v3e1 = new BarEntry(total, i); // Jan
                 valueSet3.add(v3e1);
 
+                i++;
+            }
 
             BarDataSet barDataSet1 = new BarDataSet(valueSet1, "Present ");
             barDataSet1.setColor(getResources().getColor(R.color.green_500));

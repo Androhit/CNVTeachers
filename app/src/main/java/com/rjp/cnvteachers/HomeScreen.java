@@ -24,7 +24,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.rjp.cnvteachers.fragments.AchievmentFragment;
-import com.rjp.cnvteachers.fragments.AttendanceFragment;
 import com.rjp.cnvteachers.fragments.CircularFragment;
 import com.rjp.cnvteachers.fragments.ClassTimeTableFragment;
 import com.rjp.cnvteachers.fragments.EmployeeFragment;
@@ -144,7 +143,7 @@ public class HomeScreen extends AppCompatActivity
                 break;
 
             case R.id.nav_att :
-                fragmentClass = AttendanceFragment.class;
+            //    fragmentClass = AttendanceFragment.class;
                 break;
 
             case R.id.nav_exam_tt :
