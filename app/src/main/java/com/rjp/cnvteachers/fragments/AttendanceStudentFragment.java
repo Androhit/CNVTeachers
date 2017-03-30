@@ -475,7 +475,7 @@ public class AttendanceStudentFragment extends Fragment {
             ArrayList<BarEntry> valueSet3 = new ArrayList<>();
             BarEntry v3e1 = null;
 
-            int i = Integer.parseInt(obj.getMonth())-1;
+            int i = Integer.parseInt(obj.getMonth())-6;
 
                 v1e1 = new BarEntry(Long.valueOf(obj.getPresent_day()), i);
                 valueSet1.add(v1e1);
@@ -524,11 +524,6 @@ public class AttendanceStudentFragment extends Fragment {
     private ArrayList<String> getXAxisValues() {
         ArrayList<String> xAxis = new ArrayList<>();
 
-        xAxis.add("JAN");
-        xAxis.add("FEB");
-        xAxis.add("MAR");
-        xAxis.add("APR");
-        xAxis.add("MAY");
         xAxis.add("JUN");
         xAxis.add("JUL");
         xAxis.add("AUG");
@@ -536,6 +531,12 @@ public class AttendanceStudentFragment extends Fragment {
         xAxis.add("OCT");
         xAxis.add("NOV");
         xAxis.add("DEC");
+        xAxis.add("JAN");
+        xAxis.add("FEB");
+        xAxis.add("MAR");
+        xAxis.add("APR");
+        xAxis.add("MAY");
+
 
         return xAxis;
     }
