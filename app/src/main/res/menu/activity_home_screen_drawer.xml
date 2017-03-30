@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group>
         <item
             android:id="@+id/nav_dashboard"
             android:icon="@drawable/ic_menu_camera"
@@ -15,7 +15,6 @@
             android:icon="@drawable/ic_menu_studdetails"
             android:title="Student Details" />
 
-    </group>
 
             <item
                 android:id="@+id/nav_mytt"
@@ -56,5 +55,7 @@
             android:id="@+id/nav_logout"
             android:icon="@drawable/logout"
             android:title="Logout" />
+    </group>
+
 
 </menu>

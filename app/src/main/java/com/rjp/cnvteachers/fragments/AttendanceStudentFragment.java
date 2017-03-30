@@ -19,7 +19,11 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -59,7 +63,7 @@ public class AttendanceStudentFragment extends Fragment {
     private AutoCompleteTextView etAdmno;
     private AutoCompleteTextView AutoName;
     private PieChart pieChart;
-
+    private BarChart barChart;
     String Name,admno,FromDate,ToDate;
 
     ArrayList<AttendanceBean> arr = new ArrayList<>();
@@ -281,6 +285,7 @@ public class AttendanceStudentFragment extends Fragment {
                                       tvAtte.setText(""+obj.getPercent());
                                       arr.add(obj);
                                       addData(arr);
+                                      getDataSet(arr);
                                   }
 
                           }
@@ -391,6 +396,7 @@ public class AttendanceStudentFragment extends Fragment {
          tvAtte = (TextView)v.findViewById(R.id.tvAttendance);
          btnSubmit=(Button) v.findViewById(R.id.btnSubmit);
         pieChart = (PieChart) v.findViewById(R.id.pieChart);
+        barChart = (BarChart) v.findViewById(R.id.barChart);
     }
 
     private void addData(ArrayList<AttendanceBean> arr)
@@ -450,5 +456,93 @@ public class AttendanceStudentFragment extends Fragment {
             e.printStackTrace();
         }
     }
+
+
+
+
+    private ArrayList<BarDataSet> getDataSet(ArrayList<AttendanceBean> arr)
+    {
+        ArrayList<BarDataSet> dataSets = null;
+        try {
+            dataSets = null;
+
+            ArrayList<BarEntry> valueSet1 = new ArrayList<>();
+            BarEntry v1e1 = null;
+
+            ArrayList<BarEntry> valueSet2 = new ArrayList<>();
+            BarEntry v2e1 = null;
+
+            ArrayList<BarEntry> valueSet3 = new ArrayList<>();
+            BarEntry v3e1 = null;
+
+            int i = 0;
+
+            for(AttendanceBean obj : arr)
+            {
+                v1e1 = new BarEntry(Long.valueOf(obj.getPresent_day()), i);
+                valueSet1.add(v1e1);
+
+                v2e1 = new BarEntry(Long.valueOf(obj.getAbsent_days()), i);
+                valueSet2.add(v2e1);
+
+                v3e1 = new BarEntry(Long.valueOf(obj.getWorking_days()),i);
+                valueSet3.add(v3e1);
+
+                i++;
+            }
+
+            BarDataSet barDataSet1 = new BarDataSet(valueSet1, "Present ");
+            barDataSet1.setColor(getResources().getColor(R.color.green_500));
+
+            BarDataSet barDataSet2 = new BarDataSet(valueSet2, "Absent ");
+            barDataSet2.setColor(getResources().getColor(R.color.red_500));
+
+            BarDataSet barDataSet3 = new BarDataSet(valueSet3, "Working Days ");
+            barDataSet3.setColor(getResources().getColor(R.color.orange_500));
+
+            dataSets = new ArrayList<>();
+            dataSets.add(barDataSet3);
+            dataSets.add(barDataSet1);
+            dataSets.add(barDataSet2);
+
+            BarData data = new BarData(getXAxisValues(), dataSets);
+
+            barChart.setData(data);
+            barChart.setDescription("");
+            barChart.animateXY(2000, 2000);
+            barChart.setVisibleXRangeMaximum(12);
+            barChart.invalidate();
+          //  addData(arr);
+
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        } catch (Resources.NotFoundException e) {
+            e.printStackTrace();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return dataSets;
+    }
+    private ArrayList<String> getXAxisValues() {
+        ArrayList<String> xAxis = new ArrayList<>();
+
+        xAxis.add("JUN");
+        xAxis.add("JUL");
+        xAxis.add("AUG");
+        xAxis.add("SEP");
+        xAxis.add("OCT");
+        xAxis.add("NOV");
+        xAxis.add("DEC");
+        xAxis.add("JAN");
+        xAxis.add("FEB");
+        xAxis.add("MAR");
+        xAxis.add("APR");
+        xAxis.add("MAY");
+
+        return xAxis;
+    }
+
 
 }
