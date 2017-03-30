@@ -135,8 +135,6 @@ public class HomeScreen extends AppCompatActivity
                 fragmentClass = StudFragment.class;
                 break;
 
-            case R.id.nav_slideshow  :  break;
-
             case R.id.nav_mytt  :
                 fragmentClass = MyTimeTableFragment.class;
                 break;
@@ -164,12 +162,6 @@ public class HomeScreen extends AppCompatActivity
             case R.id.nav_hos :
                 fragmentClass = HandsOnScienceFragment.class;
                 break;
-
-            case R.id.nav_manage  :  break;
-
-            case R.id.nav_share  :   break;
-
-            case R.id.nav_send  :    break;
 
             case R.id.nav_logout :  logout(); break;
 

@@ -51,7 +51,6 @@ public class StudFragment extends Fragment {
 
     public static StudentBean objStud=null;
     public static AdmissionBean objStudAdm=null;
-    private ArrayList<StudentBean> arrStud = new ArrayList<StudentBean>();
     private ArrayList<AdmissionBean> arrStudAdm = new ArrayList<AdmissionBean>();
 
 
@@ -359,8 +358,8 @@ public class StudFragment extends Fragment {
                         prog.dismiss();
                         if (apiResults != null) {
                             if (apiResults.getStudent() != null) {
-                                arrStud = apiResults.getStudent();
-                                ArrayAdapter<StudentBean> adapter = new ArrayAdapter<StudentBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrStud);
+                                arrList = apiResults.getStudent();
+                                ArrayAdapter<StudentBean> adapter = new ArrayAdapter<StudentBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrList);
                                 etStudName.setThreshold(1);
                                 etStudName.setAdapter(adapter);
                             }

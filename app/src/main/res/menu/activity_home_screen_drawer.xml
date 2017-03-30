@@ -14,14 +14,7 @@
             android:id="@+id/nav_studdetails"
             android:icon="@drawable/ic_menu_studdetails"
             android:title="Student Details" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+
     </group>
 
             <item
@@ -57,16 +50,6 @@
             android:id="@+id/nav_hos"
             android:icon="@drawable/hand_on"
             android:title="Hands On Science" />
-
-        <item
-            android:id="@+id/nav_share"
-            android:icon="@drawable/ic_menu_share"
-            android:title="Share" />
-
-        <item
-            android:id="@+id/nav_send"
-            android:icon="@drawable/ic_menu_send"
-            android:title="Send" />
 
 
         <item
