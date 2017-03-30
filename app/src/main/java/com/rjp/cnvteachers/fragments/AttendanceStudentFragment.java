@@ -512,9 +512,8 @@ public class AttendanceStudentFragment extends Fragment {
             barChart.animateXY(2000, 2000);
             barChart.setVisibleXRangeMaximum(12);
             barChart.invalidate();
-          //  addData(arr);
-
-        } catch (NumberFormatException e) {
+        }
+        catch (NumberFormatException e) {
             e.printStackTrace();
         } catch (Resources.NotFoundException e) {
             e.printStackTrace();
@@ -522,9 +521,9 @@ public class AttendanceStudentFragment extends Fragment {
         catch (Exception e) {
             e.printStackTrace();
         }
-
         return dataSets;
     }
+
     private ArrayList<String> getXAxisValues() {
         ArrayList<String> xAxis = new ArrayList<>();
 
@@ -543,6 +542,4 @@ public class AttendanceStudentFragment extends Fragment {
 
         return xAxis;
     }
-
-
 }

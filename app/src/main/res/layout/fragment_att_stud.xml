@@ -11,7 +11,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+<android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,6 +25,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/blue_400"
+         android:padding="3dp"
         android:text="Student Name:"/>
 
         <AutoCompleteTextView
@@ -35,6 +38,27 @@
 
         </LinearLayout>
 
+</android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="OR"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/colorPrimary"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,6 +70,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/blue_400"
+            android:padding="3dp"
             android:text="Admission No.:"/>
 
         <AutoCompleteTextView
@@ -57,6 +82,11 @@
             android:completionThreshold="1"/>
 
     </LinearLayout>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
 
 
     <LinearLayout
@@ -70,6 +100,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/blue_400"
+            android:padding="3dp"
             android:text="From Date"/>
 
 
@@ -79,10 +110,15 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/blue_400"
+            android:padding="3dp"
             android:text="To Date"/>
     </LinearLayout>
 
+    </android.support.v7.widget.CardView>
 
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -90,7 +126,7 @@
 
         <Button
             android:id="@+id/btnSubmit"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_gravity="center"
@@ -98,7 +134,10 @@
             android:layout_weight="0.35" />
 
     </LinearLayout>
-
+    </android.support.v7.widget.CardView>
+<android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -110,6 +149,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/colorPrimary"
             android:layout_weight="1"
+            android:padding="3dp"
             android:text="Working Days "/>
 
         <TextView
@@ -123,6 +163,10 @@
             android:text="00"/>
 
     </LinearLayout>
+</android.support.v7.widget.CardView>
+<android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -136,6 +180,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/colorPrimary"
             android:layout_weight="1"
+            android:padding="3dp"
             android:text="Present Days "/>
 
         <TextView
@@ -149,7 +194,10 @@
             android:text="00"/>
 
     </LinearLayout>
-
+</android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:background="@color/pink_50"
@@ -161,6 +209,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/colorPrimary"
             android:layout_weight="1"
+            android:padding="3dp"
             android:text="Absent Days "/>
 
         <TextView
@@ -174,6 +223,10 @@
             android:text="00"/>
 
     </LinearLayout>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -185,6 +238,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/colorPrimary"
+            android:padding="3dp"
             android:layout_weight="1"
             android:text="Attendance (%) "/>
 
@@ -199,7 +253,7 @@
             android:text="00 %"/>
 
     </LinearLayout>
-    
+    </android.support.v7.widget.CardView>
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChart"
