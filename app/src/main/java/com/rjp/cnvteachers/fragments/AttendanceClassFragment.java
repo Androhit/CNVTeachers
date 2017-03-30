@@ -188,7 +188,7 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
                     alert.setTitle("Alert");
                     alert.setMessage("Server Network Error");
                     alert.show();
-                    alert.setCancelable(true);
+                    alert.setCancelable(false);
                 }
 
             });
@@ -222,7 +222,7 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
                     alert.setTitle("Alert");
                     alert.setMessage("Server Network Error");
                     alert.show();
-                    alert.setCancelable(true);
+                    alert.setCancelable(false);
                 }
             });
         }
@@ -310,7 +310,7 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
                             alert.setTitle("Alert");
                             alert.setMessage("Server Network Error");
                             alert.show();
-                            alert.setCancelable(true);
+                            alert.setCancelable(false);
                             Toast.makeText(mContext,"Data Error "+error,Toast.LENGTH_LONG).show();
                         }
                     });

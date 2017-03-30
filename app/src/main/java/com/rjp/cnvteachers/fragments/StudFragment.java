@@ -121,7 +121,7 @@ public class StudFragment extends Fragment {
                     alert.setTitle("Alert");
                     alert.setMessage("Server Network Error");
                     alert.show();
-                    alert.setCancelable(true);
+                    alert.setCancelable(false);
                 }
 
             });
@@ -154,7 +154,7 @@ public class StudFragment extends Fragment {
                     alert.setTitle("Alert");
                     alert.setMessage("Server Network Error");
                     alert.show();
-                    alert.setCancelable(true);
+                    alert.setCancelable(false);
                 }
             });
         }
@@ -245,7 +245,7 @@ public class StudFragment extends Fragment {
                                         alert.setTitle("Alert");
                                         alert.setMessage("Server Network Error");
                                         alert.show();
-                                        alert.setCancelable(true);
+                                        alert.setCancelable(false);
                                     }
                                 });
                     }
@@ -305,7 +305,7 @@ public class StudFragment extends Fragment {
                     alert.setTitle("Alert");
                     alert.setMessage("Server Network Error");
                     alert.show();
-                    alert.setCancelable(true);
+                    alert.setCancelable(false);
                 }
 
             });
@@ -376,7 +376,7 @@ public class StudFragment extends Fragment {
                     alert.setTitle("Alert");
                     alert.setMessage("Server Network Error");
                     alert.show();
-                    alert.setCancelable(true);
+                    alert.setCancelable(false);
                 }
 
             });

@@ -131,7 +131,7 @@ public class AttendanceStudentFragment extends Fragment {
         if(NetworkUtility.isOnline(mContext))
         {
             final ProgressDialog prog = new ProgressDialog(mContext);
-            prog.setMessage("loading...");
+            prog.setMessage("Loading...");
             prog.setCancelable(false);
             prog.show();
 
@@ -161,7 +161,7 @@ public class AttendanceStudentFragment extends Fragment {
                     alert.setTitle("Alert");
                     alert.setMessage("Server Network Error");
                     alert.show();
-                    alert.setCancelable(true);
+                    alert.setCancelable(false);
                 }
 
             });
@@ -299,7 +299,7 @@ public class AttendanceStudentFragment extends Fragment {
                               alert.setTitle("Alert");
                               alert.setMessage("Server Network Error");
                               alert.show();
-                              alert.setCancelable(true);
+                              alert.setCancelable(false);
                           }
                       });
                    }
@@ -317,7 +317,7 @@ public class AttendanceStudentFragment extends Fragment {
         if(NetworkUtility.isOnline(mContext))
          {
              final ProgressDialog prog = new ProgressDialog(mContext);
-             prog.setMessage("loading...");
+             prog.setMessage("Loading...");
              prog.setCancelable(false);
              prog.show();
 
@@ -347,7 +347,7 @@ public class AttendanceStudentFragment extends Fragment {
                      alert.setTitle("Alert");
                      alert.setMessage("Server Network Error");
                      alert.show();
-                     alert.setCancelable(true);
+                     alert.setCancelable(false);
                  }
 
              });
@@ -475,10 +475,8 @@ public class AttendanceStudentFragment extends Fragment {
             ArrayList<BarEntry> valueSet3 = new ArrayList<>();
             BarEntry v3e1 = null;
 
-            int i = 0;
+            int i = Integer.parseInt(obj.getMonth())-1;
 
-            for(AttendanceBean obj : arr)
-            {
                 v1e1 = new BarEntry(Long.valueOf(obj.getPresent_day()), i);
                 valueSet1.add(v1e1);
 
@@ -488,8 +486,6 @@ public class AttendanceStudentFragment extends Fragment {
                 v3e1 = new BarEntry(Long.valueOf(obj.getWorking_days()),i);
                 valueSet3.add(v3e1);
 
-                i++;
-            }
 
             BarDataSet barDataSet1 = new BarDataSet(valueSet1, "Present ");
             barDataSet1.setColor(getResources().getColor(R.color.green_500));
@@ -512,8 +508,9 @@ public class AttendanceStudentFragment extends Fragment {
             barChart.animateXY(2000, 2000);
             barChart.setVisibleXRangeMaximum(12);
             barChart.invalidate();
-        }
-        catch (NumberFormatException e) {
+          //  addData(arr);
+
+        } catch (NumberFormatException e) {
             e.printStackTrace();
         } catch (Resources.NotFoundException e) {
             e.printStackTrace();
@@ -521,12 +518,17 @@ public class AttendanceStudentFragment extends Fragment {
         catch (Exception e) {
             e.printStackTrace();
         }
+
         return dataSets;
     }
-
     private ArrayList<String> getXAxisValues() {
         ArrayList<String> xAxis = new ArrayList<>();
 
+        xAxis.add("JAN");
+        xAxis.add("FEB");
+        xAxis.add("MAR");
+        xAxis.add("APR");
+        xAxis.add("MAY");
         xAxis.add("JUN");
         xAxis.add("JUL");
         xAxis.add("AUG");
@@ -534,12 +536,9 @@ public class AttendanceStudentFragment extends Fragment {
         xAxis.add("OCT");
         xAxis.add("NOV");
         xAxis.add("DEC");
-        xAxis.add("JAN");
-        xAxis.add("FEB");
-        xAxis.add("MAR");
-        xAxis.add("APR");
-        xAxis.add("MAY");
 
         return xAxis;
     }
+
+
 }

@@ -130,7 +130,7 @@ public class EmployeeFragment extends Fragment {
                         alert.setTitle("Alert");
                         alert.setMessage("Server Network Error");
                         alert.show();
-                        alert.setCancelable(true);
+                        alert.setCancelable(false);
 
                     }
                 });
@@ -279,7 +279,7 @@ public class EmployeeFragment extends Fragment {
                     final AlertDialog alert = new AlertDialog.Builder(mContext).create();
                     alert.setTitle("Alert");
                     alert.setMessage("Server Network Error");
-                    alert.setCancelable(true);
+                    alert.setCancelable(false);
                    // Toast.makeText(mContext,"Server Network Error 2",Toast.LENGTH_LONG).show();
                     Log.e(TAG,"Retrofit Error "+error);
 

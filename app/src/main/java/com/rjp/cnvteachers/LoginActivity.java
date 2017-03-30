@@ -163,7 +163,7 @@ public class LoginActivity extends AppCompatActivity {
                         alert.setTitle("Alert");
                         alert.setMessage("Server Network Error");
                         alert.show();
-                        alert.setCancelable(true);
+                        alert.setCancelable(false);
 //                                    objDialog.okDialog("Error", "Server failuer occured. Please try again some times later " + error);
                         ConfirmationDialogs.serverFailuerDialog(mContext,"");
                     }

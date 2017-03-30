@@ -189,7 +189,7 @@ public class ExamListAdapter extends RecyclerView.Adapter<ExamListAdapter.MyView
                     alert.setTitle("Alert");
                     alert.setMessage("Server Network Error");
                     alert.show();
-                    alert.setCancelable(true);
+                    alert.setCancelable(false);
 
                 }
 

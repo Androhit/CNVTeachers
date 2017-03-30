@@ -134,7 +134,7 @@ public class MyTimeTableFragment extends Fragment {
                     alert.setTitle("Alert");
                     alert.setMessage("Server Network Error");
                     alert.show();
-                    alert.setCancelable(true);
+                    alert.setCancelable(false);
                     Log.e(TAG, "Retrofit Error " + error);
                 }
             });
