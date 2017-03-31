@@ -9,7 +9,6 @@
         android:orientation="horizontal"
         android:padding="10dp">
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -29,15 +28,6 @@
                     android:gravity="center"
                     android:textColor="@color/colorPrimary"
                     android:text="Subject"/>
-
-                <!-- <TextView
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:layout_weight="1"
-                     android:textAppearance="?android:attr/textAppearanceSmall"
-                     android:textStyle="bold"
-                     android:textColor="@color/white"
-                     android:text="Date"/>-->
 
                 <TextView
                     android:id="@+id/tvResultMarks"

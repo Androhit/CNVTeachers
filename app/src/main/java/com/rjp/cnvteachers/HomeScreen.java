@@ -24,6 +24,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.rjp.cnvteachers.beans.InstitutesBean;
 import com.rjp.cnvteachers.common.ConfirmationDialogs;
 import com.rjp.cnvteachers.fragments.AchievmentFragment;
 import com.rjp.cnvteachers.fragments.CircularFragment;
@@ -66,11 +67,11 @@ public class HomeScreen extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        initDrawerSecond(toolbar);
+        initDrawerSecond(toolbar,AppPreferences.getInstObj(mContext));
         initListners();
     }
 
-    private void initDrawerSecond(Toolbar toolbar) {
+    private void initDrawerSecond(Toolbar toolbar, InstitutesBean instObj) {
         try {
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -100,8 +101,7 @@ public class HomeScreen extends AppCompatActivity
             navigationView.getMenu().getItem(0).setChecked(true);
             setTitle(navigationView.getMenu().getItem(0).getTitle());
             //showHintsFirstTime();
-        }
-        catch (InstantiationException e) {
+        } catch (InstantiationException e) {
             e.printStackTrace();
         }
         catch (IllegalAccessException e) {
@@ -112,7 +112,6 @@ public class HomeScreen extends AppCompatActivity
         }
 
     }
-
 
     private void initListners() {
         fabback.setOnClickListener(new View.OnClickListener() {
@@ -214,28 +213,19 @@ public class HomeScreen extends AppCompatActivity
 
          try {
                 fragment = (Fragment) fragmentClass.newInstance();
-            } catch (Exception e) {
+             }
+         catch (Exception e) {
                 e.printStackTrace();
              }
 
         if(fragment!=null) {
             fabback.setVisibility(View.VISIBLE);
-            // Insert the fragment by replacing any existing fragment
             FragmentManager fragmentManager = getSupportFragmentManager();
-
             FragmentTransaction transaction = fragmentManager.beginTransaction();
-            //transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-
             transaction.replace(R.id.flContent, fragment );
             transaction.addToBackStack(null);
             transaction.commit();
-
-            //fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-            // Highlight the selected item has been done by NavigationView
-            //item.setChecked(true);
-            // Set action bar title
             setTitle(item.getTitle());
-            //tvTitle.setText(item.getTitle());
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

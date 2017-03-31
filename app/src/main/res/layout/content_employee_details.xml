@@ -34,6 +34,7 @@
                     android:textStyle="bold"
                     android:typeface="monospace"
                     android:drawablePadding="5dp"
+                    android:layout_gravity="center"
                     android:text="Academic Information"/>
 
                 <View
@@ -58,6 +59,7 @@
                             android:gravity="center_vertical"
                             android:textStyle="bold"
                             android:typeface="serif"
+                            android:padding="3dp"
                             android:text="Emp ID : "/>
 
                         <EditText
@@ -91,6 +93,7 @@
                             android:gravity="center_vertical"
                             android:textStyle="bold"
                             android:typeface="serif"
+                            android:padding="3dp"
                             android:text="Designation : "/>
 
                         <EditText
@@ -124,6 +127,7 @@
                             android:gravity="center_vertical"
                             android:textStyle="bold"
                             android:typeface="serif"
+                            android:padding="3dp"
                             android:text="Qualification : "/>
 
                         <EditText
@@ -156,6 +160,7 @@
                             android:gravity="center_vertical"
                             android:textStyle="bold"
                             android:typeface="serif"
+                            android:padding="3dp"
                             android:text="Experience : "/>
 
                         <EditText
@@ -166,7 +171,6 @@
                             android:textColor="@color/colorPrimary"
                             android:focusableInTouchMode="false"
                             android:background="@drawable/square_corner_trans_edittext"
-
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             />
 
@@ -189,6 +193,7 @@
                             android:gravity="center_vertical"
                             android:textStyle="bold"
                             android:typeface="serif"
+                            android:padding="3dp"
                             android:text="Biometric Emp ID : "/>
 
                         <EditText
@@ -199,7 +204,6 @@
                             android:textColor="@color/colorPrimary"
                             android:focusableInTouchMode="false"
                             android:background="@drawable/square_corner_trans_edittext"
-
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             />
 
@@ -225,12 +229,13 @@
                 android:background="@color/white">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:textStyle="bold"
                     android:typeface="monospace"
                     android:drawablePadding="5dp"
+                    android:layout_gravity="center"
                     android:text="Personal Information"/>
 
                 <View
@@ -254,6 +259,7 @@
                             android:gravity="center_vertical"
                             android:textStyle="bold"
                             android:typeface="serif"
+                            android:padding="3dp"
                             android:text="Name : "/>
 
                         <EditText
@@ -288,16 +294,8 @@
                             android:gravity="center_vertical"
                             android:typeface="serif"
                             android:textStyle="bold"
+                            android:padding="3dp"
                             android:text="Gender : "/>
-
-                        <!--<Spinner
-                            android:id="@+id/spnGender"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/colorPrimary"
-                            android:entries="@array/gender"
-                            android:background="@drawable/square_corner_trans_edittext"/>-->
 
                         <RadioGroup
                             android:layout_width="match_parent"
@@ -341,6 +339,7 @@
                             android:gravity="center_vertical"
                             android:typeface="serif"
                             android:textStyle="bold"
+                            android:padding="3dp"
                             android:text="Blood Group : "/>
 
                         <EditText
@@ -351,7 +350,6 @@
                             android:textColor="@color/colorPrimary"
                             android:focusableInTouchMode="false"
                             android:background="@drawable/square_corner_trans_edittext"
-
                             android:textAppearance="?android:attr/textAppearanceSmall" />
 
                     </LinearLayout>
@@ -373,6 +371,7 @@
                             android:gravity="center_vertical"
                             android:typeface="serif"
                             android:textStyle="bold"
+                            android:padding="3dp"
                             android:text="Date of Birth : "/>
 
                         <EditText
@@ -383,7 +382,6 @@
                             android:textColor="@color/colorPrimary"
                             android:focusableInTouchMode="false"
                             android:background="@drawable/square_corner_trans_edittext"
-
                             android:textAppearance="?android:attr/textAppearanceSmall" />
 
                     </LinearLayout>
@@ -408,6 +406,7 @@
                             android:gravity="center_vertical"
                             android:typeface="serif"
                             android:textStyle="bold"
+                            android:padding="3dp"
                             android:text="Date of Joining : "/>
 
                         <EditText
@@ -418,7 +417,6 @@
                             android:textColor="@color/colorPrimary"
                             android:focusableInTouchMode="false"
                             android:background="@drawable/square_corner_trans_edittext"
-
                             android:textAppearance="?android:attr/textAppearanceSmall" />
 
                     </LinearLayout>
@@ -442,6 +440,7 @@
                             android:gravity="center_vertical"
                             android:typeface="serif"
                             android:textStyle="bold"
+                            android:padding="3dp"
                             android:text="Religion : "/>
 
                         <EditText
@@ -452,7 +451,6 @@
                             android:textColor="@color/colorPrimary"
                             android:focusableInTouchMode="false"
                             android:background="@drawable/square_corner_trans_edittext"
-
                             android:textAppearance="?android:attr/textAppearanceSmall"/>
 
                     </LinearLayout>
@@ -475,6 +473,7 @@
                             android:gravity="center_vertical"
                             android:typeface="serif"
                             android:textStyle="bold"
+                            android:padding="3dp"
                             android:text="Emergency Number : "/>
 
                         <EditText
@@ -487,7 +486,6 @@
                             android:inputType="number"
                             android:maxLength="10"
                             android:background="@drawable/square_corner_trans_edittext"
-
                             android:textAppearance="?android:attr/textAppearanceSmall"/>
 
                     </LinearLayout>
@@ -510,6 +508,7 @@
                             android:gravity="center_vertical"
                             android:typeface="serif"
                             android:textStyle="bold"
+                            android:padding="3dp"
                             android:text="Father's Name : "/>
 
                         <EditText
@@ -520,7 +519,6 @@
                             android:textColor="@color/colorPrimary"
                             android:focusableInTouchMode="false"
                             android:background="@drawable/square_corner_trans_edittext"
-
                             android:textAppearance="?android:attr/textAppearanceSmall"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -541,6 +539,7 @@
                             android:gravity="center_vertical"
                             android:typeface="serif"
                             android:textStyle="bold"
+                            android:padding="3dp"
                             android:text="Middle Name : "/>
 
                         <EditText
@@ -550,7 +549,6 @@
                             android:gravity="center_vertical"
                             android:textColor="@color/colorPrimary"
                             android:background="@drawable/square_corner_trans_edittext"
-
                             android:focusableInTouchMode="false"
                             android:textAppearance="?android:attr/textAppearanceSmall"/>
 
@@ -577,11 +575,12 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:textStyle="bold"
                     android:typeface="monospace"
                     android:drawablePadding="5dp"
+                    android:layout_gravity="center"
                     android:text="Contact Details :"/>
 
                 <View
@@ -606,6 +605,7 @@
                             android:gravity="center_vertical"
                             android:typeface="serif"
                             android:textStyle="bold"
+                            android:padding="3dp"
                             android:text="Email : "/>
 
                         <EditText
@@ -616,7 +616,6 @@
                             android:textColor="@color/colorPrimary"
                             android:inputType="textEmailAddress"
                             android:background="@drawable/square_corner_trans_edittext"
-
                             android:focusableInTouchMode="false"
                             android:textAppearance="?android:attr/textAppearanceSmall"/>
 
@@ -639,6 +638,7 @@
                             android:layout_height="match_parent"
                             android:typeface="serif"
                             android:textStyle="bold"
+                            android:padding="3dp"
                             android:text="Address : "/>
 
                         <EditText
@@ -648,7 +648,6 @@
                             android:gravity="center_vertical|top|left"
                             android:textColor="@color/colorPrimary"
                             android:background="@drawable/square_corner_trans_edittext"
-
                             android:focusableInTouchMode="false"
                             android:textAppearance="?android:attr/textAppearanceSmall"/>
 
@@ -672,6 +671,7 @@
                             android:layout_height="match_parent"
                             android:typeface="serif"
                             android:textStyle="bold"
+                            android:padding="3dp"
                             android:text="Permanent Address : "/>
 
                         <EditText
@@ -681,7 +681,6 @@
                             android:gravity="center_vertical|top|left"
                             android:textColor="@color/colorPrimary"
                             android:background="@drawable/square_corner_trans_edittext"
-
                             android:focusableInTouchMode="false"
                             android:textAppearance="?android:attr/textAppearanceSmall"/>
 
@@ -706,6 +705,7 @@
                             android:gravity="center_vertical"
                             android:typeface="serif"
                             android:textStyle="bold"
+                            android:padding="3dp"
                             android:text="Phone : "/>
 
                         <EditText
@@ -742,6 +742,7 @@
                             android:gravity="center_vertical"
                             android:typeface="serif"
                             android:textStyle="bold"
+                            android:padding="3dp"
                             android:text="User ID : "/>
 
                         <EditText
@@ -753,7 +754,6 @@
                             android:focusableInTouchMode="false"
                             android:inputType="number"
                             android:background="@drawable/square_corner_trans_edittext"
-
                             android:maxLength="10"
                             android:textAppearance="?android:attr/textAppearanceSmall"/>
 

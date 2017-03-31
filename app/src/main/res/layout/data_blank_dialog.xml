@@ -44,8 +44,6 @@
             android:text="It seems the data is not available for this records. Please try again."
             android:id="@+id/textView2" />
 
-
-
     </LinearLayout>
 
     <LinearLayout
@@ -53,17 +51,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
-
-        <!-- <android.support.v7.widget.AppCompatButton
-             android:id="@+id/btn_login"
-             android:layout_width="fill_parent"
-             android:layout_height="wrap_content"
-             android:layout_marginBottom="24dp"
-             android:layout_marginTop="24dp"
-             android:background="@color/button_bg"
-             android:padding="12dp"
-             android:text="Login"
-             android:textColor="@color/buttun_text" />-->
 
         <Button
             android:id="@+id/btn_retry"

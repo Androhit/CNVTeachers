@@ -20,21 +20,22 @@
 
     <include layout="@layout/exam_details_header"/>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvExamTT"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"
+        android:layout_marginTop="15dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:padding="3dp"
+        android:layout_height="match_parent"/>
+
     <android.support.v4.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swipe_refresh_view_task"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvExamTT"
-            android:clipToPadding="false"
-            android:scrollbars="vertical"
-            android:layout_marginTop="15dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

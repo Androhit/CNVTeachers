@@ -7,14 +7,6 @@
     android:background="@color/white"
     tools:context="com.rjp.cnvteachers.HomeScreen">
 
-    <!-- <android.support.design.widget.TabLayout
-         android:id="@+id/tabs"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         app:tabTextColor="@color/white"
-         android:scrollbars="horizontal"
-         android:background="@color/colorPrimary"/>-->
-
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"

@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
+        android:padding="3dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Dept"/>
 
@@ -19,6 +20,7 @@
         android:id="@+id/tvClass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="3dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Class"/>
 

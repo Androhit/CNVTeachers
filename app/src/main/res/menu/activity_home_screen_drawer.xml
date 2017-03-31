@@ -15,15 +15,15 @@
             android:icon="@drawable/ic_menu_studdetails"
             android:title="Student Details" />
 
+        <item
+            android:id="@+id/nav_mytt"
+            android:icon="@drawable/ic_menu_today"
+            android:title="My TimeTable" />
 
-            <item
-                android:id="@+id/nav_mytt"
-                android:icon="@drawable/ic_menu_today"
-                android:title="My TimeTable" />
-            <item
-                android:id="@+id/nav_classtt"
-                android:icon="@drawable/ic_menu_today"
-                android:title="Class TimeTable" />
+         <item
+             android:id="@+id/nav_classtt"
+             android:icon="@drawable/ic_menu_today"
+             android:title="Class TimeTable" />
 
         <item
             android:id="@+id/nav_circular"
