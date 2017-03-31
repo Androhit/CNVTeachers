@@ -24,7 +24,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.rjp.cnvteachers.beans.InstitutesBean;
 import com.rjp.cnvteachers.common.ConfirmationDialogs;
 import com.rjp.cnvteachers.fragments.AchievmentFragment;
 import com.rjp.cnvteachers.fragments.CircularFragment;
@@ -67,11 +66,11 @@ public class HomeScreen extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        initDrawerSecond(toolbar,AppPreferences.getInstObj(mContext));
+        initDrawerSecond(toolbar);
         initListners();
     }
 
-    private void initDrawerSecond(Toolbar toolbar, InstitutesBean instObj) {
+    private void initDrawerSecond(Toolbar toolbar) {
         try {
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -91,8 +90,6 @@ public class HomeScreen extends AppCompatActivity
             tvUser.setText(""+AppPreferences.getLoginObj(mContext).getFirstname()+" "+AppPreferences.getLoginObj(mContext).getLastname());
             tvemail.setText(""+AppPreferences.getLoginObj(mContext).getEmail());
             Picasso.with(mContext).load(""+AppPreferences.getLoginObj(mContext).getPhoto_url()).placeholder(R.drawable.user_512).into(ivAvatar);
-
-
 
             Fragment fragment = null;
             fragment = (Fragment) fragmentClass.newInstance();
