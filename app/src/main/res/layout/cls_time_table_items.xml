@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -43,7 +42,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:padding="3dp"
                     android:textColor="@color/colorPrimaryDark"
                     android:text="00:00"
                     />
@@ -52,7 +50,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:padding="3dp"
                     android:text=" -- "
                     />
 
@@ -62,7 +59,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:textColor="@color/colorPrimaryDark"
-                    android:padding="3dp"
                     android:text="00:00"
                     />
 
@@ -70,7 +66,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
@@ -80,7 +76,6 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimaryDark"
-                    android:padding="3dp"
                     android:text="Subject"/>
 
                 <TextView
@@ -88,8 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:padding="3dp"
+                    android:textColor="@color/black"
                     android:text="Teacher"/>
 
             </LinearLayout>
@@ -97,5 +91,9 @@
         </LinearLayout>
 
     </LinearLayout>
+
+
+
+
 
 </android.support.v7.widget.CardView>

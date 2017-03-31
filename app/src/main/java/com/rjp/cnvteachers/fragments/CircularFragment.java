@@ -99,7 +99,7 @@ public class CircularFragment extends Fragment {
                         if (apiResults.getClass_list() != null) {
                             ClassBean objclas = new ClassBean();
                             objclas.setClass_id("0");
-                            objclas.setClasses("All Class");
+                            objclas.setClasses("Select Class");
                             objclas.setDept_name("");
                             arrClass = apiResults.getClass_list();
                             arrClass.add(0, objclas);
