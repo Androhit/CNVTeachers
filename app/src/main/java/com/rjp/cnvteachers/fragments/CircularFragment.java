@@ -1,6 +1,5 @@
 package com.rjp.cnvteachers.fragments;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -100,7 +99,7 @@ public class CircularFragment extends Fragment {
                         if (apiResults.getClass_list() != null) {
                             ClassBean objclas = new ClassBean();
                             objclas.setClass_id("0");
-                            objclas.setClasses("Select Class");
+                            objclas.setClasses("All Class");
                             objclas.setDept_name("");
                             arrClass = apiResults.getClass_list();
                             arrClass.add(0, objclas);
@@ -116,11 +115,7 @@ public class CircularFragment extends Fragment {
                     if (prog.isShowing()) {
                         prog.dismiss();
                     }
-                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                    alert.setTitle("Alert");
-                    alert.setMessage("Server Network Error");
-                    alert.show();
-                    alert.setCancelable(false);
+                    objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                 }
 
             });
@@ -245,11 +240,7 @@ public class CircularFragment extends Fragment {
                         }
                         Log.e(TAG,"Retrofit Error "+error);
 
-                        final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                        alert.setTitle("Alert");
-                        alert.setMessage("Server Network Error");
-                        alert.show();
-                        alert.setCancelable(false);
+                        objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                     }
                 });
             }

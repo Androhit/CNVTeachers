@@ -1,6 +1,5 @@
 package com.rjp.cnvteachers.fragments;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -30,6 +29,7 @@ import com.rjp.cnvteachers.beans.AdmissionBean;
 import com.rjp.cnvteachers.beans.ApiResults;
 import com.rjp.cnvteachers.beans.StudentBean;
 import com.rjp.cnvteachers.common.ConfirmationDialogs;
+import com.rjp.cnvteachers.common.Validations;
 import com.rjp.cnvteachers.utils.AppPreferences;
 import com.rjp.cnvteachers.utils.NetworkUtility;
 
@@ -120,11 +120,7 @@ public class AchievmentFragment extends Fragment{
                     if (prog.isShowing()) {
                         prog.dismiss();
                     }
-                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                    alert.setTitle("Alert");
-                    alert.setMessage("Server Network Error");
-                    alert.show();
-                    alert.setCancelable(false);
+                    objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                 }
 
             });
@@ -192,11 +188,7 @@ public class AchievmentFragment extends Fragment{
                     if (prog.isShowing()) {
                         prog.dismiss();
                     }
-                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                    alert.setTitle("Alert");
-                    alert.setMessage("Server Network Error");
-                    alert.show();
-                    alert.setCancelable(false);
+                    objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                 }
 
             });
@@ -271,84 +263,75 @@ public class AchievmentFragment extends Fragment{
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (NetworkUtility.isOnline(mContext)) {
 
-                    final ProgressDialog prog = new ProgressDialog(mContext);
-                    prog.setMessage("Loading...");
-                    prog.setCancelable(false);
-                    prog.show();
+                if(Validations.hasText(auto_admno)  || Validations.hasText(auto_StudName)) {
+                    if (NetworkUtility.isOnline(mContext)) {
 
-                    String Name = auto_StudName.getText().toString();
-                    String admno = auto_admno.getText().toString();
+                        final ProgressDialog prog = new ProgressDialog(mContext);
+                        prog.setMessage("Loading...");
+                        prog.setCancelable(false);
+                        prog.show();
 
-                    String br_id = AppPreferences.getLoginObj(mContext).getBr_id();
-                    String acadyear=AppPreferences.getAcademicYear(mContext);
+                        String Name = auto_StudName.getText().toString();
+                        String admno = auto_admno.getText().toString();
 
-                    refreshView.setRefreshing(true);
+                        String br_id = AppPreferences.getLoginObj(mContext).getBr_id();
+                        String acadyear = AppPreferences.getAcademicYear(mContext);
 
-                    retrofitApi.getStudentAchievmentData(AppPreferences.getInstObj(mContext).getCode(), Name, admno, br_id, acadyear, new Callback<ApiResults>() {
+                        refreshView.setRefreshing(true);
 
-                        @Override
-                        public void success(ApiResults apiResults, Response response)
-                        {
-                                       if(prog.isShowing())
-                                            {
-                                               prog.dismiss();
-                                           }
-                            refreshView.setRefreshing(false);
-                            ArrayList<AchievementsBean> arr = apiResults.getSpecial_achiv();
-                            if(arr!=null)
-                            {
-                                if(arr.size()>0)
-                                {
-                                    generateGoodNewsList(arr);
-                                    AppPreferences.setAchievementCount(mContext,0);
+                        retrofitApi.getStudentAchievmentData(AppPreferences.getInstObj(mContext).getCode(), Name, admno, br_id, acadyear, new Callback<ApiResults>() {
+
+                            @Override
+                            public void success(ApiResults apiResults, Response response) {
+                                if (prog.isShowing()) {
+                                    prog.dismiss();
                                 }
-                                else
-                                {
+                                refreshView.setRefreshing(false);
+                                ArrayList<AchievementsBean> arr = apiResults.getSpecial_achiv();
+                                if (arr != null) {
+                                    if (arr.size() > 0) {
+                                        generateGoodNewsList(arr);
+                                        AppPreferences.setAchievementCount(mContext, 0);
+                                    } else {
+                                        //Toast.makeText(mContext,"Data Not Found",Toast.LENGTH_LONG).show();
+                                    }
+                                } else {
+                                    //Toast.makeText(mContext,"Data Not Found",Toast.LENGTH_LONG).show();
                                     //Toast.makeText(mContext,"Data Not Found",Toast.LENGTH_LONG).show();
                                 }
                             }
-                            else
-                            {
-                                //Toast.makeText(mContext,"Data Not Found",Toast.LENGTH_LONG).show();
-                                //Toast.makeText(mContext,"Data Not Found",Toast.LENGTH_LONG).show();
+
+                            @Override
+                            public void failure(RetrofitError error) {
+                                refreshView.setRefreshing(false);
+
+                                if (prog.isShowing()) {
+                                    prog.dismiss();
+                                }
+                                objDialog.okDialog("Error", mContext.getResources().getString(R.string.error_server_down));
+                                Log.e(TAG, "Retrofit Error " + error);
                             }
-                        }
-                        @Override
-                        public void failure(RetrofitError error)
-                        {
-                            refreshView.setRefreshing(false);
+                        });
+                    } else {
+                        objDialog.noInternet(new ConfirmationDialogs.okCancel() {
+                            @Override
+                            public void okButton() {
 
-                                            if(prog.isShowing())
-                                            {
-                                                prog.dismiss();
-                                           }
-                            final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                            alert.setTitle("Alert");
-                            alert.setMessage("Server Network Error");
-                            alert.show();
-                            alert.setCancelable(false);
-                            Log.e(TAG,"Retrofit Error "+error);
-                        }
-                    });
+                            }
+
+                            @Override
+                            public void cancelButton() {
+
+                            }
+                        });
+                    }
                 }
-                else
-                {
-                    objDialog.noInternet(new ConfirmationDialogs.okCancel() {
-                        @Override
-                        public void okButton()
-                        {
-
-                        }
-
-                        @Override
-                        public void cancelButton() {
-
-                        }
-                    });
+                else {
+                    auto_admno.setError("Required");
+                    auto_StudName.setError("Required");
+                    objDialog.okDialog("Error", mContext.getResources().getString(R.string.error_input_field));
                 }
-
             }
         });
     }

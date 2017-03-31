@@ -1,7 +1,6 @@
 package com.rjp.cnvteachers.fragments;
 
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -161,11 +160,7 @@ public class ClassTimeTableFragment extends Fragment{
                     if (prog.isShowing()) {
                         prog.dismiss();
                     }
-                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                    alert.setTitle("Alert");
-                    alert.setMessage("Server Network Error");
-                    alert.show();
-                    alert.setCancelable(false);
+                    objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                 }
 
             });
@@ -194,11 +189,7 @@ public class ClassTimeTableFragment extends Fragment{
                     if (prog.isShowing()) {
                         prog.dismiss();
                     }
-                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                    alert.setTitle("Alert");
-                    alert.setMessage("Server Network Error");
-                    alert.show();
-                    alert.setCancelable(false);
+                    objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                 }
             });
         }
@@ -211,64 +202,87 @@ public class ClassTimeTableFragment extends Fragment{
 
         btSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
+                if (spnClass != null && spnDivision!=null) {
 
+                if (NetworkUtility.isOnline(mContext)) {
+                    final ProgressDialog prog = new ProgressDialog(mContext);
+                    prog.setMessage("Loading...");
+                    prog.setCancelable(false);
+                    prog.show();
 
-
-        if(NetworkUtility.isOnline(mContext)) {
-            final ProgressDialog prog = new ProgressDialog(mContext);
-            prog.setMessage("Loading...");
-            prog.setCancelable(false);
-            prog.show();
-
-            if(objClass != null) {
-                Class = objClass.getClass_id();
-            }
-            else
-            {
-                Class="";
-            }
-
-
-            if(objDiv != null) {
-                Division = objDiv.getDivision_name();
-            }
-            else {
-                Division="";
-            }
-
-            String br_id= AppPreferences.getLoginObj(mContext).getBr_id();
-            String acadyear=AppPreferences.getAcademicYear(mContext);
-
-
-            retrofitApi.getClassTimeTable(AppPreferences.getInstObj(mContext).getCode(), Class, br_id, Division, acadyear, new Callback<ApiResults>() {
-                @Override
-                public void success(ApiResults apiResults, Response response) {
-                    if (prog.isShowing()) {
-                        prog.dismiss();
+                    if (objClass != null) {
+                        Class = objClass.getClass_id();
+                    } else {
+                        Class = "";
                     }
 
-                    arrTimeTable = apiResults.getClass_timetable();
 
-                    if (arrTimeTable != null) {
-                        if (arrTimeTable.size() > 0) {
+                    if (objDiv != null) {
+                        Division = objDiv.getDivision_name();
+                    } else {
+                        Division = "";
+                    }
 
-                            arrMon = arrTimeTable.get(0).getMon();
-                            arrTue = arrTimeTable.get(1).getTue();
-                            arrWed = arrTimeTable.get(2).getWed();
-                            arrThu = arrTimeTable.get(3).getThu();
-                            arrFri = arrTimeTable.get(4).getFri();
-                            arrSat = arrTimeTable.get(5).getSat();
+                    String br_id = AppPreferences.getLoginObj(mContext).getBr_id();
+                    String acadyear = AppPreferences.getAcademicYear(mContext);
 
-                            if (arrMon.size() > 0 && arrTue.size() > 0 && arrWed.size() > 0 && arrThu.size() > 0 && arrFri.size() > 0 && arrSat.size() > 0) {
-                                Log.e(TAG, "Mon " + arrMon.size());
-                                Log.e(TAG, "Tue " + arrTue.size());
-                                Log.e(TAG, "wed " + arrWed.size());
-                                Log.e(TAG, "Thu " + arrThu.size());
-                                Log.e(TAG, "Fri " + arrFri.size());
-                                Log.e(TAG, "Sat " + arrSat.size());
-                                getList();
+
+                    retrofitApi.getClassTimeTable(AppPreferences.getInstObj(mContext).getCode(), Class, br_id, Division, acadyear, new Callback<ApiResults>() {
+                        @Override
+                        public void success(ApiResults apiResults, Response response) {
+                            if (prog.isShowing()) {
+                                prog.dismiss();
+                            }
+
+                            arrTimeTable = apiResults.getClass_timetable();
+
+                            if (arrTimeTable != null) {
+                                if (arrTimeTable.size() > 0) {
+
+                                    arrMon = arrTimeTable.get(0).getMon();
+                                    arrTue = arrTimeTable.get(1).getTue();
+                                    arrWed = arrTimeTable.get(2).getWed();
+                                    arrThu = arrTimeTable.get(3).getThu();
+                                    arrFri = arrTimeTable.get(4).getFri();
+                                    arrSat = arrTimeTable.get(5).getSat();
+
+                                    if (arrMon.size() > 0 && arrTue.size() > 0 && arrWed.size() > 0 && arrThu.size() > 0 && arrFri.size() > 0 && arrSat.size() > 0) {
+                                        Log.e(TAG, "Mon " + arrMon.size());
+                                        Log.e(TAG, "Tue " + arrTue.size());
+                                        Log.e(TAG, "wed " + arrWed.size());
+                                        Log.e(TAG, "Thu " + arrThu.size());
+                                        Log.e(TAG, "Fri " + arrFri.size());
+                                        Log.e(TAG, "Sat " + arrSat.size());
+                                        getList();
+                                    } else {
+                                        objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
+                                            @Override
+                                            public void okButton() {
+                                                getClassTimeTableService();
+                                            }
+
+                                            @Override
+                                            public void cancelButton() {
+
+                                            }
+                                        });
+                                    }
+
+
+                                } else {
+                                    objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
+                                        @Override
+                                        public void okButton() {
+                                            getClassTimeTableService();
+                                        }
+
+                                        @Override
+                                        public void cancelButton() {
+
+                                        }
+                                    });
+                                }
                             } else {
                                 objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
                                     @Override
@@ -283,74 +297,37 @@ public class ClassTimeTableFragment extends Fragment{
                                 });
                             }
 
-
-                        } else {
-                            objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
-                                @Override
-                                public void okButton() {
-                                    getClassTimeTableService();
-                                }
-
-                                @Override
-                                public void cancelButton() {
-
-                                }
-                            });
                         }
-                    }
 
-                    else
-                    {
-                        objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
-                            @Override
-                            public void okButton()
-                            {
-                                getClassTimeTableService();
+                        @Override
+                        public void failure(RetrofitError error) {
+                            if (prog.isShowing()) {
+                                prog.dismiss();
                             }
-                            @Override
-                            public void cancelButton() {
+                            objDialog.okDialog("Error", mContext.getResources().getString(R.string.error_server_down));
+                        }
+                    });
+                } else {
+                    objDialog.noInternet(new ConfirmationDialogs.okCancel() {
+                        @Override
+                        public void okButton() {
+                            getClassTimeTableService();
+                        }
 
-                            }
-                        });
-                    }
+                        @Override
+                        public void cancelButton() {
 
+                        }
+                    });
                 }
+            }
 
-                @Override
-                public void failure(RetrofitError error) {
-                    if (prog.isShowing()) {
-                        prog.dismiss();
-                    }
-                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                    alert.setTitle("Alert");
-                    alert.setMessage("Server Network Error");
-                    alert.show();
-                    alert.setCancelable(false);
-                    Log.e(TAG, "Retrofit Error " + error);
-                }
-            });
-        }
-
-        else
-        {
-            objDialog.noInternet(new ConfirmationDialogs.okCancel() {
-                @Override
-                public void okButton()
-                {
-                    getClassTimeTableService();
-                }
-
-                @Override
-                public void cancelButton() {
-
-                }
-            });
-
-
-        }
-      }
-     });
-
+            else
+             {
+                 objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_input_field2));
+            }
+          }
+        });
     }
 
      private void getList() {

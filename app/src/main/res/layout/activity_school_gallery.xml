@@ -17,7 +17,6 @@
         android:typeface="sans"
         android:padding="5dp"/>
 
-
     <GridView
         android:id="@+id/gvGallery"
         android:layout_width="match_parent"
@@ -26,6 +25,5 @@
         android:horizontalSpacing="1dp"
         android:stretchMode="columnWidth"
         android:numColumns="3"/>
-
 
 </LinearLayout>

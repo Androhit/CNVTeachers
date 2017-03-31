@@ -1,6 +1,5 @@
 package com.rjp.cnvteachers.fragments;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -36,6 +35,7 @@ import com.rjp.cnvteachers.beans.ApiResults;
 import com.rjp.cnvteachers.beans.AttendanceBean;
 import com.rjp.cnvteachers.beans.StudentBean;
 import com.rjp.cnvteachers.common.ConfirmationDialogs;
+import com.rjp.cnvteachers.common.Validations;
 import com.rjp.cnvteachers.utils.AppPreferences;
 import com.rjp.cnvteachers.utils.NetworkUtility;
 
@@ -157,11 +157,7 @@ public class AttendanceStudentFragment extends Fragment {
                     if (prog.isShowing()) {
                         prog.dismiss();
                     }
-                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                    alert.setTitle("Alert");
-                    alert.setMessage("Server Network Error");
-                    alert.show();
-                    alert.setCancelable(false);
+                    objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                 }
 
             });
@@ -251,60 +247,69 @@ public class AttendanceStudentFragment extends Fragment {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
-                if (NetworkUtility.isOnline(mContext)) {
+                   if (Validations.hasText(AutoName) || Validations.hasText(etAdmno)) {
+                       if(tvFromDate !=null && tvToDate!= null )
+                       {
+                   if (NetworkUtility.isOnline(mContext)) {
 
-                    final ProgressDialog prog = new ProgressDialog(mContext);
-                    prog.setMessage("Loading...");
-                    prog.setCancelable(false);
-                    prog.show();
+                       final ProgressDialog prog = new ProgressDialog(mContext);
+                       prog.setMessage("Loading...");
+                       prog.setCancelable(false);
+                       prog.show();
 
-                    Name = AutoName.getText().toString();
-                    admno = etAdmno.getText().toString();
-                    FromDate = tvFromDate.getText().toString();
-                    ToDate = tvToDate.getText().toString();
+                       Name = AutoName.getText().toString();
+                       admno = etAdmno.getText().toString();
+                       FromDate = tvFromDate.getText().toString();
+                       ToDate = tvToDate.getText().toString();
 
-                    String br_id = AppPreferences.getLoginObj(mContext).getBr_id();
-                    String acadyear=AppPreferences.getAcademicYear(mContext);
+                       String br_id = AppPreferences.getLoginObj(mContext).getBr_id();
+                       String acadyear = AppPreferences.getAcademicYear(mContext);
 
 
-                    retrofitApi.getAttendance(AppPreferences.getInstObj(mContext).getCode(), Name, admno, FromDate, ToDate,br_id,acadyear,new Callback<ApiResults>() {
-                          @Override
-                          public void success(ApiResults apiResults, Response response) {
-                              if (prog.isShowing()) {
-                                  prog.dismiss();
-                              }
-                                  if (apiResults.getStud_att() != null) {
-                                      obj = apiResults.getStud_att();
-                                      AutoName.setText("" + obj.getName());
-                                      etAdmno.setText(""+obj.getAdmno());
-                                      tvFromDate.setText(""+obj.getFrom_date());
-                                      tvToDate.setText(""+obj.getTo_date());
-                                      tvAbse.setText(""+obj.getAbsent_days());
-                                      tvPrese.setText(""+obj.getPresent_day());
-                                      tvTotalDays.setText(""+obj.getWorking_days());
-                                      tvAtte.setText(""+obj.getPercent());
-                                      arr.add(obj);
-                                      addData(arr);
-                                      getDataSet(arr);
-                                  }
+                       retrofitApi.getAttendance(AppPreferences.getInstObj(mContext).getCode(), Name, admno, FromDate, ToDate, br_id, acadyear, new Callback<ApiResults>() {
+                           @Override
+                           public void success(ApiResults apiResults, Response response) {
+                               if (prog.isShowing()) {
+                                   prog.dismiss();
+                               }
+                               if (apiResults.getStud_att() != null) {
+                                   obj = apiResults.getStud_att();
+                                   AutoName.setText("" + obj.getName());
+                                   etAdmno.setText("" + obj.getAdmno());
+                                   tvFromDate.setText("" + obj.getFrom_date());
+                                   tvToDate.setText("" + obj.getTo_date());
+                                   tvAbse.setText("" + obj.getAbsent_days());
+                                   tvPrese.setText("" + obj.getPresent_day());
+                                   tvTotalDays.setText("" + obj.getWorking_days());
+                                   tvAtte.setText("" + obj.getPercent());
+                                   arr.add(obj);
+                                   addData(arr);
+                                   getDataSet(arr);
+                               }
 
-                          }
+                           }
 
-                          @Override
-                          public void failure(RetrofitError error) {
-                              if (prog.isShowing()) {
-                                  prog.dismiss();
-                              }
-                              final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                              alert.setTitle("Alert");
-                              alert.setMessage("Server Network Error");
-                              alert.show();
-                              alert.setCancelable(false);
-                          }
-                      });
+                           @Override
+                           public void failure(RetrofitError error) {
+                               if (prog.isShowing()) {
+                                   prog.dismiss();
+                               }
+                               objDialog.okDialog("Error", mContext.getResources().getString(R.string.error_server_down));
+                           }
+                       });
                    }
-                }
-        });
+                 }
+                 else
+                   {
+                       objDialog.okDialog("Error", mContext.getResources().getString(R.string.error_input_field3));
+                   }
+               }
+              else
+                 {
+                    objDialog.okDialog("Error", mContext.getResources().getString(R.string.error_input_field));
+                 }
+               }
+            });
     }
 
     private void initRetrofitClient()
@@ -343,11 +348,7 @@ public class AttendanceStudentFragment extends Fragment {
                      if (prog.isShowing()) {
                          prog.dismiss();
                      }
-                     final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                     alert.setTitle("Alert");
-                     alert.setMessage("Server Network Error");
-                     alert.show();
-                     alert.setCancelable(false);
+                     objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                  }
 
              });
@@ -395,9 +396,9 @@ public class AttendanceStudentFragment extends Fragment {
          tvAbse = (TextView)v.findViewById(R.id.tvAbsentDays);
          tvAtte = (TextView)v.findViewById(R.id.tvAttendance);
          btnSubmit=(Button) v.findViewById(R.id.btnSubmit);
-        pieChart = (PieChart) v.findViewById(R.id.pieChart);
-        barChart = (BarChart) v.findViewById(R.id.barChart);
-    }
+         pieChart = (PieChart) v.findViewById(R.id.pieChart);
+         barChart = (BarChart) v.findViewById(R.id.barChart);
+        }
 
     private void addData(ArrayList<AttendanceBean> arr)
     {

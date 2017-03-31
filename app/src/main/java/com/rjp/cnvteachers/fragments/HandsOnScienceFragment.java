@@ -1,6 +1,5 @@
 package com.rjp.cnvteachers.fragments;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -125,10 +124,7 @@ public class HandsOnScienceFragment extends Fragment{
                     if (prog.isShowing()) {
                         prog.dismiss();
                     }
-                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                    alert.setTitle("Alert");
-                    alert.setMessage("There is no student with this name");
-                    alert.setCancelable(false);
+                    objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                 }
 
             });
@@ -196,10 +192,7 @@ public class HandsOnScienceFragment extends Fragment{
                     if (prog.isShowing()) {
                         prog.dismiss();
                     }
-                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                    alert.setTitle("Alert");
-                    alert.setMessage("There is no student with this Admno");
-                    alert.setCancelable(false);
+                    objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                 }
 
             });
@@ -291,10 +284,7 @@ public class HandsOnScienceFragment extends Fragment{
                     if (prog.isShowing()) {
                         prog.dismiss();
                     }
-                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                    alert.setTitle("Alert");
-                    alert.setMessage("Please Select a Class name:");
-                    alert.setCancelable(false);
+                    objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                 }
 
             });
@@ -325,12 +315,7 @@ public class HandsOnScienceFragment extends Fragment{
                     }
 
                     Toast.makeText(mContext,"Server Network Error 1",Toast.LENGTH_LONG).show();
-
-                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                    alert.setTitle("Alert");
-                    alert.setMessage("Server Network Error");
-                    alert.show();
-                    alert.setCancelable(false);
+                    objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                 }
             });
         }
@@ -405,7 +390,6 @@ public class HandsOnScienceFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 if (NetworkUtility.isOnline(mContext)) {
-
                     final ProgressDialog prog = new ProgressDialog(mContext);
                     prog.setMessage("Loading...");
                     prog.setCancelable(false);
@@ -493,6 +477,7 @@ public class HandsOnScienceFragment extends Fragment{
                                 prog.dismiss();
                             }
                             refreshView.setRefreshing(false);
+                            objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                         }
 
 
@@ -501,7 +486,7 @@ public class HandsOnScienceFragment extends Fragment{
                     objDialog.noInternet(new ConfirmationDialogs.okCancel() {
                         @Override
                         public void okButton() {
-
+                            setListners();
                         }
 
                         @Override

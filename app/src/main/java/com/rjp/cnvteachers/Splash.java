@@ -29,6 +29,7 @@ public class Splash extends AppCompatActivity {
     private String TAG = Splash.class.getSimpleName();
     private Context mContext;
     private API retrofitAPI;
+    private ConfirmationDialogs objDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,11 +162,7 @@ public class Splash extends AppCompatActivity {
                         prog.dismiss();
                         ConfirmationDialogs.serverFailuerDialog(mContext,"");
 
-                        final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                        alert.setTitle("Alert");
-                        alert.setMessage("Server Network Error");
-                        alert.show();
-                        alert.setCancelable(false);
+                        objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                     }
                 });
             }

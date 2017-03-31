@@ -1,6 +1,5 @@
 package com.rjp.cnvteachers;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -61,7 +60,6 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         }
-
         //initBranchService();
         setListners();
         //showHintsFirstTime();
@@ -159,11 +157,7 @@ public class LoginActivity extends AppCompatActivity {
                             dialog.dismiss();
                         }
 
-                        final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                        alert.setTitle("Alert");
-                        alert.setMessage("Server Network Error");
-                        alert.show();
-                        alert.setCancelable(false);
+
 //                                    objDialog.okDialog("Error", "Server failuer occured. Please try again some times later " + error);
                         ConfirmationDialogs.serverFailuerDialog(mContext,"");
                     }

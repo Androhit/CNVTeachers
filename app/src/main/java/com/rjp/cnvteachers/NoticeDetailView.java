@@ -1,6 +1,5 @@
 package com.rjp.cnvteachers;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -20,6 +19,7 @@ import com.rjp.cnvteachers.api.API;
 import com.rjp.cnvteachers.api.RetrofitClient;
 import com.rjp.cnvteachers.beans.ApiResults;
 import com.rjp.cnvteachers.beans.CircularBean;
+import com.rjp.cnvteachers.common.ConfirmationDialogs;
 import com.rjp.cnvteachers.utils.AppPreferences;
 import com.rjp.cnvteachers.utils.NetworkUtility;
 
@@ -42,6 +42,7 @@ public class NoticeDetailView extends AppCompatActivity{
     private Button btOk;
     private ProgressBar progressBar;
     private CircularBean objNotice = null;
+    private ConfirmationDialogs objDialog;
 
 
     @Override
@@ -119,11 +120,7 @@ public class NoticeDetailView extends AppCompatActivity{
                     }
                     Log.e(TAG,"Retro Err "+error);
 
-                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                    alert.setTitle("Alert");
-                    alert.setMessage("Server Network Error");
-                    alert.show();
-                    alert.setCancelable(false);
+                    objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
 
                 }
 

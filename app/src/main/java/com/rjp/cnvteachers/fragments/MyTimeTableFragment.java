@@ -1,6 +1,5 @@
 package com.rjp.cnvteachers.fragments;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -15,12 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rjp.cnvteachers.R;
-
 import com.rjp.cnvteachers.adapters.MyTimeTableAdapter;
 import com.rjp.cnvteachers.api.API;
 import com.rjp.cnvteachers.api.RetrofitClient;
 import com.rjp.cnvteachers.beans.ApiResults;
-
 import com.rjp.cnvteachers.beans.MyTimeTableBean;
 import com.rjp.cnvteachers.common.ConfirmationDialogs;
 import com.rjp.cnvteachers.utils.AppPreferences;
@@ -130,11 +127,7 @@ public class MyTimeTableFragment extends Fragment {
                     if (prog.isShowing()) {
                         prog.dismiss();
                     }
-                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                    alert.setTitle("Alert");
-                    alert.setMessage("Server Network Error");
-                    alert.show();
-                    alert.setCancelable(false);
+                    objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                     Log.e(TAG, "Retrofit Error " + error);
                 }
             });

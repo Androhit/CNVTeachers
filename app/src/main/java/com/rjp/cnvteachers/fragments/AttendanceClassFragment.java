@@ -1,6 +1,5 @@
 package com.rjp.cnvteachers.fragments;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -18,7 +17,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rjp.cnvteachers.R;
 import com.rjp.cnvteachers.adapters.AttendanceClassFragmentAdapter;
@@ -184,11 +182,7 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
                     if (prog.isShowing()) {
                         prog.dismiss();
                     }
-                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                    alert.setTitle("Alert");
-                    alert.setMessage("Server Network Error");
-                    alert.show();
-                    alert.setCancelable(false);
+                    objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                 }
 
             });
@@ -218,11 +212,7 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
                     if (prog.isShowing()) {
                         prog.dismiss();
                     }
-                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                    alert.setTitle("Alert");
-                    alert.setMessage("Server Network Error");
-                    alert.show();
-                    alert.setCancelable(false);
+                    objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                 }
             });
         }
@@ -258,63 +248,78 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
 
         btSearch.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view)
-                {
-                if(NetworkUtility.isOnline(mContext)) {
-                    final ProgressDialog prog = new ProgressDialog(mContext);
-                    prog.setMessage("Loading...");
-                    prog.setCancelable(false);
+                public void onClick(View view) {
+                    if (spnClassName != null && spnDivision != null && tvFromDate!=null && tvToDate!=null) {
 
-                    prog.show();
+                    if (NetworkUtility.isOnline(mContext)) {
+                        final ProgressDialog prog = new ProgressDialog(mContext);
+                        prog.setMessage("Loading...");
+                        prog.setCancelable(false);
 
-                    Classid="";
-                    if(objClass != null || (!(objClass.getClass_id().equals("0")))) {
-                        Classid = objClass.getClass_id();
-                    }
+                        prog.show();
 
-                    Division="";
-                    if(objDiv != null || (!(objDiv.getDiv_id().equals("0")))) {
-                        Division = objDiv.getDivision_name();
-                    }
-
-
-                    String br_id = AppPreferences.getLoginObj(mContext).getBr_id();
-                    String acadyear=AppPreferences.getAcademicYear(mContext);
-
-                    FromDate=tvFromDate.getText().toString();
-                    ToDate=tvToDate.getText().toString();
-
-
-                    retrofitApi.getClassAttendance(AppPreferences.getInstObj(mContext).getCode(),Classid,Division, br_id,acadyear,FromDate, ToDate,new Callback<ApiResults>() {
-                        @Override
-                        public void success(ApiResults apiResults, Response response) {
-
-
-                            if (prog.isShowing()) {
-                                prog.dismiss();
-                            }
-                            if (apiResults.getClass_att() != null) {
-                                arrList = apiResults.getClass_att();
-                                generateList();
-
-                            }
+                        Classid = "";
+                        if (objClass != null || (!(objClass.getClass_id().equals("0")))) {
+                            Classid = objClass.getClass_id();
                         }
 
-                        @Override
-                        public void failure(RetrofitError error) {
-
-                            if (prog.isShowing()) {
-                                prog.dismiss();
-                            }
-                            final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                            alert.setTitle("Alert");
-                            alert.setMessage("Server Network Error");
-                            alert.show();
-                            alert.setCancelable(false);
-                            Toast.makeText(mContext,"Data Error "+error,Toast.LENGTH_LONG).show();
+                        Division = "";
+                        if (objDiv != null || (!(objDiv.getDiv_id().equals("0")))) {
+                            Division = objDiv.getDivision_name();
                         }
-                    });
-                }
+
+
+                        String br_id = AppPreferences.getLoginObj(mContext).getBr_id();
+                        String acadyear = AppPreferences.getAcademicYear(mContext);
+
+                        FromDate = tvFromDate.getText().toString();
+                        ToDate = tvToDate.getText().toString();
+
+
+                        retrofitApi.getClassAttendance(AppPreferences.getInstObj(mContext).getCode(), Classid, Division, br_id, acadyear, FromDate, ToDate, new Callback<ApiResults>() {
+                            @Override
+                            public void success(ApiResults apiResults, Response response) {
+
+
+                                if (prog.isShowing()) {
+                                    prog.dismiss();
+                                }
+                                if (apiResults.getClass_att() != null) {
+                                    arrList = apiResults.getClass_att();
+                                    generateList();
+
+                                }
+                            }
+
+                            @Override
+                            public void failure(RetrofitError error) {
+
+                                if (prog.isShowing()) {
+                                    prog.dismiss();
+                                }
+                                objDialog.okDialog("Error", mContext.getResources().getString(R.string.error_server_down));
+                            }
+                        });
+                    }
+                    else {
+                        objDialog.noInternet(new ConfirmationDialogs.okCancel() {
+                            @Override
+                            public void okButton() {
+                                setListners();
+                            }
+
+                            @Override
+                            public void cancelButton() {
+
+                            }
+                        });
+                    }
+
+                    }
+               else
+                    {
+                        objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_input_field1));
+                    }
             }
         });
 

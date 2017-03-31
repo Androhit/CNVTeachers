@@ -1,6 +1,5 @@
 package com.rjp.cnvteachers.fragments;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -130,11 +129,7 @@ public class ExamFragment extends Fragment {
                             if (prog.isShowing()) {
                                 prog.dismiss();
                             }
-                            final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                            alert.setTitle("Alert");
-                            alert.setMessage("Server Network Error");
-                            alert.show();
-                            alert.setCancelable(false);
+                            objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                         }
                     });
                 }
@@ -187,7 +182,7 @@ public class ExamFragment extends Fragment {
 
         if (NetworkUtility.isOnline(mContext)) {
             final ProgressDialog prog = new ProgressDialog(mContext);
-            prog.setMessage("loading...");
+            prog.setMessage("Loading...");
             prog.setCancelable(false);
             prog.show();
 
@@ -217,11 +212,7 @@ public class ExamFragment extends Fragment {
                     if (prog.isShowing()) {
                         prog.dismiss();
                     }
-                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                    alert.setTitle("Alert");
-                    alert.setMessage("Server Network Error");
-                    alert.show();
-                    alert.setCancelable(false);
+                    objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                 }
             });
         }

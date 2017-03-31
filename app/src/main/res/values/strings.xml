@@ -15,6 +15,12 @@
     <string name="quit">Exit App</string>
     <string name="unable_to_fetch">Unable to fetch the require data right now. please check your internet connection and try after some times later.</string>
 
+    <string name="error_input_field">Please enter atleast Name or Admission No. value to find correct result.</string>
+    <string name="error_input_field2">Please select Class , Division  to find correct result.</string>
+    <string name="error_input_field1">Please select Class , Division , FromDate , ToDate to find correct result.</string>
+
+    <string name="error_input_field3">Please select FromDate , ToDate to find correct result.</string>
+    <string name="error_server_down">Internet unavailable or the server is down, This may take a while. Please try again some times later.</string>
     <string name="company_addr">Designed and developed by Cloud Next Vision Systems. Copyright © 2017 All rights reserved.</string>
 
 </resources>

@@ -163,22 +163,15 @@ public class HomeScreen extends AppCompatActivity
                 break;
 
             case R.id.nav_logout :  logout(); break;
+            }
 
-
-
-        }
-
-
-            try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+         try {
+                fragment = (Fragment) fragmentClass.newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+             }
 
         if(fragment!=null) {
-
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            drawer.closeDrawer(GravityCompat.START);
             fabback.setVisibility(View.VISIBLE);
             // Insert the fragment by replacing any existing fragment
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -191,19 +184,16 @@ public class HomeScreen extends AppCompatActivity
             transaction.commit();
 
             //fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-
             // Highlight the selected item has been done by NavigationView
             //item.setChecked(true);
             // Set action bar title
             setTitle(item.getTitle());
             //tvTitle.setText(item.getTitle());
-
         }
-
-
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 
     public void logout()
     {
@@ -228,29 +218,19 @@ public class HomeScreen extends AppCompatActivity
         build.show();
     }
 
-
     public void restartAppication()
     {
         AppPreferences.setAdmnoCount(mContext, 0);
-       // AppPreferences.setBranchId(mContext,null);
-        //AppPreferences.setAcademicYear(mContext,null);
         AppPreferences.setAdmno(mContext, null);
         AppPreferences.setLoginObj(mContext,null);
         AppPreferences.setIsRemember(mContext,false);
 
-     //   AppPreferences.setEmpName(mContext,null);
-        //AppPreferences.setLoginUser(mContext,null);
-      //  AppPreferences.setLoginPass(mContext,null);
-
         Intent mStartActivity = new Intent(mContext, Splash.class);
+
         int mPendingIntentId = 123456;
         PendingIntent mPendingIntent = PendingIntent.getActivity(mContext, mPendingIntentId,    mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager mgr = (AlarmManager)mContext.getSystemService(Context.ALARM_SERVICE);
         mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 300, mPendingIntent);
         System.exit(0);
-
     }
-
-
-
 }

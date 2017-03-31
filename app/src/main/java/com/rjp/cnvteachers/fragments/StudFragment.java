@@ -1,6 +1,5 @@
 package com.rjp.cnvteachers.fragments;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -115,13 +114,8 @@ public class StudFragment extends Fragment {
                 public void failure(RetrofitError error) {
                     if (prog.isShowing()) {
                     prog.dismiss();
-                }
-
-                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                    alert.setTitle("Alert");
-                    alert.setMessage("Server Network Error");
-                    alert.show();
-                    alert.setCancelable(false);
+                    }
+                    objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                 }
 
             });
@@ -150,11 +144,7 @@ public class StudFragment extends Fragment {
                     if (prog.isShowing()) {
                         prog.dismiss();
                     }
-                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                    alert.setTitle("Alert");
-                    alert.setMessage("Server Network Error");
-                    alert.show();
-                    alert.setCancelable(false);
+                    objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                 }
             });
         }
@@ -241,11 +231,7 @@ public class StudFragment extends Fragment {
                                             prog.dismiss();
                                         }
 
-                                        final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                                        alert.setTitle("Alert");
-                                        alert.setMessage("Server Network Error");
-                                        alert.show();
-                                        alert.setCancelable(false);
+                                        objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                                     }
                                 });
                     }
@@ -301,11 +287,7 @@ public class StudFragment extends Fragment {
                     if (prog.isShowing()) {
                         prog.dismiss();
                     }
-                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                    alert.setTitle("Alert");
-                    alert.setMessage("Server Network Error");
-                    alert.show();
-                    alert.setCancelable(false);
+                    objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                 }
 
             });
@@ -372,11 +354,7 @@ public class StudFragment extends Fragment {
                     if (prog.isShowing()) {
                         prog.dismiss();
                     }
-                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
-                    alert.setTitle("Alert");
-                    alert.setMessage("Server Network Error");
-                    alert.show();
-                    alert.setCancelable(false);
+                    objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                 }
 
             });
