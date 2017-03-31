@@ -22,7 +22,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.rjp.cnvteachers.beans.InstitutesBean;
+import com.rjp.cnvteachers.common.ConfirmationDialogs;
 import com.rjp.cnvteachers.fragments.AchievmentFragment;
 import com.rjp.cnvteachers.fragments.CircularFragment;
 import com.rjp.cnvteachers.fragments.ClassTimeTableFragment;
@@ -32,6 +35,7 @@ import com.rjp.cnvteachers.fragments.HandsOnScienceFragment;
 import com.rjp.cnvteachers.fragments.MyTimeTableFragment;
 import com.rjp.cnvteachers.fragments.StudFragment;
 import com.rjp.cnvteachers.utils.AppPreferences;
+import com.squareup.picasso.Picasso;
 
 public class HomeScreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,6 +46,7 @@ public class HomeScreen extends AppCompatActivity
     Class fragmentClass = null;
     private ImageView ivStudPic;
     private FloatingActionButton fabback;
+    private ConfirmationDialogs objDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +67,54 @@ public class HomeScreen extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        initDrawerSecond(toolbar,AppPreferences.getInstObj(mContext));
         initListners();
     }
 
+    private void initDrawerSecond(Toolbar toolbar, InstitutesBean instObj) {
+        try {
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawer.setDrawerListener(toggle);
+            toggle.syncState();
+
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
+
+            View headerView = navigationView.getHeaderView(0);
+
+            TextView tvUser = (TextView)headerView.findViewById(R.id.tvname);
+            TextView tvemail = (TextView)headerView.findViewById(R.id.textView);
+            ImageView ivAvatar = (ImageView)headerView.findViewById(R.id.imageView);
+
+            tvUser.setText(""+AppPreferences.getLoginObj(mContext).getFirstname()+" "+AppPreferences.getLoginObj(mContext).getLastname());
+            tvemail.setText(""+AppPreferences.getLoginObj(mContext).getEmail());
+            Picasso.with(mContext).load(""+AppPreferences.getLoginObj(mContext).getPhoto_url()).placeholder(R.drawable.user_512).into(ivAvatar);
+
+
+
+            Fragment fragment = null;
+            fragment = (Fragment) fragmentClass.newInstance();
+            // Insert the fragment by replacing any existing fragment
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+
+            navigationView.getMenu().getItem(0).setChecked(true);
+            setTitle(navigationView.getMenu().getItem(0).getTitle());
+            //showHintsFirstTime();
+        }
+        catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+        catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
     private void initListners() {

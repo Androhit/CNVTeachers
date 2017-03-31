@@ -264,7 +264,8 @@ public class AchievmentFragment extends Fragment{
             @Override
             public void onClick(View view) {
 
-                if(Validations.hasText(auto_admno)  || Validations.hasText(auto_StudName)) {
+                if(Validations.hasText(auto_admno)  || Validations.hasText(auto_StudName))
+                    {
                     if (NetworkUtility.isOnline(mContext)) {
 
                         final ProgressDialog prog = new ProgressDialog(mContext);
@@ -284,7 +285,7 @@ public class AchievmentFragment extends Fragment{
 
                             @Override
                             public void success(ApiResults apiResults, Response response) {
-                                if (prog.isShowing()) {
+                                if(prog.isShowing()) {
                                     prog.dismiss();
                                 }
                                 refreshView.setRefreshing(false);
@@ -323,15 +324,15 @@ public class AchievmentFragment extends Fragment{
                             @Override
                             public void cancelButton() {
 
-                            }
-                        });
+                                 }
+                          });
+                         }
+                     }
+                    else
+                    {
+                        objDialog.okDialog("Error", mContext.getResources().getString(R.string.error_input_field));
                     }
-                }
-                else
-                {
-                    objDialog.okDialog("Error", mContext.getResources().getString(R.string.error_input_field));
-                }
-            }
+               }
         });
     }
 

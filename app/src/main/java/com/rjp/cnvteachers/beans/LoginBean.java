@@ -9,7 +9,7 @@ public class LoginBean
     private String email,address,city,country,zip,phone, birthdate,caste,religion,qualification,experience;
     private boolean status;
     private String designation;
-    private String acadyear;
+    private String acadyear,photo_url;
     private LoginBean emp_details;
 
     public void setReligion(String religion) {
@@ -221,5 +221,13 @@ public class LoginBean
 
     public void setAcadyear(String acadyear) {
         this.acadyear = acadyear;
+    }
+
+    public String getPhoto_url() {
+        return photo_url;
+    }
+
+    public void setPhoto_url(String photo_url) {
+        this.photo_url = photo_url;
     }
 }
