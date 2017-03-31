@@ -317,7 +317,7 @@ public class AchievmentFragment extends Fragment{
                         objDialog.noInternet(new ConfirmationDialogs.okCancel() {
                             @Override
                             public void okButton() {
-
+                                setListners();
                             }
 
                             @Override
@@ -327,9 +327,8 @@ public class AchievmentFragment extends Fragment{
                         });
                     }
                 }
-                else {
-                    auto_admno.setError("Required");
-                    auto_StudName.setError("Required");
+                else
+                {
                     objDialog.okDialog("Error", mContext.getResources().getString(R.string.error_input_field));
                 }
             }
@@ -362,8 +361,5 @@ public class AchievmentFragment extends Fragment{
             e.printStackTrace();
         }
     }
-
-
-
 }
 
