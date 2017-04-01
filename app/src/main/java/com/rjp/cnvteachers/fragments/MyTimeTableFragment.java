@@ -132,6 +132,19 @@ public class MyTimeTableFragment extends Fragment {
                 }
             });
         }
+        else {
+            objDialog.noInternet(new ConfirmationDialogs.okCancel() {
+                @Override
+                public void okButton() {
+                    getMyTimeTableService();
+                }
+
+                @Override
+                public void cancelButton() {
+
+                }
+            });
+        }
 
     }
 
@@ -190,8 +203,6 @@ public class MyTimeTableFragment extends Fragment {
 
         @Override
         public CharSequence getPageTitle(int position) {
-
-
             return mFragmentTitleList.get(position);
         }
     }
@@ -200,13 +211,10 @@ public class MyTimeTableFragment extends Fragment {
         objDialog = new ConfirmationDialogs(mContext);
         viewPager = (ViewPager) v.findViewById(R.id.viewpager);
         tabLayout = (TabLayout) v.findViewById(R.id.tabs);
-
     }
 
     private void initRetrofitClient() {
         RetrofitClient.initRetrofitClient();
         retrofitApi = RetrofitClient.getRetrofitClient();
-
     }
-
 }

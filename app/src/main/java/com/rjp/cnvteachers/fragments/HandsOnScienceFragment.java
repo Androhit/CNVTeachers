@@ -108,6 +108,7 @@ public class HandsOnScienceFragment extends Fragment{
                 public void success(ApiResults apiResults, Response response) {
                     if (prog.isShowing()) {
                         prog.dismiss();
+                    }
                         if (apiResults != null) {
                             if (apiResults.getStudent() != null) {
                                 arrStud = apiResults.getStudent();
@@ -115,8 +116,22 @@ public class HandsOnScienceFragment extends Fragment{
                                 AutoName.setThreshold(1);
                                 AutoName.setAdapter(adapter);
                             }
+                            else
+                            {
+                                if(apiResults.getResult()!=null)
+                                {
+                                    objDialog.okDialog("Error",apiResults.getResult());
+                                }
+                            }
                         }
-                    }
+                        else
+                        {
+                            if(apiResults.getResult()!=null)
+                            {
+                                objDialog.okDialog("Error",apiResults.getResult());
+                            }
+                        }
+
                 }
 
                 @Override
@@ -176,6 +191,7 @@ public class HandsOnScienceFragment extends Fragment{
                 public void success(ApiResults apiResults, Response response) {
                     if (prog.isShowing()) {
                         prog.dismiss();
+                    }
                         if (apiResults != null) {
                             if (apiResults.getAdmno_no() != null) {
                                 arrStudAdm = apiResults.getAdmno_no();
@@ -183,8 +199,21 @@ public class HandsOnScienceFragment extends Fragment{
                                 AutoAdmno.setThreshold(1);
                                 AutoAdmno.setAdapter(adapter);
                             }
+                            else
+                            {
+                                if(apiResults.getResult()!=null)
+                                {
+                                    objDialog.okDialog("Error",apiResults.getResult());
+                                }
+                            }
                         }
-                    }
+                        else
+                        {
+                            if(apiResults.getResult()!=null)
+                            {
+                                objDialog.okDialog("Error",apiResults.getResult());
+                            }
+                        }
                 }
 
                 @Override
@@ -276,6 +305,20 @@ public class HandsOnScienceFragment extends Fragment{
                             ClassListAdapter adapter=new ClassListAdapter(getActivity(),R.layout.class_list_items,R.id.tvClass,arrClass);
                             spnClass.setAdapter(adapter);
                         }
+                        else
+                        {
+                            if(apiResults.getResult()!=null)
+                            {
+                                objDialog.okDialog("Error",apiResults.getResult());
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if(apiResults.getResult()!=null)
+                        {
+                            objDialog.okDialog("Error",apiResults.getResult());
+                        }
                     }
                 }
 
@@ -305,6 +348,20 @@ public class HandsOnScienceFragment extends Fragment{
                             ArrayAdapter<DivisonBean> adapter = new ArrayAdapter<DivisonBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrDiv);
                             spnDivision.setAdapter(adapter);
                         }
+                        else
+                        {
+                            if(apiResults.getResult()!=null)
+                            {
+                                objDialog.okDialog("Error",apiResults.getResult());
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if(apiResults.getResult()!=null)
+                        {
+                            objDialog.okDialog("Error",apiResults.getResult());
+                        }
                     }
                 }
 
@@ -314,8 +371,22 @@ public class HandsOnScienceFragment extends Fragment{
                         prog.dismiss();
                     }
 
-                    Toast.makeText(mContext,"Server Network Error 1",Toast.LENGTH_LONG).show();
+                   // Toast.makeText(mContext,"Server Network Error 1",Toast.LENGTH_LONG).show();
                     objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
+                }
+            });
+        }
+        else
+        {
+            objDialog.noInternet(new ConfirmationDialogs.okCancel() {
+                @Override
+                public void okButton() {
+                    initData();
+                }
+
+                @Override
+                public void cancelButton() {
+
                 }
             });
         }
@@ -442,7 +513,7 @@ public class HandsOnScienceFragment extends Fragment{
                                         objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
                                             @Override
                                             public void okButton() {
-
+                                                setListners();
                                             }
 
                                             @Override
@@ -455,7 +526,7 @@ public class HandsOnScienceFragment extends Fragment{
                                     objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
                                         @Override
                                         public void okButton() {
-
+                                            setListners();
                                         }
 
                                         @Override

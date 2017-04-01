@@ -119,7 +119,46 @@ public class ExamFragment extends Fragment {
                                         Log.e(TAG, "Size One Frag" + arrList.size());
                                         generateExamList(arrList);
                                     }
+                                    else {
+                                        objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
+                                            @Override
+                                            public void okButton() {
+                                                setListners();
+                                            }
+
+                                            @Override
+                                            public void cancelButton() {
+
+                                            }
+                                        });
+                                    }
                                 }
+                                else {
+                                    objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
+                                        @Override
+                                        public void okButton() {
+                                            setListners();
+                                        }
+
+                                        @Override
+                                        public void cancelButton() {
+
+                                        }
+                                    });
+                                }
+                            }
+                            else {
+                                objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
+                                    @Override
+                                    public void okButton() {
+                                        setListners();
+                                    }
+
+                                    @Override
+                                    public void cancelButton() {
+
+                                    }
+                                });
                             }
                         }
 
@@ -171,8 +210,6 @@ public class ExamFragment extends Fragment {
     private void init(View view) {
 
         objDialog = new ConfirmationDialogs(mContext);
-    //    refreshView = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_view_task);
-     //   refreshView.setColorSchemeResources(R.color.cyan_900, R.color.colorAccent, R.color.yellow_500, R.color.red_900);
         rvAcademics = (RecyclerView) view.findViewById(R.id.rvAcademics);
         spnClass = (Spinner) view.findViewById(R.id.spnClass);
         btSearch = (Button) view.findViewById(R.id.btSearch);
@@ -204,6 +241,21 @@ public class ExamFragment extends Fragment {
                             ClassListAdapter adapter=new ClassListAdapter(getActivity(),R.layout.class_list_items,R.id.tvClass,arrClass);
                             spnClass.setAdapter(adapter);
                         }
+
+                        else
+                        {
+                            if(apiResults.getResult()!=null)
+                            {
+                                objDialog.okDialog("Error",apiResults.getResult());
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if(apiResults.getResult()!=null)
+                        {
+                            objDialog.okDialog("Error",apiResults.getResult());
+                        }
                     }
                 }
 
@@ -213,6 +265,19 @@ public class ExamFragment extends Fragment {
                         prog.dismiss();
                     }
                     objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
+                }
+            });
+        }
+        else {
+            objDialog.noInternet(new ConfirmationDialogs.okCancel() {
+                @Override
+                public void okButton() {
+                    initData();
+                }
+
+                @Override
+                public void cancelButton() {
+
                 }
             });
         }

@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
-import com.rjp.cnvteachers.api.API;
 import com.rjp.cnvteachers.api.RetrofitClient;
 
 import java.util.ArrayList;
@@ -26,8 +25,6 @@ public class DisplayImage extends AppCompatActivity {
 
     private String TAG = "Display Image";
     private Context mContext = null;
-    private API retrofitApi;
-
     private ViewPager mViewPager;
     private CustomPagerAdapter mCustomPagerAdapter;
     private ArrayList<String> arr = null;

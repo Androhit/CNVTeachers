@@ -104,6 +104,7 @@ public class AchievmentFragment extends Fragment{
                 public void success(ApiResults apiResults, Response response) {
                     if (prog.isShowing()) {
                         prog.dismiss();
+                    }
                         if (apiResults != null) {
                             if (apiResults.getStudent() != null) {
                                 arrStud = apiResults.getStudent();
@@ -111,8 +112,22 @@ public class AchievmentFragment extends Fragment{
                                 auto_StudName.setThreshold(1);
                                 auto_StudName.setAdapter(adapter);
                             }
+                            else
+                            {
+                                if(apiResults.getResult()!=null)
+                                {
+                                    objDialog.okDialog("Error",apiResults.getResult());
+                                }
+                            }
                         }
-                    }
+                        else
+                        {
+                            if(apiResults.getResult()!=null)
+                            {
+                                objDialog.okDialog("Error",apiResults.getResult());
+                            }
+                        }
+
                 }
 
                 @Override
@@ -172,6 +187,7 @@ public class AchievmentFragment extends Fragment{
                 public void success(ApiResults apiResults, Response response) {
                     if (prog.isShowing()) {
                         prog.dismiss();
+                    }
                         if (apiResults != null) {
                             if (apiResults.getAdmno_no() != null) {
                                 arrStudAdm = apiResults.getAdmno_no();
@@ -179,8 +195,22 @@ public class AchievmentFragment extends Fragment{
                                 auto_admno.setThreshold(1);
                                 auto_admno.setAdapter(adapter);
                             }
+                            else
+                            {
+                                if(apiResults.getResult()!=null)
+                                {
+                                    objDialog.okDialog("Error",apiResults.getResult());
+                                }
+                            }
                         }
-                    }
+                        else
+                        {
+                            if(apiResults.getResult()!=null)
+                            {
+                                objDialog.okDialog("Error",apiResults.getResult());
+                            }
+                        }
+
                 }
 
                 @Override
@@ -294,12 +324,33 @@ public class AchievmentFragment extends Fragment{
                                     if (arr.size() > 0) {
                                         generateGoodNewsList(arr);
                                         AppPreferences.setAchievementCount(mContext, 0);
-                                    } else {
-                                        //Toast.makeText(mContext,"Data Not Found",Toast.LENGTH_LONG).show();
                                     }
-                                } else {
-                                    //Toast.makeText(mContext,"Data Not Found",Toast.LENGTH_LONG).show();
-                                    //Toast.makeText(mContext,"Data Not Found",Toast.LENGTH_LONG).show();
+                                    else {
+                                        objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
+                                            @Override
+                                            public void okButton() {
+                                                setListners();
+                                            }
+
+                                            @Override
+                                            public void cancelButton() {
+
+                                            }
+                                        });
+                                    }
+                                }
+                                else {
+                                    objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
+                                        @Override
+                                        public void okButton() {
+                                            setListners();
+                                        }
+
+                                        @Override
+                                        public void cancelButton() {
+
+                                        }
+                                    });
                                 }
                             }
 

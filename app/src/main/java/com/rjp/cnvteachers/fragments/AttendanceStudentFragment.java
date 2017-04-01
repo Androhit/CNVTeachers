@@ -140,7 +140,7 @@ public class AttendanceStudentFragment extends Fragment {
                 @Override
                 public void success(ApiResults apiResults, Response response) {
                     if (prog.isShowing()) {
-                        prog.dismiss();
+                        prog.dismiss();}
                         if (apiResults != null) {
                             if (apiResults.getAdmno_no() != null) {
                                 arrStudAdm = apiResults.getAdmno_no();
@@ -148,8 +148,22 @@ public class AttendanceStudentFragment extends Fragment {
                                 etAdmno.setThreshold(1);
                                 etAdmno.setAdapter(adapter);
                             }
+                            else
+                            {
+                                if(apiResults.getResult()!=null)
+                                {
+                                    objDialog.okDialog("Error",apiResults.getResult());
+                                }
+                            }
                         }
-                    }
+                        else
+                        {
+                            if(apiResults.getResult()!=null)
+                            {
+                                objDialog.okDialog("Error",apiResults.getResult());
+                            }
+                        }
+
                 }
 
                 @Override
@@ -287,6 +301,20 @@ public class AttendanceStudentFragment extends Fragment {
                                    getDataSet(arr);
                                }
 
+                               else {
+                                   objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
+                                       @Override
+                                       public void okButton() {
+                                           setListners();
+                                       }
+
+                                       @Override
+                                       public void cancelButton() {
+
+                                       }
+                                   });
+                               }
+
                            }
 
                            @Override
@@ -298,7 +326,22 @@ public class AttendanceStudentFragment extends Fragment {
                            }
                        });
                    }
-                 }
+                   else
+                   {
+                       objDialog.noInternet(new ConfirmationDialogs.okCancel() {
+                           @Override
+                           public void okButton() {
+                               setListners();
+                           }
+
+                           @Override
+                           public void cancelButton() {
+
+                           }
+                       });
+                   }
+
+                       }
                  else
                    {
                        objDialog.okDialog("Error", mContext.getResources().getString(R.string.error_input_field3));
@@ -331,7 +374,7 @@ public class AttendanceStudentFragment extends Fragment {
                  @Override
                  public void success(ApiResults apiResults, Response response) {
                      if (prog.isShowing()) {
-                         prog.dismiss();
+                         prog.dismiss();}
                          if (apiResults != null) {
                              if (apiResults.getStudent() != null) {
                                  arrStud = apiResults.getStudent();
@@ -339,8 +382,21 @@ public class AttendanceStudentFragment extends Fragment {
                                  AutoName.setThreshold(1);
                                  AutoName.setAdapter(adapter);
                              }
+                             else
+                             {
+                                 if(apiResults.getResult()!=null)
+                                 {
+                                     objDialog.okDialog("Error",apiResults.getResult());
+                                 }
+                             }
                          }
-                     }
+                         else
+                         {
+                             if(apiResults.getResult()!=null)
+                             {
+                                 objDialog.okDialog("Error",apiResults.getResult());
+                             }
+                         }
                  }
 
                  @Override

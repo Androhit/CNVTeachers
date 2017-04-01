@@ -115,6 +115,21 @@ public class EmployeeFragment extends Fragment {
                                 Picasso.with(mContext).load("" + objEmp.getPhoto_url()).placeholder(R.drawable.student_icon).error(R.drawable.student_icon).into(ivPic);
 
                             }
+                            else
+                            {
+                                if(apiResults.getResult()!=null)
+                                {
+                                    objDialog.okDialog("Error",apiResults.getResult());
+                                }
+                            }
+
+                        }
+                        else
+                        {
+                            if(apiResults.getResult()!=null)
+                            {
+                                objDialog.okDialog("Error",apiResults.getResult());
+                            }
                         }
 
                     }
@@ -130,6 +145,19 @@ public class EmployeeFragment extends Fragment {
                     }
                 });
             }
+            else {
+                objDialog.noInternet(new ConfirmationDialogs.okCancel() {
+                    @Override
+                    public void okButton() {
+                        initShowData();
+                    }
+
+                    @Override
+                    public void cancelButton() {
+
+                    }
+                });
+            }
 
         }
         catch (Exception e)
@@ -140,9 +168,6 @@ public class EmployeeFragment extends Fragment {
 
     public void makeEditable() {
         fabEdit.setVisibility(View.GONE);
-
-        //etDesignation.setFocusableInTouchMode(true);
-        //etDesignation.setBackgroundResource(R.drawable.square_corner_grey_edittext);
 
         etEmerNo.setFocusableInTouchMode(true);
         etEmerNo.setBackgroundResource(R.drawable.square_corner_grey_edittext);
@@ -166,15 +191,6 @@ public class EmployeeFragment extends Fragment {
 
         etReligion.setFocusableInTouchMode(true);
         etReligion.setBackgroundResource(R.drawable.square_corner_grey_edittext);
-
-//        etFatherName.setFocusableInTouchMode(true);
-  //      etFatherName.setBackgroundResource(R.drawable.square_corner_grey_edittext);
-
-    //    etMiddleName.setFocusableInTouchMode(true);
-//        etMiddleName.setBackgroundResource(R.drawable.square_corner_grey_edittext);
-
-//        etEmail.setFocusableInTouchMode(true);
-  //      etEmail.setBackgroundResource(R.drawable.square_corner_grey_edittext);
 
         etPermAddr.setFocusableInTouchMode(true);
         etPermAddr.setBackgroundResource(R.drawable.square_corner_grey_edittext);
@@ -220,7 +236,6 @@ public class EmployeeFragment extends Fragment {
             String Empid=objEmp.getEmpid();
             String PermAddr= objEmp.getPermanent_address();
             String Exp=objEmp.getExperience();
-           // String Designation=objEmp.getDesignation();
             String Qualification=objEmp.getQualification();
             String EmerNo=objEmp.getEmg_phone();
             String Bgroup=objEmp.getBgroup();
@@ -279,6 +294,19 @@ public class EmployeeFragment extends Fragment {
             });
 
 
+        }
+        else {
+            objDialog.noInternet(new ConfirmationDialogs.okCancel() {
+                @Override
+                public void okButton() {
+                    updateStudentInfoService();
+                }
+
+                @Override
+                public void cancelButton() {
+
+                }
+            });
         }
 
    }

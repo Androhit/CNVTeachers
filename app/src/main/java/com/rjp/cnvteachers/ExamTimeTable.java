@@ -118,6 +118,19 @@ public class ExamTimeTable extends AppCompatActivity {
                                 Log.e(TAG, "Size One Frag" + arrList.size());
                                 generateExamList(arrList);
                             }
+                            else {
+                                objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
+                                    @Override
+                                    public void okButton() {
+                                        getExamDataService(objExam);
+                                    }
+
+                                    @Override
+                                    public void cancelButton() {
+
+                                    }
+                                });
+                            }
                         }
                     }
 

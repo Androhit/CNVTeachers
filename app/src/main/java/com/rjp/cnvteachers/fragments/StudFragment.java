@@ -107,6 +107,20 @@ public class StudFragment extends Fragment {
                             ClassListAdapter adapter = new ClassListAdapter(getActivity(), R.layout.class_list_items, R.id.tvClass, arrClass);
                             spnClassName.setAdapter(adapter);
                         }
+                        else
+                        {
+                            if(apiResults.getResult()!=null)
+                            {
+                                objDialog.okDialog("Error",apiResults.getResult());
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if(apiResults.getResult()!=null)
+                        {
+                            objDialog.okDialog("Error",apiResults.getResult());
+                        }
                     }
                 }
 
@@ -136,6 +150,20 @@ public class StudFragment extends Fragment {
                             ArrayAdapter<DivisonBean> adapter = new ArrayAdapter<DivisonBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrDiv);
                             spnDivision.setAdapter(adapter);
                         }
+                        else
+                        {
+                            if(apiResults.getResult()!=null)
+                            {
+                                objDialog.okDialog("Error",apiResults.getResult());
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if(apiResults.getResult()!=null)
+                        {
+                            objDialog.okDialog("Error",apiResults.getResult());
+                        }
                     }
                 }
 
@@ -145,6 +173,19 @@ public class StudFragment extends Fragment {
                         prog.dismiss();
                     }
                     objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
+                }
+            });
+        }
+        else {
+            objDialog.noInternet(new ConfirmationDialogs.okCancel() {
+                @Override
+                public void okButton() {
+                    initData();
+                }
+
+                @Override
+                public void cancelButton() {
+
                 }
             });
         }
@@ -222,6 +263,19 @@ public class StudFragment extends Fragment {
                                             arrList = apiResults.getStudent_list();
                                             generateList();
                                         }
+                                        else {
+                                            objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
+                                                @Override
+                                                public void okButton() {
+                                                    setListners();
+                                                }
+
+                                                @Override
+                                                public void cancelButton() {
+
+                                                }
+                                            });
+                                        }
                                     }
 
                                     @Override
@@ -234,6 +288,19 @@ public class StudFragment extends Fragment {
                                         objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                                     }
                                 });
+                    }
+                    else {
+                        objDialog.noInternet(new ConfirmationDialogs.okCancel() {
+                            @Override
+                            public void okButton() {
+                                setListners();
+                            }
+
+                            @Override
+                            public void cancelButton() {
+
+                            }
+                        });
                     }
             }
         });
@@ -271,6 +338,7 @@ public class StudFragment extends Fragment {
                 public void success(ApiResults apiResults, Response response) {
                     if (prog.isShowing()) {
                         prog.dismiss();
+                    }
                         if (apiResults != null) {
                             if (apiResults.getAdmno_no() != null) {
                                 arrStudAdm = apiResults.getAdmno_no();
@@ -278,8 +346,21 @@ public class StudFragment extends Fragment {
                                 etAdmno.setThreshold(1);
                                 etAdmno.setAdapter(adapter);
                             }
+                            else
+                            {
+                                if(apiResults.getResult()!=null)
+                                {
+                                    objDialog.okDialog("Error",apiResults.getResult());
+                                }
+                            }
                         }
-                    }
+                        else
+                        {
+                            if(apiResults.getResult()!=null)
+                            {
+                                objDialog.okDialog("Error",apiResults.getResult());
+                            }
+                        }
                 }
 
                 @Override
@@ -338,6 +419,7 @@ public class StudFragment extends Fragment {
                 public void success(ApiResults apiResults, Response response) {
                     if (prog.isShowing()) {
                         prog.dismiss();
+                    }
                         if (apiResults != null) {
                             if (apiResults.getStudent() != null) {
                                 arrList = apiResults.getStudent();
@@ -345,8 +427,22 @@ public class StudFragment extends Fragment {
                                 etStudName.setThreshold(1);
                                 etStudName.setAdapter(adapter);
                             }
+                            else
+                            {
+                                if(apiResults.getResult()!=null)
+                                {
+                                    objDialog.okDialog("Error",apiResults.getResult());
+                                }
+                            }
                         }
-                    }
+                        else
+                        {
+                            if(apiResults.getResult()!=null)
+                            {
+                                objDialog.okDialog("Error",apiResults.getResult());
+                            }
+                        }
+
                 }
 
                 @Override
@@ -364,7 +460,7 @@ public class StudFragment extends Fragment {
             objDialog.noInternet(new ConfirmationDialogs.okCancel() {
                 @Override
                 public void okButton() {
-                    initData();
+                    initStudName();
                 }
 
                 @Override

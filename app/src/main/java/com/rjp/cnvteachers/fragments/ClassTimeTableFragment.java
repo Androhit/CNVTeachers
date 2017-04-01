@@ -152,6 +152,20 @@ public class ClassTimeTableFragment extends Fragment{
                             ClassListAdapter adapter=new ClassListAdapter(getActivity(),R.layout.class_list_items,R.id.tvClass,arrClass);
                             spnClass.setAdapter(adapter);
                         }
+                        else
+                        {
+                            if(apiResults.getResult()!=null)
+                            {
+                                objDialog.okDialog("Error",apiResults.getResult());
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if(apiResults.getResult()!=null)
+                        {
+                            objDialog.okDialog("Error",apiResults.getResult());
+                        }
                     }
                 }
 
@@ -181,6 +195,20 @@ public class ClassTimeTableFragment extends Fragment{
                             ArrayAdapter<DivisonBean> adapter = new ArrayAdapter<DivisonBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrDiv);
                             spnDivision.setAdapter(adapter);
                         }
+                        else
+                        {
+                            if(apiResults.getResult()!=null)
+                            {
+                                objDialog.okDialog("Error",apiResults.getResult());
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if(apiResults.getResult()!=null)
+                        {
+                            objDialog.okDialog("Error",apiResults.getResult());
+                        }
                     }
                 }
 
@@ -190,6 +218,19 @@ public class ClassTimeTableFragment extends Fragment{
                         prog.dismiss();
                     }
                     objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
+                }
+            });
+        }
+        else {
+            objDialog.noInternet(new ConfirmationDialogs.okCancel() {
+                @Override
+                public void okButton() {
+                    initData();
+                }
+
+                @Override
+                public void cancelButton() {
+
                 }
             });
         }

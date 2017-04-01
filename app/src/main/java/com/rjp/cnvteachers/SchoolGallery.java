@@ -9,7 +9,6 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.rjp.cnvteachers.adapters.GalleryGridAdapter;
-import com.rjp.cnvteachers.api.API;
 import com.rjp.cnvteachers.beans.EventsBean;
 import com.rjp.cnvteachers.beans.GalleryBeans;
 import com.rjp.cnvteachers.beans.HandsOnScienceBeans;
@@ -24,7 +23,7 @@ public class SchoolGallery extends AppCompatActivity{
 
     private String TAG = SchoolGallery.class.getSimpleName();
     private Context mContext = null;
-    private API retrofitApi;
+
     private ConfirmationDialogs objDialog;
     private GridView gvGallery;
     private SwipeRefreshLayout refreshView;

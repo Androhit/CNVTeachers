@@ -174,6 +174,20 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
                             ClassListAdapter adapter=new ClassListAdapter(getActivity(),R.layout.class_list_items,R.id.tvClass,arrClass);
                             spnClassName.setAdapter(adapter);
                         }
+                        else
+                        {
+                            if(apiResults.getResult()!=null)
+                            {
+                                objDialog.okDialog("Error",apiResults.getResult());
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if(apiResults.getResult()!=null)
+                        {
+                            objDialog.okDialog("Error",apiResults.getResult());
+                        }
                     }
                 }
 
@@ -204,6 +218,20 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
                             ArrayAdapter<DivisonBean> adapter = new ArrayAdapter<DivisonBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrDiv);
                             spnDivision.setAdapter(adapter);
                         }
+                        else
+                        {
+                            if(apiResults.getResult()!=null)
+                            {
+                                objDialog.okDialog("Error",apiResults.getResult());
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if(apiResults.getResult()!=null)
+                        {
+                            objDialog.okDialog("Error",apiResults.getResult());
+                        }
                     }
                 }
 
@@ -213,6 +241,19 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
                         prog.dismiss();
                     }
                     objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
+                }
+            });
+        }
+        else {
+            objDialog.noInternet(new ConfirmationDialogs.okCancel() {
+                @Override
+                public void okButton() {
+                    setListners();
+                }
+
+                @Override
+                public void cancelButton() {
+
                 }
             });
         }
@@ -288,6 +329,19 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
                                     arrList = apiResults.getClass_att();
                                     generateList();
 
+                                }
+                                else {
+                                    objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
+                                        @Override
+                                        public void okButton() {
+                                            setListners();
+                                        }
+
+                                        @Override
+                                        public void cancelButton() {
+
+                                        }
+                                    });
                                 }
                             }
 

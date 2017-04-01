@@ -107,6 +107,20 @@ public class CircularFragment extends Fragment {
                             ClassListAdapter adapter = new ClassListAdapter(getActivity(), R.layout.class_list_items, R.id.tvClass, arrClass);
                             spnClass.setAdapter(adapter);
                         }
+                        else
+                        {
+                            if(apiResults.getResult()!=null)
+                            {
+                                objDialog.okDialog("Error",apiResults.getResult());
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if(apiResults.getResult()!=null)
+                        {
+                            objDialog.okDialog("Error",apiResults.getResult());
+                        }
                     }
                 }
 
@@ -118,6 +132,19 @@ public class CircularFragment extends Fragment {
                     objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
                 }
 
+            });
+        }
+        else {
+            objDialog.noInternet(new ConfirmationDialogs.okCancel() {
+                @Override
+                public void okButton() {
+                    initData();
+                }
+
+                @Override
+                public void cancelButton() {
+
+                }
             });
         }
     }
@@ -218,14 +245,32 @@ public class CircularFragment extends Fragment {
                                 generateNoticeList(arr);
                                 AppPreferences.setCircularCount(mContext,0);
                             }
-                            else
-                            {
-                                // Toast.makeText(mContext,"Data Not Found",Toast.LENGTH_LONG).show();
+                            else {
+                                objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
+                                    @Override
+                                    public void okButton() {
+                                        getNoticeService();
+                                    }
+
+                                    @Override
+                                    public void cancelButton() {
+
+                                    }
+                                });
                             }
                         }
-                        else
-                        {
-                            // Toast.makeText(mContext,"Data Not Found",Toast.LENGTH_LONG).show();
+                        else {
+                            objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
+                                @Override
+                                public void okButton() {
+                                    getNoticeService();
+                                }
+
+                                @Override
+                                public void cancelButton() {
+
+                                }
+                            });
                         }
                     }
 
