@@ -31,6 +31,14 @@ public class ApiResults
     public ArrayList<AchievementsBean> special_achiv;
     public ArrayList<HandsOnScienceBeans> hos_info;
 
+    public AttendanceBean getStud_att() {
+        return stud_att;
+    }
+
+    public void setStud_att(AttendanceBean stud_att) {
+        this.stud_att = stud_att;
+    }
+
     public ArrayList<HandsOnScienceBeans> getHos_info() {
         return hos_info;
     }
@@ -114,13 +122,6 @@ public class ApiResults
         this.student = student;
     }
 
-    public AttendanceBean getStud_att() {
-        return stud_att;
-    }
-
-    public void setStud_att(AttendanceBean stud_att) {
-        this.stud_att = stud_att;
-    }
 
     public ArrayList<AttendanceBean> getClass_att() {
         return class_att;

@@ -1,6 +1,7 @@
 package com.rjp.cnvteachers.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by Shraddha on 3/21/2017.
@@ -9,8 +10,17 @@ public class AttendanceBean implements Serializable
 {
     private String present_day,absent_days,working_days,percent,from_date,to_date,month;
     private String name,admno;
+    private String tot_present_day,tot_absent_days,tot_working_days,tot_percent,month_name;
 
+    ArrayList<AttendanceBean> data_array = new ArrayList<>();
 
+    public ArrayList<AttendanceBean> getData_array() {
+        return data_array;
+    }
+
+    public void setData_array(ArrayList<AttendanceBean> data_array) {
+        this.data_array = data_array;
+    }
 
     public String getPresent_day() {
         return present_day;
@@ -84,5 +94,45 @@ public class AttendanceBean implements Serializable
 
     public void setMonth(String month) {
         this.month = month;
+    }
+
+    public String getTot_present_day() {
+        return tot_present_day;
+    }
+
+    public void setTot_present_day(String tot_present_day) {
+        this.tot_present_day = tot_present_day;
+    }
+
+    public String getTot_absent_days() {
+        return tot_absent_days;
+    }
+
+    public void setTot_absent_days(String tot_absent_days) {
+        this.tot_absent_days = tot_absent_days;
+    }
+
+    public String getTot_working_days() {
+        return tot_working_days;
+    }
+
+    public void setTot_working_days(String tot_working_days) {
+        this.tot_working_days = tot_working_days;
+    }
+
+    public String getTot_percent() {
+        return tot_percent;
+    }
+
+    public void setTot_percent(String tot_percent) {
+        this.tot_percent = tot_percent;
+    }
+
+    public String getMonth_name() {
+        return month_name;
+    }
+
+    public void setMonth_name(String month_name) {
+        this.month_name = month_name;
     }
 }

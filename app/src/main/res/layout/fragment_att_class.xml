@@ -77,17 +77,23 @@
                 android:padding="3dp">
                 <TextView
                     android:id="@+id/tvAttendanceFromDate"
-                    android:layout_width="180dp"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="From Date"
+                    android:text=" From Date"
+                    android:drawableLeft="@drawable/date"
+                    android:padding="10dp"
+                    android:layout_weight="0.29"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/colorPrimary"/>
 
                 <TextView
                     android:id="@+id/tvAttendanceToDate"
-                    android:layout_width="180dp"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="To Date"
+                    android:text=" To Date"
+                    android:layout_weight="0.29"
+                    android:padding="10dp"
+                    android:drawableLeft="@drawable/date"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/colorPrimary"/>
 

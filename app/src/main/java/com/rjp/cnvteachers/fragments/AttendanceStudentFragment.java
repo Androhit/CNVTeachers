@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -35,7 +36,6 @@ import com.rjp.cnvteachers.beans.ApiResults;
 import com.rjp.cnvteachers.beans.AttendanceBean;
 import com.rjp.cnvteachers.beans.StudentBean;
 import com.rjp.cnvteachers.common.ConfirmationDialogs;
-import com.rjp.cnvteachers.common.Validations;
 import com.rjp.cnvteachers.utils.AppPreferences;
 import com.rjp.cnvteachers.utils.NetworkUtility;
 
@@ -73,13 +73,16 @@ public class AttendanceStudentFragment extends Fragment {
     private int mDay;
     private int DATE_DIALOG_ID = 0;
     private Button btnSubmit;
+    int Size;
 
-    public static AttendanceBean obj;
+
     public static StudentBean objStud=null;
     public static AdmissionBean objStudAdm=null;
     private ArrayList<StudentBean> arrStud = new ArrayList<StudentBean>();
     private ArrayList<AdmissionBean> arrStudAdm = new ArrayList<AdmissionBean>();
+    private AttendanceBean obj ;
 
+    private LinearLayout laymain;
 
 
     @Override
@@ -112,8 +115,9 @@ public class AttendanceStudentFragment extends Fragment {
         pieChart.setTransparentCircleRadius(10);
 
         // enable rotation of pie barChart by touch
-        pieChart.setRotationAngle(0);
-        pieChart.setRotationEnabled(true);
+        //pieChart.setRotationAngle(0);
+        pieChart.setRotationEnabled(false);
+        pieChart.setTouchEnabled(false);
 
 
         final Calendar c = Calendar.getInstance();
@@ -237,123 +241,6 @@ public class AttendanceStudentFragment extends Fragment {
                 }
             };
 
-    private void setListners() {
-       tvFromDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                DATE_DIALOG_ID = 0;
-                DatePickerDialog dialog = new DatePickerDialog(mContext, mDateSetListener, mYear, mMonth, mDay);
-                dialog.show();
-            }
-        });
-
-        tvToDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                DATE_DIALOG_ID = 1;
-                DatePickerDialog dialog = new DatePickerDialog(mContext, mDateSetListener, mYear, mMonth, mDay);
-                dialog.show();
-            }
-        });
-
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                   if (Validations.hasText(AutoName) || Validations.hasText(etAdmno)) {
-                       if(tvFromDate !=null && tvToDate!= null )
-                       {
-                   if (NetworkUtility.isOnline(mContext)) {
-
-                       final ProgressDialog prog = new ProgressDialog(mContext);
-                       prog.setMessage("Loading...");
-                       prog.setCancelable(false);
-                       prog.show();
-
-                       Name = AutoName.getText().toString();
-                       admno = etAdmno.getText().toString();
-                       FromDate = tvFromDate.getText().toString();
-                       ToDate = tvToDate.getText().toString();
-
-                       String br_id = AppPreferences.getLoginObj(mContext).getBr_id();
-                       String acadyear = AppPreferences.getAcademicYear(mContext);
-
-
-                       retrofitApi.getAttendance(AppPreferences.getInstObj(mContext).getCode(), Name, admno, FromDate, ToDate, br_id, acadyear, new Callback<ApiResults>() {
-                           @Override
-                           public void success(ApiResults apiResults, Response response) {
-                               if (prog.isShowing()) {
-                                   prog.dismiss();
-                               }
-                               if (apiResults.getStud_att() != null) {
-                                   obj = apiResults.getStud_att();
-                                   AutoName.setText("" + obj.getName());
-                                   etAdmno.setText("" + obj.getAdmno());
-                                   tvFromDate.setText("" + obj.getFrom_date());
-                                   tvToDate.setText("" + obj.getTo_date());
-                                   tvAbse.setText("" + obj.getAbsent_days());
-                                   tvPrese.setText("" + obj.getPresent_day());
-                                   tvTotalDays.setText("" + obj.getWorking_days());
-                                   tvAtte.setText("" + obj.getPercent());
-                                   arr.add(obj);
-                                   addData(arr);
-                                   getDataSet(arr);
-                               }
-
-                               else {
-                                   objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
-                                       @Override
-                                       public void okButton() {
-                                           setListners();
-                                       }
-
-                                       @Override
-                                       public void cancelButton() {
-
-                                       }
-                                   });
-                               }
-
-                           }
-
-                           @Override
-                           public void failure(RetrofitError error) {
-                               if (prog.isShowing()) {
-                                   prog.dismiss();
-                               }
-                               objDialog.okDialog("Error", mContext.getResources().getString(R.string.error_server_down));
-                           }
-                       });
-                   }
-                   else
-                   {
-                       objDialog.noInternet(new ConfirmationDialogs.okCancel() {
-                           @Override
-                           public void okButton() {
-                               setListners();
-                           }
-
-                           @Override
-                           public void cancelButton() {
-
-                           }
-                       });
-                   }
-
-                       }
-                 else
-                   {
-                       objDialog.okDialog("Error", mContext.getResources().getString(R.string.error_input_field3));
-                   }
-               }
-              else
-                 {
-                    objDialog.okDialog("Error", mContext.getResources().getString(R.string.error_input_field));
-                 }
-               }
-            });
-    }
 
     private void initRetrofitClient()
     {
@@ -454,9 +341,112 @@ public class AttendanceStudentFragment extends Fragment {
          btnSubmit=(Button) v.findViewById(R.id.btnSubmit);
          pieChart = (PieChart) v.findViewById(R.id.pieChart);
          barChart = (BarChart) v.findViewById(R.id.barChart);
+         laymain=(LinearLayout) v.findViewById(R.id.laymain);
         }
 
-    private void addData(ArrayList<AttendanceBean> arr)
+    private void setListners() {
+        tvFromDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                DATE_DIALOG_ID = 0;
+                DatePickerDialog dialog = new DatePickerDialog(mContext, mDateSetListener, mYear, mMonth, mDay);
+                dialog.show();
+            }
+        });
+
+        tvToDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                DATE_DIALOG_ID = 1;
+                DatePickerDialog dialog = new DatePickerDialog(mContext, mDateSetListener, mYear, mMonth, mDay);
+                dialog.show();
+            }
+        });
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (NetworkUtility.isOnline(mContext)) {
+
+                    final ProgressDialog prog = new ProgressDialog(mContext);
+                    prog.setMessage("Loading...");
+                    prog.setCancelable(false);
+                    prog.show();
+
+                    Name = AutoName.getText().toString();
+                    admno = etAdmno.getText().toString();
+                    FromDate = tvFromDate.getText().toString();
+                    ToDate = tvToDate.getText().toString();
+
+                    String br_id = AppPreferences.getLoginObj(mContext).getBr_id();
+                    String acadyear = AppPreferences.getAcademicYear(mContext);
+
+
+                    retrofitApi.getAttendance(AppPreferences.getInstObj(mContext).getCode(), Name, admno, FromDate, ToDate, br_id, acadyear, new Callback<ApiResults>() {
+                        @Override
+                        public void success(ApiResults apiResults, Response response) {
+                            if (prog.isShowing()) {
+                                prog.dismiss();
+                            }
+                            if (apiResults != null) {
+                                obj = apiResults.getStud_att();
+                                AutoName.setText(""+obj.getName());
+                                etAdmno.setText(""+obj.getAdmno());
+                                tvTotalDays.setText(""+obj.getTot_working_days());
+                                tvFromDate.setText(""+obj.getFrom_date());
+                                tvToDate.setText(""+obj.getTo_date());
+                                tvPrese.setText(""+obj.getTot_present_day());
+                                tvAbse.setText(""+obj.getTot_absent_days());
+                                tvAtte.setText(""+obj.getTot_percent());
+
+                                addData(obj);
+                                getDataSet(obj);
+                            }
+                            else {
+                                objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
+                                    @Override
+                                    public void okButton() {
+                                        setListners();
+                                    }
+
+                                    @Override
+                                    public void cancelButton() {
+
+                                    }
+                                });
+                            }
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+                            if (prog.isShowing()) {
+                                prog.dismiss();
+                            }
+                            Log.e(TAG,"Json Error "+error);
+                            objDialog.okDialog("Error", mContext.getResources().getString(R.string.error_server_down));
+                        }
+                    });
+                } else {
+                    objDialog.noInternet(new ConfirmationDialogs.okCancel() {
+                        @Override
+                        public void okButton() {
+                            setListners();
+                        }
+
+                        @Override
+                        public void cancelButton() {
+
+                        }
+                    });
+                }
+            }
+        });
+}
+
+    private void addData(AttendanceBean obj)
     {
         try {
             ArrayList<Entry> yVals1 = new ArrayList<Entry>();
@@ -466,12 +456,11 @@ public class AttendanceStudentFragment extends Fragment {
             long present = 0;
             long absent = 0;
             long otOf = 0;
-            for(AttendanceBean obj : arr)
-            {
-                present =  Long.valueOf(obj.getPresent_day());
-                otOf =  Long.valueOf(obj.getWorking_days());
-                absent=  Long.valueOf(obj.getAbsent_days());
-            }
+
+                present =  Long.valueOf(obj.getTot_present_day());
+                otOf =  Long.valueOf(obj.getTot_working_days());
+                absent=  Long.valueOf(obj.getTot_absent_days());
+
 
             yVals1.add(new Entry(present, 0));
             xVals.add("Present");
@@ -509,7 +498,9 @@ public class AttendanceStudentFragment extends Fragment {
             pieChart.invalidate();
         } catch (NumberFormatException e) {
             e.printStackTrace();
+            Log.e(TAG,"Number Error 2 "+e);
         } catch (Resources.NotFoundException e) {
+            Log.e(TAG,"Error 2"+e);
             e.printStackTrace();
         }
     }
@@ -517,7 +508,7 @@ public class AttendanceStudentFragment extends Fragment {
 
 
 
-    private ArrayList<BarDataSet> getDataSet(ArrayList<AttendanceBean> arr)
+    private ArrayList<BarDataSet> getDataSet(AttendanceBean obj)
     {
         ArrayList<BarDataSet> dataSets = null;
         try {
@@ -532,22 +523,36 @@ public class AttendanceStudentFragment extends Fragment {
             ArrayList<BarEntry> valueSet3 = new ArrayList<>();
             BarEntry v3e1 = null;
 
-            int i = 0;
+            int i,j;
+            int s = obj.getData_array().size();
+            Log.e(TAG,"Size "+s);
 
-            for(AttendanceBean obj : arr) {
 
-                v1e1 = new BarEntry(Long.valueOf(obj.getPresent_day()), i);
-                valueSet1.add(v1e1);
+            for (i = 1; i < 13; i++) {
+                      for (j=0;j<s;j++) {
+                           int m = Integer.parseInt(obj.getData_array().get(j).getMonth());
+                          Log.e(TAG,"i val "+i);
+                            Log.e(TAG,"Month "+m);
 
-                v2e1 = new BarEntry(Long.valueOf(obj.getAbsent_days()), i);
-                valueSet2.add(v2e1);
+                            if (i == m) {
+                                Log.e(TAG,"true match "+m);
 
-                long total = Long.valueOf(obj.getPresent_day())+Long.valueOf(obj.getAbsent_days());
-                v3e1 = new BarEntry(total, i); // Jan
-                valueSet3.add(v3e1);
+                                v1e1 = new BarEntry(Long.valueOf(obj.getData_array().get(j).getPresent_day()), m-6);
+                                valueSet1.add(v1e1);
+                                Log.e(TAG,"1 "+v1e1);
 
-                i++;
-            }
+                                v2e1 = new BarEntry(Long.valueOf(obj.getData_array().get(j).getAbsent_days()), m-6);
+                                valueSet2.add(v2e1);
+                                Log.e(TAG,"2 "+v2e1);
+
+                                long total = Long.valueOf(obj.getData_array().get(j).getPresent_day()) + Long.valueOf(obj.getData_array().get(j).getAbsent_days());
+                                v3e1 = new BarEntry(total, m-6);
+                                valueSet3.add(v3e1);
+                                Log.e(TAG,"3 "+v3e1);
+                            }
+
+                        }
+                    }
 
             BarDataSet barDataSet1 = new BarDataSet(valueSet1, "Present ");
             barDataSet1.setColor(getResources().getColor(R.color.green_500));
@@ -574,17 +579,22 @@ public class AttendanceStudentFragment extends Fragment {
 
         } catch (NumberFormatException e) {
             e.printStackTrace();
+            Log.e(TAG,"Number Error 1 "+e);
         } catch (Resources.NotFoundException e) {
+            Log.e(TAG,"Error1 "+e);
             e.printStackTrace();
         }
         catch (Exception e) {
+            Log.e(TAG,"Error 1"+e);
             e.printStackTrace();
         }
 
         return dataSets;
     }
+
     private ArrayList<String> getXAxisValues() {
         ArrayList<String> xAxis = new ArrayList<>();
+
 
         xAxis.add("JUN");
         xAxis.add("JUL");
@@ -598,10 +608,6 @@ public class AttendanceStudentFragment extends Fragment {
         xAxis.add("MAR");
         xAxis.add("APR");
         xAxis.add("MAY");
-
-
         return xAxis;
     }
-
-
 }
