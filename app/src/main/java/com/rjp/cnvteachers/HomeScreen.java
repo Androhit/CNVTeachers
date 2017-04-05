@@ -34,6 +34,7 @@ import com.rjp.cnvteachers.fragments.EmployeeFragment;
 import com.rjp.cnvteachers.fragments.ExamFragment;
 import com.rjp.cnvteachers.fragments.HandsOnScienceFragment;
 import com.rjp.cnvteachers.fragments.MyTimeTableFragment;
+import com.rjp.cnvteachers.fragments.PerformanceFragment;
 import com.rjp.cnvteachers.fragments.StudFragment;
 import com.rjp.cnvteachers.utils.AppPreferences;
 import com.squareup.picasso.Picasso;
@@ -207,6 +208,10 @@ public class HomeScreen extends AppCompatActivity
 
             case R.id.nav_hos :
                 fragmentClass = HandsOnScienceFragment.class;
+                break;
+
+            case R.id.nav_perform :
+                fragmentClass = PerformanceFragment.class;
                 break;
 
             case R.id.nav_logout :  logout(); break;

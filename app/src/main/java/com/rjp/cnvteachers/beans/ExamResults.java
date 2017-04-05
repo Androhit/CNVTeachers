@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class ExamResults implements Serializable {
 
-    private String sub_id,sub_name,marks,max_marks,percentage,grade;
+    private String sub_id,sub_name,marks,max_marks,percentage,grade,stud_name;
 
     public String getSub_id() {
         return sub_id;
@@ -56,6 +56,14 @@ public class ExamResults implements Serializable {
 
     public void setGrade(String grade) {
         this.grade = grade;
+    }
+
+    public String getStud_name() {
+        return stud_name;
+    }
+
+    public void setStud_name(String stud_name) {
+        this.stud_name = stud_name;
     }
 }
 

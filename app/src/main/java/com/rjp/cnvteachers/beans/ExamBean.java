@@ -7,7 +7,38 @@ import java.io.Serializable;
  */
 
 public class ExamBean implements Serializable{
-    private String exam_id,exam_name,main_exam_name,start_date,class_name,end_date,percentage,grade;
+    private String exam_id,exam_name,main_exam_name,start_date,class_name,end_date,percentage,grade,exam_types,stud_name,admno,gr_no;
+
+    @Override
+    public String toString() {
+        return exam_name;
+    }
+
+    public String getStud_name() {
+        return stud_name;
+    }
+
+    public void setStud_name(String stud_name) {
+        this.stud_name = stud_name;
+    }
+
+
+
+    public String getGr_no() {
+        return gr_no;
+    }
+
+    public void setGr_no(String gr_no) {
+        this.gr_no = gr_no;
+    }
+
+    public String getExam_types() {
+        return exam_types;
+    }
+
+    public void setExam_types(String exam_types) {
+        this.exam_types = exam_types;
+    }
 
     public String getExam_id() {
         return exam_id;
@@ -71,5 +102,13 @@ public class ExamBean implements Serializable{
 
     public void setClass_name(String class_name) {
         this.class_name = class_name;
+    }
+
+    public String getAdmno() {
+        return admno;
+    }
+
+    public void setAdmno(String admno) {
+        this.admno = admno;
     }
 }

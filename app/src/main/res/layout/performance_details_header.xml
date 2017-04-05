@@ -39,10 +39,9 @@
                     android:layout_weight="1"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textStyle="bold"
-                    android:gravity="right"
                     android:padding="3dp"
                     android:textColor="@color/white"
-                    android:text="From Time -- "
+                    android:text="Marks "
                     android:id="@+id/textView7" />
 
                 <TextView
@@ -53,7 +52,7 @@
                     android:textStyle="bold"
                     android:padding="3dp"
                     android:textColor="@color/white"
-                    android:text="To Time"/>
+                    android:text="Out Off"/>
 
             </LinearLayout>
 

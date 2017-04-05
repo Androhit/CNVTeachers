@@ -51,6 +51,29 @@
                     android:textColor="@color/colorPrimary"
                     android:text="OutOff"/>
 
+                <TextView
+                    android:id="@+id/tvResultPer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="@color/colorPrimary"
+                    android:text="Percent"/>
+
+                <TextView
+                    android:id="@+id/tvResultGrade"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="@color/colorPrimary"
+                    android:text="Percent"/>
+
+
             </LinearLayout>
 
         </LinearLayout>

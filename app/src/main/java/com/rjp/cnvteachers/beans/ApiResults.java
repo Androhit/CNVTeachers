@@ -1,5 +1,7 @@
 package com.rjp.cnvteachers.beans;
 
+import com.rjp.cnvteachers.ExamResult;
+
 import java.util.ArrayList;
 /**
  * Created by rohit on 27/2/17.
@@ -26,10 +28,82 @@ public class ApiResults
     public String total_grade;
     public ArrayList<ExamDetailsBeans> examdetails_list;
     public ArrayList<ExamBean> exam_list;
+    public ArrayList<ExamBean> all_exam_name;
+    public ArrayList<ExamBean> exam;
+    public ArrayList<ExamResult> stud_result;
     public ArrayList<CircularBean> circular_info;
     public ArrayList<CircularBean> circular_info_det;
     public ArrayList<AchievementsBean> special_achiv;
     public ArrayList<HandsOnScienceBeans> hos_info;
+    public ArrayList<AdmissionYearBean> adm_yr_list;
+    public ArrayList<AcademicYearBean> acad_yr_list;
+    public String total_percentage,total_marks,obtained_marks;
+
+    public ArrayList<ExamResult> getStud_result() {
+        return stud_result;
+    }
+
+    public void setStud_result(ArrayList<ExamResult> stud_result) {
+        this.stud_result = stud_result;
+    }
+
+    public String getObtained_marks() {
+        return obtained_marks;
+    }
+
+    public void setObtained_marks(String obtained_marks) {
+        this.obtained_marks = obtained_marks;
+    }
+
+    public String getTotal_marks() {
+        return total_marks;
+    }
+
+    public void setTotal_marks(String total_marks) {
+        this.total_marks = total_marks;
+    }
+
+    public String getTotal_percentage() {
+        return total_percentage;
+    }
+
+    public void setTotal_percentage(String total_percentage) {
+        this.total_percentage = total_percentage;
+    }
+
+
+
+    public ArrayList<ExamBean> getAll_exam_name() {
+        return all_exam_name;
+    }
+
+    public void setAll_exam_name(ArrayList<ExamBean> all_exam_name) {
+        this.all_exam_name = all_exam_name;
+    }
+
+    public ArrayList<ExamBean> getExam() {
+        return exam;
+    }
+
+    public void setExam(ArrayList<ExamBean> exam) {
+        this.exam = exam;
+    }
+
+    public ArrayList<AcademicYearBean> getAcad_yr_list() {
+        return acad_yr_list;
+    }
+
+    public void setAcad_yr_list(ArrayList<AcademicYearBean> acad_yr_list) {
+        this.acad_yr_list = acad_yr_list;
+    }
+
+    public ArrayList<AdmissionYearBean> getAdm_yr_list() {
+        return adm_yr_list;
+    }
+
+    public void setAdm_yr_list(ArrayList<AdmissionYearBean> adm_yr_list) {
+        this.adm_yr_list = adm_yr_list;
+    }
 
     public AttendanceBean getStud_att() {
         return stud_att;

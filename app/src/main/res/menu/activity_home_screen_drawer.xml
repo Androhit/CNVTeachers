@@ -49,9 +49,12 @@
             android:id="@+id/nav_hos"
             android:icon="@drawable/hand_on"
             android:title="Hands On Science" />
-
-
         <item
+            android:id="@+id/nav_perform"
+            android:icon="@drawable/perform"
+            android:title="Performances" />
+
+       <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/logout"
             android:title="Logout" />

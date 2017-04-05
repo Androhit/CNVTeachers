@@ -28,9 +28,23 @@ public interface API
     void getDivison_list(@Field("code") String code,Callback<ApiResults> taskResults);
 
     @FormUrlEncoded
+    @POST("/get_AcadYr.php?method_name=all_AcadYr")
+    void getAcad_year(@Field("code") String code, @Field("br_id") String br_id,Callback<ApiResults> taskResults);
+
+    @FormUrlEncoded
+    @POST("/exam_name.php?method_name=ExamName")
+    void getexam_name(@Field("code") String code,
+                      @Field("class_id") String class_id,
+                      @Field("division") String division,
+                      @Field("br_id") String br_id,Callback<ApiResults> taskResults);
+
+    @FormUrlEncoded
+    @POST("/get_AdmYr.php?method_name=all_AdmYr")
+    void getAdm_year(@Field("code") String code, @Field("br_id") String br_id,Callback<ApiResults> taskResults);
+
+    @FormUrlEncoded
     @POST("/get_stud_list.php?method_name=all_students")
     void getStudent_list(@Field("code") String code,@Field("firstname") String firstname,@Field("class_id") String class_id,@Field("division_name") String division_name,@Field("admno") String admno,Callback<ApiResults> taskResults);
-
 
     @FormUrlEncoded
     @POST("/authenticate.php?method_name=authenticate")
@@ -52,6 +66,28 @@ public interface API
             @Field("branch_id") String branch_id,
             @Field("division") String division,
             @Field("acad_year") String acad_year,
+            Callback<ApiResults> taskResults);
+
+
+    @FormUrlEncoded
+    @POST("/performance.php?method_name=All_Performances")
+    void getPerformance(
+            @Field("code") String code,
+            @Field("class_id") String class_id,
+            @Field("division") String division,
+            @Field("branch_id") String branch_id,
+            @Field("acad_year") String acad_year,
+            @Field("adm_year") String adm_year,
+            @Field("exam_id") String exam_id,
+            Callback<ApiResults> taskResults);
+
+    @FormUrlEncoded
+    @POST("/detail_exam_result.php?method_name=All_Result")
+    void getExamResult(
+            @Field("code") String code,
+            @Field("branch_id") String branch_id,
+            @Field("exam_id") String exam_id,
+            @Field("admno") String admno,
             Callback<ApiResults> taskResults);
 
 
