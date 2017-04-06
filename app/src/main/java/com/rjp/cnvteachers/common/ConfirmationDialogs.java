@@ -227,6 +227,44 @@ public class ConfirmationDialogs
         }
     }
 
+
+    public static void  serverFailuerError(Context mContext, final okCancel intere
+    )
+    {
+        try {
+            View vw = View.inflate(mContext, R.layout.no_server_dialog,null);
+
+            final AlertDialog alert = new AlertDialog.Builder(mContext).create();
+            Button btCancel= (Button)vw.findViewById(R.id.btn_cancel);
+            Button btUpdate= (Button)vw.findViewById(R.id.btn_update);
+            alert.setView(vw);
+
+            btCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view)
+                {
+                    alert.dismiss();
+                    System.exit(0);
+                }
+            });
+
+            btUpdate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view)
+                {
+                    alert.dismiss();
+                    intere.okButton();
+                 }
+            });
+            alert.show();
+        } catch (Resources.NotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public void dataNotAvailable(final okCancel intere)
     {
         View vw = View.inflate(mContext, R.layout.data_blank_dialog,null);

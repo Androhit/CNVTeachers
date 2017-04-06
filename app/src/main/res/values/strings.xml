@@ -4,7 +4,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
     <string name="server_failed_title">Network Failed</string>
-    <string name="server_failed_msg">Internet problem or server network error. Please try after some time later.</string>
+    <string name="server_failed_msg">Internet problem or server network error. Please try after some time later or update your application. \n\nContact us on support@cloudnxtvision.com </string>
     <string name="settings">Settings</string>
     <string name="help">Help</string>
     <string name="string_help_text"> The permission is missing.\n\nTo grant this permission click on Settings, then Permissions and turn the permission on.\n\nThen click back twice to return to the app</string>

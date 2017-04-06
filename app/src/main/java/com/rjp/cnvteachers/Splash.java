@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-
 import com.rjp.cnvteachers.api.API;
 import com.rjp.cnvteachers.api.RetrofitClient;
 import com.rjp.cnvteachers.beans.ApiResults;
@@ -19,6 +18,9 @@ import com.rjp.cnvteachers.common.ConfirmationDialogs;
 import com.rjp.cnvteachers.common.Validations;
 import com.rjp.cnvteachers.utils.AppPreferences;
 import com.rjp.cnvteachers.utils.NetworkUtility;
+
+import java.net.URL;
+import java.net.URLConnection;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -40,9 +42,12 @@ public class Splash extends AppCompatActivity {
         initRetrofitAPI();
     // if server is connecting well
 
-    //    ConfirmationDialogs.
+        checkConnection(RetrofitClient.ROOT_URL);
+    }
 
-    //    if(IS_CONNECT) {
+    private void checkConnection(String url) {
+
+        if(isConnectedToServer(url,2000)) {
             if (AppPreferences.getInstObj(mContext) != null) {
                 Log.e(TAG, "Not Null");
                 checkLogin();
@@ -50,12 +55,25 @@ public class Splash extends AppCompatActivity {
                 Log.e(TAG, "Null");
                 openValidation();
             }
-      /*  }
+        }
         else
         {
             // Alert - Server down
-        }*/
+            ConfirmationDialogs.serverFailuerError(mContext, new ConfirmationDialogs.okCancel() {
+                @Override
+                public void okButton() {
+                    checkConnection(RetrofitClient.ROOT_URL1);
+                }
+
+                @Override
+                public void cancelButton() {
+                    finish();
+                }
+            });
+
+        }
     }
+
 
     private void checkLogin()
     {
@@ -190,4 +208,20 @@ public class Splash extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+
+    public boolean isConnectedToServer(String url, int timeout) {
+        try{
+            URL myUrl = new URL(url);
+            URLConnection connection = myUrl.openConnection();
+            connection.setConnectTimeout(timeout);
+            connection.connect();
+            return true;
+        } catch (Exception e) {
+            // Handle your exceptions
+            return false;
+        }
+    }
+
+
 }
