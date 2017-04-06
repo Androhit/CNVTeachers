@@ -50,7 +50,7 @@ public class NoticeDetailView extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.circular_details);
         mContext = this;
-      //  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar();
         init();
         initRetrofitClient();
         initIntents();

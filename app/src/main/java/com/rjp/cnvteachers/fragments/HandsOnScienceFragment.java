@@ -332,49 +332,6 @@ public class HandsOnScienceFragment extends Fragment{
 
             });
 
-            retrofitApi.getDivison_list(AppPreferences.getInstObj(mContext).getCode(), new Callback<ApiResults>() {
-                @Override
-                public void success(ApiResults apiResults, Response response) {
-                    if (prog.isShowing()) {
-                        prog.dismiss();
-                    }
-                    if (apiResults != null) {
-                        if (apiResults.getDivison_list() != null) {
-                            DivisonBean objdiv = new DivisonBean();
-                            objdiv.setDiv_id("0");
-                            objdiv.setDivision_name("All Division");
-                            arrDiv = apiResults.getDivison_list();
-                            arrDiv.add(0, objdiv);
-                            ArrayAdapter<DivisonBean> adapter = new ArrayAdapter<DivisonBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrDiv);
-                            spnDivision.setAdapter(adapter);
-                        }
-                        else
-                        {
-                            if(apiResults.getResult()!=null)
-                            {
-                                objDialog.okDialog("Error",apiResults.getResult());
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if(apiResults.getResult()!=null)
-                        {
-                            objDialog.okDialog("Error",apiResults.getResult());
-                        }
-                    }
-                }
-
-                @Override
-                public void failure(RetrofitError error) {
-                    if (prog.isShowing()) {
-                        prog.dismiss();
-                    }
-
-                   // Toast.makeText(mContext,"Server Network Error 1",Toast.LENGTH_LONG).show();
-                    objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
-                }
-            });
         }
         else
         {
@@ -434,6 +391,8 @@ public class HandsOnScienceFragment extends Fragment{
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 objClass = (ClassBean) parent.getItemAtPosition(position);
+
+                getdiv();
             }
 
             @Override
@@ -572,8 +531,73 @@ public class HandsOnScienceFragment extends Fragment{
         });
     }
 
+    private void getdiv() {
 
-            private void generateCurriculumList(ArrayList<HandsOnScienceBeans> arr) {
+        if (NetworkUtility.isOnline(mContext)) {
+            final ProgressDialog prog = new ProgressDialog(mContext);
+            prog.setMessage("Loading...");
+            prog.setCancelable(false);
+
+            prog.show();
+
+            Classid = "";
+            if (objClass != null || (!(objClass.getClass_id().equals("0")))) {
+                Classid = objClass.getClass_id();
+            }
+
+            retrofitApi.getDivison_list(AppPreferences.getInstObj(mContext).getCode(),Classid, new Callback<ApiResults>() {
+                @Override
+                public void success(ApiResults apiResults, Response response) {
+                    if (prog.isShowing()) {
+                        prog.dismiss();
+                    }
+
+                    if (apiResults != null) {
+                        if (apiResults.getDivison_list() != null) {
+                            DivisonBean objdiv = new DivisonBean();
+                            objdiv.setDiv_id("0");
+                            objdiv.setDivision_name("Select Division");
+                            arrDiv = apiResults.getDivison_list();
+                            arrDiv.add(0, objdiv);
+                            ArrayAdapter<DivisonBean> adapter = new ArrayAdapter<DivisonBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrDiv);
+                            spnDivision.setAdapter(adapter);
+                        } else {
+                            if (apiResults.getResult() != null) {
+                                objDialog.okDialog("Error", apiResults.getResult());
+                            }
+                        }
+                    } else {
+                        if (apiResults.getResult() != null) {
+                            objDialog.okDialog("Error", apiResults.getResult());
+                        }
+                    }
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    if (prog.isShowing()) {
+                        prog.dismiss();
+                    }
+                    objDialog.okDialog("Error", mContext.getResources().getString(R.string.error_server_down));
+                }
+            });
+        }
+        else {
+            objDialog.noInternet(new ConfirmationDialogs.okCancel() {
+                @Override
+                public void okButton() {
+                    getdiv();
+                }
+
+                @Override
+                public void cancelButton() {
+
+                }
+            });
+        }
+    }
+
+    private void generateCurriculumList(ArrayList<HandsOnScienceBeans> arr) {
                 try {
                     adapt = new HandsOnScienceListAdapter(mContext, arr);
                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext);

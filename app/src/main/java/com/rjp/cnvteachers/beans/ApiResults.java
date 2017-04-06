@@ -1,7 +1,5 @@
 package com.rjp.cnvteachers.beans;
 
-import com.rjp.cnvteachers.ExamResult;
-
 import java.util.ArrayList;
 /**
  * Created by rohit on 27/2/17.
@@ -24,13 +22,13 @@ public class ApiResults
     public MyTimeTableBean my_timetable;
     public AttendanceBean stud_att;
     public ArrayList<AttendanceBean> class_att;
-    public ArrayList<ExamResults> exm_all_sub;
+    public ArrayList<ExamResultsBean> exm_all_sub;
     public String total_grade;
     public ArrayList<ExamDetailsBeans> examdetails_list;
     public ArrayList<ExamBean> exam_list;
     public ArrayList<ExamBean> all_exam_name;
     public ArrayList<ExamBean> exam;
-    public ArrayList<ExamResult> stud_result;
+    public ExamResultsBean stud_result;
     public ArrayList<CircularBean> circular_info;
     public ArrayList<CircularBean> circular_info_det;
     public ArrayList<AchievementsBean> special_achiv;
@@ -39,11 +37,11 @@ public class ApiResults
     public ArrayList<AcademicYearBean> acad_yr_list;
     public String total_percentage,total_marks,obtained_marks;
 
-    public ArrayList<ExamResult> getStud_result() {
+    public ExamResultsBean getStud_result() {
         return stud_result;
     }
 
-    public void setStud_result(ArrayList<ExamResult> stud_result) {
+    public void setStud_result(ExamResultsBean stud_result) {
         this.stud_result = stud_result;
     }
 
@@ -180,11 +178,11 @@ public class ApiResults
     }
 
 
-    public ArrayList<ExamResults> getExm_all_sub() {
+    public ArrayList<ExamResultsBean> getExm_all_sub() {
         return exm_all_sub;
     }
 
-    public void setExm_all_sub(ArrayList<ExamResults> exm_all_sub) {
+    public void setExm_all_sub(ArrayList<ExamResultsBean> exm_all_sub) {
         this.exm_all_sub = exm_all_sub;
     }
 

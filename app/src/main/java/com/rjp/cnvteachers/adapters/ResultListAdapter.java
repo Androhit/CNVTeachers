@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.rjp.cnvteachers.ExamResult;
 import com.rjp.cnvteachers.R;
+import com.rjp.cnvteachers.beans.ExamResultsBean;
 import com.rjp.cnvteachers.common.ItemClickListener;
 
 import java.util.ArrayList;
@@ -19,10 +19,11 @@ import java.util.ArrayList;
 public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.MyViewHolder>
 {
 
-    private ArrayList<ExamResult> taskList;
-    private ArrayList<ExamResult> arraylist;
+    private ArrayList<ExamResultsBean> taskList;
+    private ArrayList<ExamResultsBean> arraylist;
     private TextView tvMarks,tvOutOff,tvPer,tvGrade;
     private Context mContext;
+    private int marks = 0,outOff = 0, perc=0;
 
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView subject,marks,outoff,per,grade;
@@ -49,9 +50,9 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.My
         }
     }
 
-    public ResultListAdapter(Context cont, ArrayList<ExamResult> arrList, TextView tvMarks, TextView tvOutOff, TextView tvPer, TextView tvGrade) {
+    public ResultListAdapter(Context cont, ArrayList<ExamResultsBean> arrList, TextView tvMarks, TextView tvOutOff, TextView tvPer, TextView tvGrade) {
         this.taskList = arrList;
-        this.arraylist = new ArrayList<ExamResult>();
+        this.arraylist = new ArrayList<ExamResultsBean>();
         this.arraylist.addAll(arrList);
         this.mContext = cont;
         this.tvMarks = tvMarks;
@@ -70,23 +71,24 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.My
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        final ExamResult objStud = taskList.get(position);
-     /*   holder.subject.setText(objStud.getSub_name());
+        final ExamResultsBean objStud = taskList.get(position);
 
-        holder.outoff.setText(objStud.getMax_marks());
-        marks = marks + Integer.parseInt(objStud.getMarks());
-        outOff = outOff + Integer.parseInt(objStud.getMax_marks());
-
-        tvOutOff.setText(""+outOff);
-
-        if(objStud.getGrade()!=null) {
-            holder.marks.setText(objStud.getGrade());
-        }
-        else
+     /*   int s = objStud.getData_array().size();
+        int i;
+        for(i=0;i<s;i++)
         {
-            holder.marks.setText("-");
-        }
+            holder.subject.setText(objStud.getData_array().get(i).getSub_name());
+            holder.marks.setText(objStud.getData_array().get(i).getMarks());
+            holder.outoff.setText(objStud.getData_array().get(i).getMax_marks());
+            holder.per.setText(objStud.getData_array().get(i).getPercentage());
+            holder.grade.setText(objStud.getData_array().get(i).getGrade());
+        }*/
 
+        holder.subject.setText(objStud.getSub_name());
+        holder.marks.setText(objStud.getMarks());
+        holder.outoff.setText(objStud.getMax_marks());
+        holder.per.setText(objStud.getPercentage());
+        holder.grade.setText(objStud.getGrade());
 
         holder.setClickListener(new ItemClickListener() {
             @Override
@@ -99,7 +101,7 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.My
                 }
             }
         });
-        */
+
     }
 
     @Override

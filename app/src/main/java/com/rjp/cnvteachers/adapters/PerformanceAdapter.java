@@ -16,7 +16,7 @@ import com.rjp.cnvteachers.api.API;
 import com.rjp.cnvteachers.api.RetrofitClient;
 import com.rjp.cnvteachers.beans.ClassBean;
 import com.rjp.cnvteachers.beans.ExamBean;
-import com.rjp.cnvteachers.beans.ExamResults;
+import com.rjp.cnvteachers.beans.ExamResultsBean;
 import com.rjp.cnvteachers.common.ItemClickListener;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class PerformanceAdapter extends RecyclerView.Adapter<PerformanceAdapter.MyViewHolder>  {
     private ArrayList<ExamBean> taskList;
     private ArrayList<ExamBean> arraylist;
-    private ArrayList<ExamResults> arrList = new ArrayList<ExamResults>();
+    private ArrayList<ExamResultsBean> arrList = new ArrayList<ExamResultsBean>();
 
     private Context mContext;
     private API retrofitApi;
@@ -40,7 +40,7 @@ public class PerformanceAdapter extends RecyclerView.Adapter<PerformanceAdapter.
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView tvStudName, tvRollNo, tvGRNo,  tvPercent;
+        public TextView tvStudName, tvRollNo, tvGRNo,  tvMore;
 
 
         private ItemClickListener clickListener;
@@ -51,6 +51,7 @@ public class PerformanceAdapter extends RecyclerView.Adapter<PerformanceAdapter.
             tvStudName = (TextView) view.findViewById(R.id.tvStudName);
             tvRollNo = (TextView) view.findViewById(R.id.tvAdmno);
             tvGRNo = (TextView) view.findViewById(R.id.tvGRNo);
+            tvMore = (TextView) view.findViewById(R.id.tvMore);
 
             itemView.setOnClickListener(this);
         }
@@ -106,11 +107,15 @@ public class PerformanceAdapter extends RecyclerView.Adapter<PerformanceAdapter.
            holder.ivGrade.setImageDrawable(drawable);
         }
 */
-        holder.setClickListener(new ItemClickListener() {
+
+
+
+        holder.tvMore.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view, int position, boolean isLongClick) {
+            public void onClick(View view)
+            {
                 Intent it = new Intent(mContext, ExamResult.class);
-                it.putExtra("objExam", objStud);
+                it.putExtra("objExam",objStud);
                 mContext.startActivity(it);
             }
         });

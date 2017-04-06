@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import com.rjp.cnvteachers.api.API;
 import com.rjp.cnvteachers.api.RetrofitClient;
 import com.rjp.cnvteachers.beans.ApiResults;
 import com.rjp.cnvteachers.beans.ExamBean;
+import com.rjp.cnvteachers.beans.ExamResultsBean;
 import com.rjp.cnvteachers.common.ConfirmationDialogs;
 import com.rjp.cnvteachers.utils.AppPreferences;
 import com.rjp.cnvteachers.utils.NetworkUtility;
@@ -36,7 +38,7 @@ public class ExamResult extends AppCompatActivity{
     private ConfirmationDialogs objDialog;
 
     private ExamBean objExam;
-    private ArrayList<ExamResult> arrList = new ArrayList<ExamResult>();
+    private ExamResultsBean obj;
 
     RecyclerView rvExamResults;
     TextView tvMarks,tvOutOff,tvGrade;
@@ -52,7 +54,6 @@ public class ExamResult extends AppCompatActivity{
         init();
         initRetrofitClient();
         initIntents();
-
         setListners();
     }
 
@@ -61,6 +62,8 @@ public class ExamResult extends AppCompatActivity{
         if(objExam!=null)
         {
             setTitle(""+objExam.getExam_name());
+            Log.e(TAG,"Exam_name"+objExam.getExam_name());
+
             getExamDataService(objExam);
         }
         else
@@ -70,44 +73,43 @@ public class ExamResult extends AppCompatActivity{
         }
     }
 
-    private void getExamDataService(ExamBean objExam) {
+
+    private void getExamDataService(final ExamBean objExam) {
         if (NetworkUtility.isOnline(mContext)) {
             final ProgressDialog prog = new ProgressDialog(mContext);
             prog.setMessage("loading...");
             prog.setCancelable(false);
             prog.show();
 
-            retrofitApi.getExamResult(AppPreferences.getInstObj(mContext).getCode(), AppPreferences.getLoginObj(mContext).getBr_id(), objExam.getExam_id(), objExam.getAdmno(), new Callback<ApiResults>() {
+            String exam_id= objExam.getExam_id();
+            String admno=objExam.getAdmno();
+            String acad_year=objExam.getAcad_year();
+
+            retrofitApi.getExamResult(AppPreferences.getInstObj(mContext).getCode(), exam_id, admno ,acad_year, AppPreferences.getLoginObj(mContext).getBr_id(), new Callback<ApiResults>() {
                 @Override
                 public void success(ApiResults apiResults, Response response) {
-                    if(prog.isShowing())
-                    {
+                    if (prog.isShowing()) {
                         prog.dismiss();
                     }
-
-                    arrList=apiResults.getStud_result();
-
                     if(apiResults != null)
                     {
-                        if (arrList.size() >0)
-                        {
-                            tvGrade.setText(""+apiResults.getTotal_grade());
-                            tvMarks.setText(""+apiResults.getObtained_marks());
-                            tvOutOff.setText(""+apiResults.getTotal_marks());
-                            tvPer.setText(""+apiResults.getTotal_percentage());
-                            ResultListAdapter adapt = new ResultListAdapter(mContext, arrList,tvMarks,tvOutOff,tvPer,tvGrade);
-                            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext);
-                            rvExamResults.setLayoutManager(mLayoutManager);
-                            rvExamResults.setItemAnimator(new DefaultItemAnimator());
-                            rvExamResults.setAdapter(adapt);
-                        }
-                        else
-                        {
-                            arrList = null;
-                            Toast.makeText(mContext,"Result data not found",Toast.LENGTH_SHORT).show();
 
+                        obj = apiResults.getStud_result();
+
+                        if (obj != null) {
+                            tvGrade.setText("" + obj.getTotal_grade());
+                            tvMarks.setText("" + obj.getObtained_marks());
+                            tvOutOff.setText("" + obj.getTotal_marks());
+                            tvPer.setText("" + obj.getTotal_percentage());
+
+                            getResult();
+                        }
+                        else {
+                            obj = null;
+                            Toast.makeText(mContext, "Result data not found", Toast.LENGTH_SHORT).show();
                         }
                     }
+
                 }
 
                 @Override
@@ -123,8 +125,18 @@ public class ExamResult extends AppCompatActivity{
 
     }
 
-    private void setListners() {
+    private void getResult() {
 
+        ArrayList<ExamResultsBean> arr = obj.getData_array();
+        ResultListAdapter adapt = new ResultListAdapter(mContext,arr ,tvMarks,tvOutOff,tvPer,tvGrade);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext);
+        rvExamResults.setLayoutManager(mLayoutManager);
+        rvExamResults.setItemAnimator(new DefaultItemAnimator());
+        rvExamResults.setAdapter(adapt);
+    }
+
+    private void setListners() {
+        getExamDataService(objExam);
     }
 
     private void initRetrofitClient() {

@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 
 public class ExamBean implements Serializable{
-    private String exam_id,exam_name,main_exam_name,start_date,class_name,end_date,percentage,grade,exam_types,stud_name,admno,gr_no;
+    private String exam_id,exam_name,main_exam_name,start_date,class_name,end_date,percentage,grade,exam_types,stud_name,admno,gr_no,acad_year;
 
     @Override
     public String toString() {
@@ -110,5 +110,13 @@ public class ExamBean implements Serializable{
 
     public void setAdmno(String admno) {
         this.admno = admno;
+    }
+
+    public String getAcad_year() {
+        return acad_year;
+    }
+
+    public void setAcad_year(String acad_year) {
+        this.acad_year = acad_year;
     }
 }

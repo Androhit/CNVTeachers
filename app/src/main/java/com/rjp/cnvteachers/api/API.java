@@ -25,7 +25,10 @@ public interface API
 
     @FormUrlEncoded
     @POST("/get_divison.php?method_name=all_division")
-    void getDivison_list(@Field("code") String code,Callback<ApiResults> taskResults);
+    void getDivison_list(
+            @Field("code") String code,
+            @Field("class_id") String class_id,
+            Callback<ApiResults> taskResults);
 
     @FormUrlEncoded
     @POST("/get_AcadYr.php?method_name=all_AcadYr")
@@ -36,7 +39,9 @@ public interface API
     void getexam_name(@Field("code") String code,
                       @Field("class_id") String class_id,
                       @Field("division") String division,
-                      @Field("br_id") String br_id,Callback<ApiResults> taskResults);
+                      @Field("br_id") String br_id,
+                      @Field("acad_year") String acad_year,
+                      Callback<ApiResults> taskResults);
 
     @FormUrlEncoded
     @POST("/get_AdmYr.php?method_name=all_AdmYr")
@@ -85,9 +90,10 @@ public interface API
     @POST("/detail_exam_result.php?method_name=All_Result")
     void getExamResult(
             @Field("code") String code,
-            @Field("branch_id") String branch_id,
             @Field("exam_id") String exam_id,
             @Field("admno") String admno,
+            @Field("acad_year") String acad_year,
+            @Field("branch_id") String branch_id,
             Callback<ApiResults> taskResults);
 
 

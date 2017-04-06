@@ -44,6 +44,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:typeface="serif"
+                        android:textColor="@color/colorPrimary"
                         android:text="Admission No. : "/>
 
                     <TextView
@@ -57,7 +58,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:typeface="serif"
-                        android:text="G. R. No. : "/>
+                        android:textColor="@color/colorPrimary"
+                        android:text=" G. R. No. : "/>
 
                     <TextView
                         android:id="@+id/tvGRNo"
@@ -71,6 +73,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/tvMore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="2dp"

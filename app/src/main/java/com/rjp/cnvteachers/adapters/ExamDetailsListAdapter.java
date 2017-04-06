@@ -11,7 +11,7 @@ import com.rjp.cnvteachers.R;
 import com.rjp.cnvteachers.api.API;
 import com.rjp.cnvteachers.api.RetrofitClient;
 import com.rjp.cnvteachers.beans.ExamDetailsBeans;
-import com.rjp.cnvteachers.beans.ExamResults;
+import com.rjp.cnvteachers.beans.ExamResultsBean;
 import com.rjp.cnvteachers.common.DateOperations;
 import com.rjp.cnvteachers.common.ItemClickListener;
 
@@ -30,7 +30,7 @@ public class ExamDetailsListAdapter extends RecyclerView.Adapter<ExamDetailsList
     private ArrayList<ExamDetailsBeans> arraylist;
     private Context mContext;
     private API retrofitApi;
-    private ArrayList<ExamResults> arrList = new ArrayList<ExamResults>();
+    private ArrayList<ExamResultsBean> arrList = new ArrayList<ExamResultsBean>();
     private int marks = 0,outOff = 0;
 
 

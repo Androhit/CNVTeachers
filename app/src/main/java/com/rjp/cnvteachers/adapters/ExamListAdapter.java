@@ -25,7 +25,7 @@ import com.rjp.cnvteachers.api.RetrofitClient;
 import com.rjp.cnvteachers.beans.ApiResults;
 import com.rjp.cnvteachers.beans.ClassBean;
 import com.rjp.cnvteachers.beans.ExamBean;
-import com.rjp.cnvteachers.beans.ExamResults;
+import com.rjp.cnvteachers.beans.ExamResultsBean;
 import com.rjp.cnvteachers.common.DateOperations;
 import com.rjp.cnvteachers.common.ItemClickListener;
 import com.rjp.cnvteachers.utils.AppPreferences;
@@ -49,7 +49,7 @@ public class ExamListAdapter extends RecyclerView.Adapter<ExamListAdapter.MyView
     private API retrofitApi;
     public Spinner spnClass;
     private ArrayList<ClassBean> arrClass = new ArrayList<ClassBean>();
-    private ArrayList<ExamResults> arrList = new ArrayList<ExamResults>();
+    private ArrayList<ExamResultsBean> arrList = new ArrayList<ExamResultsBean>();
     private int marks = 0,outOff = 0;
     private ClassBean objClass;
     public String Classid;
@@ -228,7 +228,7 @@ public class ExamListAdapter extends RecyclerView.Adapter<ExamListAdapter.MyView
         }
     }
 
-    private ArrayList<ExamResults> getExamResultsService(final AlertDialog alert, ExamBean obj, final RecyclerView rv, final TextView tvMarks, final TextView tvOutOff) {
+    private ArrayList<ExamResultsBean> getExamResultsService(final AlertDialog alert, ExamBean obj, final RecyclerView rv, final TextView tvMarks, final TextView tvOutOff) {
         try {
             if (NetworkUtility.isOnline(mContext)) {
                 final ProgressDialog prog = new ProgressDialog(mContext);
@@ -292,8 +292,8 @@ public class ExamListAdapter extends RecyclerView.Adapter<ExamListAdapter.MyView
     class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.MyViewHolder>
     {
 
-        private ArrayList<ExamResults> taskList;
-        private ArrayList<ExamResults> arraylist;
+        private ArrayList<ExamResultsBean> taskList;
+        private ArrayList<ExamResultsBean> arraylist;
         private TextView tvMarks,tvOutOff;
         private Context mContext;
 
@@ -320,9 +320,9 @@ public class ExamListAdapter extends RecyclerView.Adapter<ExamListAdapter.MyView
             }
         }
 
-        public ResultListAdapter(Context cont, ArrayList<ExamResults> arrList,TextView tvMarks,TextView tvOutOff) {
+        public ResultListAdapter(Context cont, ArrayList<ExamResultsBean> arrList, TextView tvMarks, TextView tvOutOff) {
             this.taskList = arrList;
-            this.arraylist = new ArrayList<ExamResults>();
+            this.arraylist = new ArrayList<ExamResultsBean>();
             this.arraylist.addAll(arrList);
             this.mContext = cont;
             this.tvMarks = tvMarks;
@@ -339,7 +339,7 @@ public class ExamListAdapter extends RecyclerView.Adapter<ExamListAdapter.MyView
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
-            final ExamResults objStud = taskList.get(position);
+            final ExamResultsBean objStud = taskList.get(position);
             holder.subject.setText(objStud.getSub_name());
 
             holder.outoff.setText(objStud.getMax_marks());

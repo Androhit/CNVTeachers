@@ -58,6 +58,6 @@ public class RetrofitClient
     public static void setRetrofitEndPoint(String url)
     {
         retrofitEndPoint.setUrl(url);
-    }
 
+    }
 }
