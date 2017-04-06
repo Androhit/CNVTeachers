@@ -38,17 +38,23 @@ public class Splash extends AppCompatActivity {
 
         mContext = this;
         initRetrofitAPI();
+    // if server is connecting well
 
-        if(AppPreferences.getInstObj(mContext)!=null)
-        {
-            Log.e(TAG,"Not Null");
-            checkLogin();
-        }
+    //    ConfirmationDialogs.
+
+    //    if(IS_CONNECT) {
+            if (AppPreferences.getInstObj(mContext) != null) {
+                Log.e(TAG, "Not Null");
+                checkLogin();
+            } else {
+                Log.e(TAG, "Null");
+                openValidation();
+            }
+      /*  }
         else
         {
-            Log.e(TAG,"Null");
-            openValidation();
-        }
+            // Alert - Server down
+        }*/
     }
 
     private void checkLogin()

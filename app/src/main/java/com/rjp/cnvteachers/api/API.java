@@ -225,6 +225,4 @@ public interface API
             @Field("branch_id") String branch_id,
             @Field("acad_year") String acad_year,
             Callback<ApiResults> leaveList);
-
-
 }
