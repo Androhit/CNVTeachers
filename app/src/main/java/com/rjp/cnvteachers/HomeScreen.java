@@ -172,7 +172,6 @@ public class HomeScreen extends AppCompatActivity
 
         switch (id) {
             case R.id.nav_dashboard:
-
                 break;
             case R.id.nav_profile  :
                 fragmentClass = EmployeeFragment.class;

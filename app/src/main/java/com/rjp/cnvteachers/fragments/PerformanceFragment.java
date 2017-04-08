@@ -7,12 +7,15 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.rjp.cnvteachers.R;
@@ -71,6 +74,7 @@ public class PerformanceFragment extends Fragment
 
     String Division, Classid, AcadYr, AdmYr, ExamName, ExamType, SortOrder, SortBy;
     private PerformanceAdapter adapt;
+    private EditText etSearch;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,6 +91,32 @@ public class PerformanceFragment extends Fragment
     }
 
     private void setListners() {
+
+
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+                try {
+                    if (charSequence.length()>0) {
+                        String str = charSequence.toString();
+                        adapt.filter(str);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         spnClassName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -543,7 +573,7 @@ public class PerformanceFragment extends Fragment
         spnAcadyr = (Spinner) v.findViewById(R.id.spnAcadYr);
         spnAdmYr = (Spinner) v.findViewById(R.id.spnAdmYr);
         spnExamName = (Spinner) v.findViewById(R.id.spnExamName);
-
+        etSearch = (EditText)v.findViewById(R.id.etSearch);
         btSubmit = (Button)v.findViewById(R.id.btSubmit);
     }
 

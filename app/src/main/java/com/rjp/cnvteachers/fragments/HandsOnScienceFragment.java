@@ -98,7 +98,7 @@ public class HandsOnScienceFragment extends Fragment{
         if(NetworkUtility.isOnline(mContext))
         {
             final ProgressDialog prog = new ProgressDialog(mContext);
-            prog.setMessage("loading...");
+            prog.setMessage("Loading...");
             prog.setCancelable(false);
             prog.show();
 

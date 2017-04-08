@@ -52,7 +52,8 @@
                     android:textStyle="bold"
                     android:padding="3dp"
                     android:textColor="@color/white"
-                    android:text="Out Off"/>
+                    android:text="Out Off"
+                    android:id="@+id/textView10" />
 
             </LinearLayout>
 

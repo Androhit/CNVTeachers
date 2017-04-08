@@ -20,6 +20,7 @@ import com.rjp.cnvteachers.beans.ExamResultsBean;
 import com.rjp.cnvteachers.common.ItemClickListener;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by Shraddha on 4/5/2017.
@@ -126,6 +127,26 @@ public class PerformanceAdapter extends RecyclerView.Adapter<PerformanceAdapter.
     public int getItemCount() {
         return taskList.size();
     }
+
+    // Filter Class
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        taskList.clear();
+        if (charText.length() == 0) {
+            taskList.addAll(arraylist);
+        } else {
+            for (ExamBean wp : arraylist) {
+                if (wp.getStud_name().toLowerCase(Locale.getDefault())
+                        .contains(charText)|| wp.getAdmno().toLowerCase(Locale.getDefault())
+                        .contains(charText) || wp.getGr_no().toLowerCase(Locale.getDefault())
+                        .contains(charText)) {
+                    taskList.add(wp);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
 
 
     private void initRetrofitClient() {

@@ -75,6 +75,11 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:padding="3dp">
+                <android.support.v7.widget.CardView
+                    app:cardCornerRadius="3dp"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
                 <TextView
                     android:id="@+id/tvAttendanceFromDate"
                     android:layout_width="150dp"
@@ -85,6 +90,13 @@
                     android:layout_weight="0.29"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/colorPrimary"/>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    app:cardCornerRadius="3dp"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/tvAttendanceToDate"
@@ -96,6 +108,7 @@
                     android:drawableLeft="@drawable/date"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/colorPrimary"/>
+        </android.support.v7.widget.CardView>
 
 
             </LinearLayout>
@@ -103,6 +116,7 @@
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
@@ -118,27 +132,31 @@
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-       >
-
-        <Button
-            android:id="@+id/btSearch"
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Search"
-            />
+            >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+           >
+
+            <Button
+                android:id="@+id/btSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Search"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                />
 
         </LinearLayout>
-        </android.support.v7.widget.CardView>
+            </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"

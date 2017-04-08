@@ -40,9 +40,16 @@ public class Splash extends AppCompatActivity {
 
         mContext = this;
         initRetrofitAPI();
-    // if server is connecting well
 
-        checkConnection(RetrofitClient.ROOT_URL);
+        if (AppPreferences.getInstObj(mContext) != null) {
+            Log.e(TAG, "Not Null");
+            checkLogin();
+        } else {
+            Log.e(TAG, "Null");
+            openValidation();
+        }
+
+   //    checkConnection(RetrofitClient.ROOT_URL);
     }
 
     private void checkConnection(String url) {
@@ -62,7 +69,7 @@ public class Splash extends AppCompatActivity {
             ConfirmationDialogs.serverFailuerError(mContext, new ConfirmationDialogs.okCancel() {
                 @Override
                 public void okButton() {
-                    checkConnection(RetrofitClient.ROOT_URL1);
+                    checkConnection(RetrofitClient.ROOT_URL);
                 }
 
                 @Override

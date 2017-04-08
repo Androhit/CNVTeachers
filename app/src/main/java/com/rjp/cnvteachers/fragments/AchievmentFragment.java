@@ -29,7 +29,6 @@ import com.rjp.cnvteachers.beans.AdmissionBean;
 import com.rjp.cnvteachers.beans.ApiResults;
 import com.rjp.cnvteachers.beans.StudentBean;
 import com.rjp.cnvteachers.common.ConfirmationDialogs;
-import com.rjp.cnvteachers.common.Validations;
 import com.rjp.cnvteachers.utils.AppPreferences;
 import com.rjp.cnvteachers.utils.NetworkUtility;
 
@@ -294,8 +293,7 @@ public class AchievmentFragment extends Fragment{
             @Override
             public void onClick(View view) {
 
-                if(Validations.hasText(auto_admno)  || Validations.hasText(auto_StudName))
-                    {
+
                     if (NetworkUtility.isOnline(mContext)) {
 
                         final ProgressDialog prog = new ProgressDialog(mContext);
@@ -378,11 +376,7 @@ public class AchievmentFragment extends Fragment{
                                  }
                           });
                          }
-                     }
-                    else
-                    {
-                        objDialog.okDialog("Error", mContext.getResources().getString(R.string.error_input_field));
-                    }
+
                }
         });
     }

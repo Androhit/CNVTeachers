@@ -110,10 +110,13 @@
         android:id="@+id/btOk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         android:text="OK"
         android:layout_marginTop="20dp"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         android:textStyle="bold"
+        android:padding="3dp"
         />
 
 </LinearLayout>

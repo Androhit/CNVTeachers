@@ -15,7 +15,7 @@
         <Spinner
             android:id="@+id/spnClass"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text=""
             android:layout_weight="1"
             android:padding="10dp"
@@ -28,7 +28,7 @@
         <Spinner
             android:id="@+id/spnDivision"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text=""
             android:layout_weight="1"
             android:padding="10dp"
@@ -43,9 +43,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Submit"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             android:elevation="0dp" />
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
