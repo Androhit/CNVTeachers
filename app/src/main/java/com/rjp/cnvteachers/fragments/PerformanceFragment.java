@@ -233,6 +233,19 @@ public class PerformanceFragment extends Fragment
                                 arrExam=apiResults.getExam();
                                 generateExamList();
                             }
+                            else {
+                                objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
+                                    @Override
+                                    public void okButton() {
+                                        setListners();
+                                    }
+
+                                    @Override
+                                    public void cancelButton() {
+
+                                    }
+                                });
+                            }
                         }
 
                         @Override

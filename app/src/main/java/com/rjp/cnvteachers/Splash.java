@@ -49,7 +49,7 @@ public class Splash extends AppCompatActivity {
             openValidation();
         }
 
-   //    checkConnection(RetrofitClient.ROOT_URL);
+        //    checkConnection(RetrofitClient.ROOT_URL);
     }
 
     private void checkConnection(String url) {
@@ -129,10 +129,10 @@ public class Splash extends AppCompatActivity {
                 @Override
                 public void onClick(View view)
                 {
-                        if(Validations.hasTextAvailable(etLink))
-                        {
-                            alert.dismiss();
-                            connectInstitute(etLink.getText().toString());
+                    if(Validations.hasTextAvailable(etLink))
+                    {
+                        alert.dismiss();
+                        connectInstitute(etLink.getText().toString());
                     }
                 }
             });

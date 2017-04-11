@@ -237,9 +237,10 @@ public class CircularFragment extends Fragment {
                             prog.dismiss();
                         }
                         refreshView.setRefreshing(false);
-                        ArrayList<CircularBean> arr = apiResults.getCircular_info();
-                        if(arr!=null)
+                        if(apiResults !=null)
                         {
+                            ArrayList<CircularBean> arr = apiResults.getCircular_info();
+
                             if(arr.size()>0)
                             {
                                 generateNoticeList(arr);

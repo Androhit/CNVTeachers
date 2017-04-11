@@ -44,7 +44,7 @@ public class AppPreferences {
         setInstObj(context, INST_OBJ, obj);
     }
 
-    public static InstitutesBean getInstObj(Context context) {
+    public static InstitutesBean  getInstObj(Context context) {
         return getInstObj(context, INST_OBJ, null);
     }
 

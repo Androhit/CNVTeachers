@@ -3,6 +3,7 @@ package com.rjp.cnvteachers.fragments;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -59,7 +60,7 @@ public class AchievmentFragment extends Fragment{
     public static AdmissionBean objStudAdm=null;
     private ArrayList<StudentBean> arrStud = new ArrayList<StudentBean>();
     private ArrayList<AdmissionBean> arrStudAdm = new ArrayList<AdmissionBean>();
-
+    private FloatingActionButton fabpdf;
 
 
     @Override
@@ -257,6 +258,8 @@ public class AchievmentFragment extends Fragment{
 
     private void setListners()
     {
+
+
         refreshView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh()
@@ -381,6 +384,12 @@ public class AchievmentFragment extends Fragment{
         });
     }
 
+    private void create_pdf() {
+
+
+
+    }
+
     private void init(View view)
     {
         objDialog = new ConfirmationDialogs(mContext);
@@ -391,6 +400,7 @@ public class AchievmentFragment extends Fragment{
         auto_admno=(AutoCompleteTextView)view.findViewById(R.id.autoadmno);
         auto_StudName=(AutoCompleteTextView)view.findViewById(R.id.autoStudName);
         btnSubmit=(Button)view.findViewById(R.id.btnSubmit);
+      //  fabpdf=(FloatingActionButton) view.findViewById(R.id.fabpdf);
     }
 
     private void generateGoodNewsList(ArrayList<AchievementsBean> arr) {

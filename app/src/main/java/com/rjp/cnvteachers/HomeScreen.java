@@ -69,6 +69,22 @@ public class HomeScreen extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+        fragmentClass = EmployeeFragment.class;
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.flContent, fragment );
+        transaction.addToBackStack(null);
+        transaction.commit();
+
+
         initDrawerSecond(toolbar,AppPreferences.getInstObj(mContext));
         initListners();
     }
@@ -172,6 +188,7 @@ public class HomeScreen extends AppCompatActivity
 
         switch (id) {
             case R.id.nav_dashboard:
+             //   fragmentClass = EmployeeFragment.class;
                 break;
             case R.id.nav_profile  :
                 fragmentClass = EmployeeFragment.class;
