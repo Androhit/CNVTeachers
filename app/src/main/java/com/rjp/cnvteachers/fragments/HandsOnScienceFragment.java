@@ -1,7 +1,9 @@
 package com.rjp.cnvteachers.fragments;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -24,6 +26,7 @@ import android.widget.Toast;
 
 import com.rjp.cnvteachers.R;
 import com.rjp.cnvteachers.adapters.ClassListAdapter;
+import com.rjp.cnvteachers.adapters.DivisionListAdapter;
 import com.rjp.cnvteachers.adapters.HandsOnScienceListAdapter;
 import com.rjp.cnvteachers.api.API;
 import com.rjp.cnvteachers.api.RetrofitClient;
@@ -397,8 +400,8 @@ public class HandsOnScienceFragment extends Fragment{
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Toast.makeText(mContext,"class not",Toast.LENGTH_LONG).show();
-
+                Toast.makeText(mContext,"Please Select Class and Division !!", Toast.LENGTH_LONG).show();
+                return;
             }
         });
 
@@ -410,8 +413,8 @@ public class HandsOnScienceFragment extends Fragment{
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Toast.makeText(mContext,"Div not",Toast.LENGTH_LONG).show();
-
+                Toast.makeText(mContext,"Please Select Class and Division !!", Toast.LENGTH_LONG).show();
+                return;
             }
         });
 
@@ -419,33 +422,37 @@ public class HandsOnScienceFragment extends Fragment{
         btSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (NetworkUtility.isOnline(mContext)) {
+
+                Name = AutoName.getText().toString();
+                Admno = AutoAdmno.getText().toString();
+
+                if(objClass != null && (!(objClass.getClass_id().equals("0")))) {
+                    Classid = objClass.getClass_id();
+                }
+                else if(objClass.getClass_id().equals("0"))
+                {
+                    Classid = "0";
+                }
+
+
+                Division="";
+                if(objDiv != null && (!(objDiv.getDiv_id().equals("0")))) {
+                    Division = objDiv.getDivision_name();
+                }
+                else if(objDiv.getDiv_id().equals("0"))
+                {
+                    Division = "";
+                }
+
+                if((!Classid.equals("0")) && (!Division.equals("Select Division")) || (Name.length()!=0) || (Admno.length()!=0))
+
+                {
+
+                   if (NetworkUtility.isOnline(mContext)) {
                     final ProgressDialog prog = new ProgressDialog(mContext);
                     prog.setMessage("Loading...");
                     prog.setCancelable(false);
                     prog.show();
-
-                    Name = AutoName.getText().toString();
-                    Admno = AutoAdmno.getText().toString();
-
-                    if(objClass != null && (!(objClass.getClass_id().equals("0")))) {
-                        Classid = objClass.getClass_id();
-                    }
-                    else if(objClass.getClass_id().equals("0"))
-                    {
-                        Classid = "0";
-                    }
-
-
-                    Division="";
-                    if(objDiv != null && (!(objDiv.getDiv_id().equals("0")))) {
-                        Division = objDiv.getDivision_name();
-                    }
-                    else if(objDiv.getDiv_id().equals("0"))
-                    {
-                        Division = "";
-                    }
-
 
                     String br_id = AppPreferences.getLoginObj(mContext).getBr_id();
                     String empid = AppPreferences.getLoginObj(mContext).getEmpid();
@@ -525,6 +532,21 @@ public class HandsOnScienceFragment extends Fragment{
                         }
                     });
                 }
+                }
+                else {
+                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
+                    alert.setMessage(mContext.getResources().getString(R.string.error_input_field4));
+                    alert.setCancelable(false);
+
+                    alert.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            alert.dismiss();
+                        }
+                    });
+
+                    alert.show();
+                }
 
 
             }
@@ -559,7 +581,8 @@ public class HandsOnScienceFragment extends Fragment{
                             objdiv.setDivision_name("Select Division");
                             arrDiv = apiResults.getDivison_list();
                             arrDiv.add(0, objdiv);
-                            ArrayAdapter<DivisonBean> adapter = new ArrayAdapter<DivisonBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrDiv);
+                           // ArrayAdapter<DivisonBean> adapter = new ArrayAdapter<DivisonBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrDiv);
+                            DivisionListAdapter adapter=new DivisionListAdapter(getActivity(),R.layout.div_list_items,R.id.tvDiv,arrDiv);
                             spnDivision.setAdapter(adapter);
                         } else {
                             if (apiResults.getResult() != null) {

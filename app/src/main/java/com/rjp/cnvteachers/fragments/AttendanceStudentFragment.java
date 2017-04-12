@@ -1,8 +1,10 @@
 package com.rjp.cnvteachers.fragments;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -369,78 +371,113 @@ public class AttendanceStudentFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if (NetworkUtility.isOnline(mContext)) {
+                Name = AutoName.getText().toString();
+                admno = etAdmno.getText().toString();
+                FromDate = tvFromDate.getText().toString();
+                ToDate = tvToDate.getText().toString();
 
-                    final ProgressDialog prog = new ProgressDialog(mContext);
-                    prog.setMessage("Loading...");
-                    prog.setCancelable(false);
-                    prog.show();
+                if((Name.length()!=0) || (admno.length()!=0)) {
+                    Log.e(TAG,"Name"+Name);
+                    Log.e(TAG,"admno"+admno);
+                    if ((!FromDate.equals(" From Date")) && (!ToDate.equals(" To Date"))) {
+                        Log.e(TAG,"FromDate"+FromDate);
+                        Log.e(TAG,"ToDate"+ToDate);
+                        if (NetworkUtility.isOnline(mContext)) {
 
-                    Name = AutoName.getText().toString();
-                    admno = etAdmno.getText().toString();
-                    FromDate = tvFromDate.getText().toString();
-                    ToDate = tvToDate.getText().toString();
-
-                    String br_id = AppPreferences.getLoginObj(mContext).getBr_id();
-                    String acadyear = AppPreferences.getAcademicYear(mContext);
+                            final ProgressDialog prog = new ProgressDialog(mContext);
+                            prog.setMessage("Loading...");
+                            prog.setCancelable(false);
+                            prog.show();
 
 
-                    retrofitApi.getAttendance(AppPreferences.getInstObj(mContext).getCode(), Name, admno, FromDate, ToDate, br_id, acadyear, new Callback<ApiResults>() {
-                        @Override
-                        public void success(ApiResults apiResults, Response response) {
-                            if (prog.isShowing()) {
-                                prog.dismiss();
-                            }
-                            if (apiResults != null) {
-                                obj = apiResults.getStud_att();
-                                AutoName.setText(""+obj.getName());
-                                etAdmno.setText(""+obj.getAdmno());
-                                tvTotalDays.setText(""+obj.getTot_working_days());
-                                tvFromDate.setText(""+obj.getFrom_date());
-                                tvToDate.setText(""+obj.getTo_date());
-                                tvPrese.setText(""+obj.getTot_present_day());
-                                tvAbse.setText(""+obj.getTot_absent_days());
-                                tvAtte.setText(""+obj.getTot_percent());
+                            String br_id = AppPreferences.getLoginObj(mContext).getBr_id();
+                            String acadyear = AppPreferences.getAcademicYear(mContext);
 
-                                addData(obj);
-                                getDataSet(obj);
-                            }
-                            else {
-                                objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
-                                    @Override
-                                    public void okButton() {
-                                        setListners();
+
+                            retrofitApi.getAttendance(AppPreferences.getInstObj(mContext).getCode(), Name, admno, FromDate, ToDate, br_id, acadyear, new Callback<ApiResults>() {
+                                @Override
+                                public void success(ApiResults apiResults, Response response) {
+                                    if (prog.isShowing()) {
+                                        prog.dismiss();
                                     }
+                                    if (apiResults != null) {
+                                        obj = apiResults.getStud_att();
+                                        AutoName.setText("" + obj.getName());
+                                        etAdmno.setText("" + obj.getAdmno());
+                                        tvTotalDays.setText("" + obj.getTot_working_days());
+                                        tvFromDate.setText("" + obj.getFrom_date());
+                                        tvToDate.setText("" + obj.getTo_date());
+                                        tvPrese.setText("" + obj.getTot_present_day());
+                                        tvAbse.setText("" + obj.getTot_absent_days());
+                                        tvAtte.setText("" + obj.getTot_percent());
 
-                                    @Override
-                                    public void cancelButton() {
+                                        addData(obj);
+                                        getDataSet(obj);
+                                    } else {
+                                        objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
+                                            @Override
+                                            public void okButton() {
+                                                setListners();
+                                            }
 
+                                            @Override
+                                            public void cancelButton() {
+
+                                            }
+                                        });
                                     }
-                                });
-                            }
+                                }
+
+                                @Override
+                                public void failure(RetrofitError error) {
+                                    if (prog.isShowing()) {
+                                        prog.dismiss();
+                                    }
+                                    Log.e(TAG, "Json Error " + error);
+                                    objDialog.okDialog("Error", mContext.getResources().getString(R.string.error_server_down));
+                                }
+                            });
+                        } else {
+                            objDialog.noInternet(new ConfirmationDialogs.okCancel() {
+                                @Override
+                                public void okButton() {
+                                    setListners();
+                                }
+
+                                @Override
+                                public void cancelButton() {
+
+                                }
+                            });
                         }
+                    } else {
+                        final AlertDialog alert = new AlertDialog.Builder(mContext).create();
+                        alert.setMessage(mContext.getResources().getString(R.string.error_input_field3));
+                        alert.setCancelable(false);
 
-                        @Override
-                        public void failure(RetrofitError error) {
-                            if (prog.isShowing()) {
-                                prog.dismiss();
+                        alert.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                alert.dismiss();
                             }
-                            Log.e(TAG,"Json Error "+error);
-                            objDialog.okDialog("Error", mContext.getResources().getString(R.string.error_server_down));
+                        });
+
+                        alert.show();
+                    }
+                }
+                else {
+                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
+                    alert.setMessage(mContext.getResources().getString(R.string.error_input_field0));
+                    alert.setCancelable(false);
+
+                    alert.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            alert.dismiss();
                         }
                     });
-                } else {
-                    objDialog.noInternet(new ConfirmationDialogs.okCancel() {
-                        @Override
-                        public void okButton() {
-                            setListners();
-                        }
 
-                        @Override
-                        public void cancelButton() {
-
-                        }
-                    });
+                    alert.show();
                 }
             }
         });

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/solid_layout"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-   >
+    android:orientation="vertical">
 
 <LinearLayout
     android:id="@+id/laymain"
@@ -15,6 +14,7 @@
 
 <android.support.v7.widget.CardView
     android:layout_width="match_parent"
+    android:layout_margin="10dp"
     android:layout_height="wrap_content">
 
     <LinearLayout
@@ -22,141 +22,106 @@
         android:layout_height="wrap_content"
         >
 
-        <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:textAppearance="?android:attr/textAppearanceMedium"
-           android:textColor="@color/blue_400"
-            android:padding="3dp"
-           android:text="Student Name:"
-            android:id="@+id/textView5" />
 
         <AutoCompleteTextView
             android:id="@+id/etStudName"
-            android:completionThreshold="1"
-            android:textSize="14sp"
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:completionThreshold="1"
+            android:hint="Enter Student Name"
+            android:padding="3dp"
+            android:textSize="14sp" />
 
-        </LinearLayout>
+    </LinearLayout>
 
 </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="OR"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/colorPrimary"/>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+
 
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         >
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="OR"
+            android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/blue_400"
-            android:padding="3dp"
-            android:text="Admission No.:"/>
+            android:textColor="@color/colorPrimary"/>
+
 
         <AutoCompleteTextView
             android:id="@+id/etAdmno"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="14sp"
-            android:layout_weight="1"
+            android:padding="5dp"
+            android:hint="Enter Admission No."
             android:completionThreshold="1"/>
 
     </LinearLayout>
     </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="3dp">
+        <android.support.v7.widget.CardView
+            app:cardCornerRadius="3dp"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/tvAttendanceFromDate"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:gravity="center"
+                android:text=" From Date"
+                android:drawableLeft="@drawable/date"
+                android:padding="10dp"
+                android:layout_weight="0.29"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/colorPrimary"/>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+        </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <android.support.v7.widget.CardView
+            app:cardCornerRadius="3dp"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-            android:weightSum="1">
-
-        <TextView
-            android:id="@+id/tvAttendanceFromDate"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/blue_400"
-            android:padding="10dp"
-            android:drawableLeft="@drawable/date"
-            android:text=" From Date"
-            android:layout_weight="0.29" />
+            <TextView
+                android:id="@+id/tvAttendanceToDate"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:text=" To Date"
+                android:layout_weight="0.29"
+                android:padding="10dp"
+                android:drawableLeft="@drawable/date"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/colorPrimary"/>
+        </android.support.v7.widget.CardView>
 
 
-        <TextView
-            android:id="@+id/tvAttendanceToDate"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/date"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/blue_400"
-            android:padding="7dp"
-            android:text=" To Date"
-            android:layout_weight="0.29"
-             />
     </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+
 
     <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/colorPrimary"/>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     <LinearLayout
@@ -198,6 +163,7 @@
 <android.support.v7.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="10dp"
    >
 <LinearLayout
     android:layout_width="match_parent"
@@ -311,6 +277,7 @@
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChart"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_gravity="center" />
@@ -327,6 +294,7 @@
         android:id="@+id/barChart"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:layout_margin="10dp"
         android:scrollbars="horizontal"
         android:layout_gravity="center" />
 

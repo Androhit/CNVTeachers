@@ -1,8 +1,10 @@
 package com.rjp.cnvteachers.fragments;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import com.rjp.cnvteachers.R;
 import com.rjp.cnvteachers.adapters.AttendanceClassFragmentAdapter;
 import com.rjp.cnvteachers.adapters.ClassListAdapter;
+import com.rjp.cnvteachers.adapters.DivisionListAdapter;
 import com.rjp.cnvteachers.api.API;
 import com.rjp.cnvteachers.api.RetrofitClient;
 import com.rjp.cnvteachers.beans.ApiResults;
@@ -44,7 +46,7 @@ import retrofit.client.Response;
 
 public class AttendanceClassFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
-
+    private String TAG = AttendanceClassFragment.class.getSimpleName();
     private Context mContext;
     private TextView tvFromDate;
     private TextView tvToDate;
@@ -224,13 +226,23 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 objClass = (ClassBean) parent.getItemAtPosition(position);
-
                 getdiv();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Classid="";
+                final AlertDialog alert = new AlertDialog.Builder(mContext).create();
+                alert.setMessage(mContext.getResources().getString(R.string.error_input_field1));
+                alert.setCancelable(false);
+
+                alert.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        alert.dismiss();
+                    }
+                });
+
+                alert.show();
             }
         });
 
@@ -242,7 +254,18 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Division="";
+                final AlertDialog alert = new AlertDialog.Builder(mContext).create();
+                alert.setMessage(mContext.getResources().getString(R.string.error_input_field1));
+                alert.setCancelable(false);
+
+                alert.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        alert.dismiss();
+                    }
+                });
+
+                alert.show();
             }
         });
 
@@ -250,7 +273,23 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
         btSearch.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (spnClassName != null && spnDivision != null && tvFromDate!=null && tvToDate!=null) {
+                    Classid = "";
+                    if (objClass != null || (!(objClass.getClass_id().equals("0")))) {
+                        Classid = objClass.getClass_id();
+                    }
+
+                    Division = "";
+                    if (objDiv != null || (!(objDiv.getDiv_id().equals("0")))) {
+                        Division = objDiv.getDivision_name();
+                    }
+
+
+                    FromDate = tvFromDate.getText().toString();
+                    ToDate = tvToDate.getText().toString();
+
+                    if ((!Classid.equals("0")) && (!Division.equals("Select Division")) && (!FromDate.equals(" From Date")) && (!ToDate.equals(" To Date"))) {
+
+
 
                     if (NetworkUtility.isOnline(mContext)) {
                         final ProgressDialog prog = new ProgressDialog(mContext);
@@ -259,22 +298,10 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
 
                         prog.show();
 
-                        Classid = "";
-                        if (objClass != null || (!(objClass.getClass_id().equals("0")))) {
-                            Classid = objClass.getClass_id();
-                        }
-
-                        Division = "";
-                        if (objDiv != null || (!(objDiv.getDiv_id().equals("0")))) {
-                            Division = objDiv.getDivision_name();
-                        }
 
 
                         String br_id = AppPreferences.getLoginObj(mContext).getBr_id();
                         String acadyear = AppPreferences.getAcademicYear(mContext);
-
-                        FromDate = tvFromDate.getText().toString();
-                        ToDate = tvToDate.getText().toString();
 
 
                         retrofitApi.getClassAttendance(AppPreferences.getInstObj(mContext).getCode(), Classid, Division, br_id, acadyear, FromDate, ToDate, new Callback<ApiResults>() {
@@ -285,7 +312,7 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
                                 if (prog.isShowing()) {
                                     prog.dismiss();
                                 }
-                                if (apiResults.getClass_att() != null) {
+                                if (apiResults != null) {
                                     arrList = apiResults.getClass_att();
                                     generateList();
 
@@ -332,7 +359,19 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
                     }
                else
                     {
-                        objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_input_field1));
+                        //objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_input_field1));
+                        final AlertDialog alert = new AlertDialog.Builder(mContext).create();
+                        alert.setMessage(mContext.getResources().getString(R.string.error_input_field1));
+                        alert.setCancelable(false);
+
+                        alert.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                alert.dismiss();
+                            }
+                        });
+
+                        alert.show();
                     }
             }
         });
@@ -387,7 +426,8 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
                             objdiv.setDivision_name("Select Division");
                             arrDiv = apiResults.getDivison_list();
                             arrDiv.add(0, objdiv);
-                            ArrayAdapter<DivisonBean> adapter = new ArrayAdapter<DivisonBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrDiv);
+                           // ArrayAdapter<DivisonBean> adapter = new ArrayAdapter<DivisonBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrDiv);
+                            DivisionListAdapter adapter=new DivisionListAdapter(getActivity(),R.layout.div_list_items,R.id.tvDiv,arrDiv);
                             spnDivision.setAdapter(adapter);
                         } else {
                             if (apiResults.getResult() != null) {

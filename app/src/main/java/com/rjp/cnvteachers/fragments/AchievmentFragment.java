@@ -1,7 +1,9 @@
 package com.rjp.cnvteachers.fragments;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -42,7 +44,7 @@ import retrofit.client.Response;
 /**
  * Created by Shraddha on 3/29/2017.
  */
-public class AchievmentFragment extends Fragment{
+public class AchievmentFragment extends Fragment {
     private String TAG = AchievmentFragment.class.getSimpleName();
     private Context mContext = null;
     private API retrofitApi;
@@ -50,14 +52,14 @@ public class AchievmentFragment extends Fragment{
     private RecyclerView rvNotice;
     private SwipeRefreshLayout refreshView;
     private EditText etSearch;
-    private AchievmentListAdapter adapt= null;
+    private AchievmentListAdapter adapt = null;
     String classid = "";
     private Button btnSubmit;
     private AutoCompleteTextView auto_StudName;
     private AutoCompleteTextView auto_admno;
 
-    public static StudentBean objStud=null;
-    public static AdmissionBean objStudAdm=null;
+    public static StudentBean objStud = null;
+    public static AdmissionBean objStudAdm = null;
     private ArrayList<StudentBean> arrStud = new ArrayList<StudentBean>();
     private ArrayList<AdmissionBean> arrStudAdm = new ArrayList<AdmissionBean>();
     private FloatingActionButton fabpdf;
@@ -78,21 +80,18 @@ public class AchievmentFragment extends Fragment{
     }
 
     @Override
-    public void onResume()
-    {
-       // getGoodNewsService();
+    public void onResume() {
+        // getGoodNewsService();
         super.onResume();
     }
 
-    private void initRetrofitClient()
-    {
+    private void initRetrofitClient() {
         RetrofitClient.initRetrofitClient();
         retrofitApi = RetrofitClient.getRetrofitClient();
     }
 
-    private void initData(){
-        if(NetworkUtility.isOnline(mContext))
-        {
+    private void initData() {
+        if (NetworkUtility.isOnline(mContext)) {
             final ProgressDialog prog = new ProgressDialog(mContext);
             prog.setMessage("loading...");
             prog.setCancelable(false);
@@ -105,28 +104,22 @@ public class AchievmentFragment extends Fragment{
                     if (prog.isShowing()) {
                         prog.dismiss();
                     }
-                        if (apiResults != null) {
-                            if (apiResults.getStudent() != null) {
-                                arrStud = apiResults.getStudent();
-                                ArrayAdapter<StudentBean> adapter = new ArrayAdapter<StudentBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrStud);
-                                auto_StudName.setThreshold(1);
-                                auto_StudName.setAdapter(adapter);
-                            }
-                            else
-                            {
-                                if(apiResults.getResult()!=null)
-                                {
-                                    objDialog.okDialog("Error",apiResults.getResult());
-                                }
+                    if (apiResults != null) {
+                        if (apiResults.getStudent() != null) {
+                            arrStud = apiResults.getStudent();
+                            ArrayAdapter<StudentBean> adapter = new ArrayAdapter<StudentBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrStud);
+                            auto_StudName.setThreshold(1);
+                            auto_StudName.setAdapter(adapter);
+                        } else {
+                            if (apiResults.getResult() != null) {
+                                objDialog.okDialog("Error", apiResults.getResult());
                             }
                         }
-                        else
-                        {
-                            if(apiResults.getResult()!=null)
-                            {
-                                objDialog.okDialog("Error",apiResults.getResult());
-                            }
+                    } else {
+                        if (apiResults.getResult() != null) {
+                            objDialog.okDialog("Error", apiResults.getResult());
                         }
+                    }
 
                 }
 
@@ -135,13 +128,11 @@ public class AchievmentFragment extends Fragment{
                     if (prog.isShowing()) {
                         prog.dismiss();
                     }
-                    objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
+                    objDialog.okDialog("Error", mContext.getResources().getString(R.string.error_server_down));
                 }
 
             });
-        }
-        else
-        {
+        } else {
             objDialog.noInternet(new ConfirmationDialogs.okCancel() {
                 @Override
                 public void okButton() {
@@ -164,18 +155,15 @@ public class AchievmentFragment extends Fragment{
 
         auto_StudName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
-            {
-                objStud= (StudentBean) adapterView.getItemAtPosition(i);
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                objStud = (StudentBean) adapterView.getItemAtPosition(i);
             }
         });
     }
 
 
-
     private void initDataAdmno() {
-        if(NetworkUtility.isOnline(mContext))
-        {
+        if (NetworkUtility.isOnline(mContext)) {
             final ProgressDialog prog = new ProgressDialog(mContext);
             prog.setMessage("loading...");
             prog.setCancelable(false);
@@ -188,28 +176,22 @@ public class AchievmentFragment extends Fragment{
                     if (prog.isShowing()) {
                         prog.dismiss();
                     }
-                        if (apiResults != null) {
-                            if (apiResults.getAdmno_no() != null) {
-                                arrStudAdm = apiResults.getAdmno_no();
-                                ArrayAdapter<AdmissionBean> adapter = new ArrayAdapter<AdmissionBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrStudAdm);
-                                auto_admno.setThreshold(1);
-                                auto_admno.setAdapter(adapter);
-                            }
-                            else
-                            {
-                                if(apiResults.getResult()!=null)
-                                {
-                                    objDialog.okDialog("Error",apiResults.getResult());
-                                }
+                    if (apiResults != null) {
+                        if (apiResults.getAdmno_no() != null) {
+                            arrStudAdm = apiResults.getAdmno_no();
+                            ArrayAdapter<AdmissionBean> adapter = new ArrayAdapter<AdmissionBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrStudAdm);
+                            auto_admno.setThreshold(1);
+                            auto_admno.setAdapter(adapter);
+                        } else {
+                            if (apiResults.getResult() != null) {
+                                objDialog.okDialog("Error", apiResults.getResult());
                             }
                         }
-                        else
-                        {
-                            if(apiResults.getResult()!=null)
-                            {
-                                objDialog.okDialog("Error",apiResults.getResult());
-                            }
+                    } else {
+                        if (apiResults.getResult() != null) {
+                            objDialog.okDialog("Error", apiResults.getResult());
                         }
+                    }
 
                 }
 
@@ -218,13 +200,11 @@ public class AchievmentFragment extends Fragment{
                     if (prog.isShowing()) {
                         prog.dismiss();
                     }
-                    objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
+                    objDialog.okDialog("Error", mContext.getResources().getString(R.string.error_server_down));
                 }
 
             });
-        }
-        else
-        {
+        } else {
             objDialog.noInternet(new ConfirmationDialogs.okCancel() {
                 @Override
                 public void okButton() {
@@ -247,24 +227,21 @@ public class AchievmentFragment extends Fragment{
 
         auto_admno.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
-            {
-                objStudAdm= (AdmissionBean) adapterView.getItemAtPosition(i);
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                objStudAdm = (AdmissionBean) adapterView.getItemAtPosition(i);
             }
         });
 
     }
 
 
-    private void setListners()
-    {
+    private void setListners() {
 
 
         refreshView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh()
-            {
-              //  getGoodNewsService();
+            public void onRefresh() {
+                //  getGoodNewsService();
             }
         });
 
@@ -273,11 +250,11 @@ public class AchievmentFragment extends Fragment{
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
+
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
-            {
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 try {
-                    if (charSequence.length()>0) {
+                    if (charSequence.length() > 0) {
                         String str = charSequence.toString();
                         adapt.filter(str);
                     }
@@ -285,6 +262,7 @@ public class AchievmentFragment extends Fragment{
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void afterTextChanged(Editable editable) {
 
@@ -295,7 +273,10 @@ public class AchievmentFragment extends Fragment{
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String Name = auto_StudName.getText().toString();
+                String admno = auto_admno.getText().toString();
 
+                if (Name.length()!=0 || admno.length()!=0) {
 
                     if (NetworkUtility.isOnline(mContext)) {
 
@@ -303,9 +284,6 @@ public class AchievmentFragment extends Fragment{
                         prog.setMessage("Loading...");
                         prog.setCancelable(false);
                         prog.show();
-
-                        String Name = auto_StudName.getText().toString();
-                        String admno = auto_admno.getText().toString();
 
                         String br_id = AppPreferences.getLoginObj(mContext).getBr_id();
                         String acadyear = AppPreferences.getAcademicYear(mContext);
@@ -316,7 +294,7 @@ public class AchievmentFragment extends Fragment{
 
                             @Override
                             public void success(ApiResults apiResults, Response response) {
-                                if(prog.isShowing()) {
+                                if (prog.isShowing()) {
                                     prog.dismiss();
                                 }
                                 refreshView.setRefreshing(false);
@@ -325,8 +303,7 @@ public class AchievmentFragment extends Fragment{
                                     if (arr.size() > 0) {
                                         generateGoodNewsList(arr);
                                         AppPreferences.setAchievementCount(mContext, 0);
-                                    }
-                                    else {
+                                    } else {
                                         objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
                                             @Override
                                             public void okButton() {
@@ -339,8 +316,7 @@ public class AchievmentFragment extends Fragment{
                                             }
                                         });
                                     }
-                                }
-                                else {
+                                } else {
                                     objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
                                         @Override
                                         public void okButton() {
@@ -376,12 +352,29 @@ public class AchievmentFragment extends Fragment{
                             @Override
                             public void cancelButton() {
 
-                                 }
-                          });
-                         }
+                            }
+                        });
+                    }
+                } else {
+                    Log.e(TAG,"Name2 "+Name);
+                    Log.e(TAG,"admno2 "+admno);
+                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
+                    alert.setMessage(mContext.getResources().getString(R.string.error_input_field));
+                    alert.setCancelable(false);
 
-               }
+                    alert.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            alert.dismiss();
+                        }
+                    });
+
+                    alert.show();
+                }
+
+            }
         });
+
     }
 
     private void create_pdf() {

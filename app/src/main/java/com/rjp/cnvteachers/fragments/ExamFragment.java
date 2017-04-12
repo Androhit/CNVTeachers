@@ -1,7 +1,9 @@
 package com.rjp.cnvteachers.fragments;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -88,103 +90,120 @@ public class ExamFragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-                if(NetworkUtility.isOnline(mContext)) {
-                    final ProgressDialog prog = new ProgressDialog(mContext);
-                    prog.setMessage("Loading...");
-                    prog.setCancelable(false);
-
-                    prog.show();
-
-                    if(objClass != null && (!(objClass.getClass_id().equals("0")))) {
-                        Classid = objClass.getClass_id();
-                    }
-                    else if(objClass.getClass_id().equals("0"))
-                    {
-                        Classid = "0";
-                    }
-
-                    String br_id = AppPreferences.getLoginObj(mContext).getBr_id();
-                    String acadyear=AppPreferences.getAcademicYear(mContext);
-
-                    retrofitApi.getExamInfo(AppPreferences.getInstObj(mContext).getCode(),  Classid,  br_id,acadyear,new Callback<ApiResults>() {
-                        @Override
-                        public void success(ApiResults apiResults, Response response) {
-                            if (prog.isShowing()) {
-                                prog.dismiss();
-                            }
-                            if (apiResults.getExam_list() != null) {
-                                arrList = apiResults.getExam_list();
-                                if (arrList != null) {
-                                    if (arrList.size() > 0) {
-                                        Log.e(TAG, "Size One Frag" + arrList.size());
-                                        generateExamList(arrList);
-                                    }
-                                    else {
-                                        objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
-                                            @Override
-                                            public void okButton() {
-                                                setListners();
-                                            }
-
-                                            @Override
-                                            public void cancelButton() {
-
-                                            }
-                                        });
-                                    }
-                                }
-                                else {
-                                    objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
-                                        @Override
-                                        public void okButton() {
-                                            setListners();
-                                        }
-
-                                        @Override
-                                        public void cancelButton() {
-
-                                        }
-                                    });
-                                }
-                            }
-                            else {
-                                objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
-                                    @Override
-                                    public void okButton() {
-                                        setListners();
-                                    }
-
-                                    @Override
-                                    public void cancelButton() {
-
-                                    }
-                                });
-                            }
-                        }
-
-                        @Override
-                        public void failure(RetrofitError error) {
-
-                            if (prog.isShowing()) {
-                                prog.dismiss();
-                            }
-                            objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
-                        }
-                    });
+                if(objClass != null && (!(objClass.getClass_id().equals("0")))) {
+                    Classid = objClass.getClass_id();
                 }
-                else {
-                    objDialog.noInternet(new ConfirmationDialogs.okCancel() {
-                        @Override
-                        public void okButton() {
-                            setListners();
-                        }
+                else if(objClass.getClass_id().equals("0"))
+                {
+                    Classid = "0";
 
-                        @Override
-                        public void cancelButton() {
+               }
 
-                        }
-                    });
-                }
+               if(!Classid.equals("0")) {
+
+
+                   if (NetworkUtility.isOnline(mContext)) {
+                       final ProgressDialog prog = new ProgressDialog(mContext);
+                       prog.setMessage("Loading...");
+                       prog.setCancelable(false);
+
+                       prog.show();
+
+
+                       String br_id = AppPreferences.getLoginObj(mContext).getBr_id();
+                       String acadyear = AppPreferences.getAcademicYear(mContext);
+
+                       retrofitApi.getExamInfo(AppPreferences.getInstObj(mContext).getCode(), Classid, br_id, acadyear, new Callback<ApiResults>() {
+                           @Override
+                           public void success(ApiResults apiResults, Response response) {
+                               if (prog.isShowing()) {
+                                   prog.dismiss();
+                               }
+                               if (apiResults.getExam_list() != null) {
+                                   arrList = apiResults.getExam_list();
+                                   if (arrList != null) {
+                                       if (arrList.size() > 0) {
+                                           Log.e(TAG, "Size One Frag" + arrList.size());
+                                           generateExamList(arrList);
+                                       } else {
+                                           objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
+                                               @Override
+                                               public void okButton() {
+                                                   setListners();
+                                               }
+
+                                               @Override
+                                               public void cancelButton() {
+
+                                               }
+                                           });
+                                       }
+                                   } else {
+                                       objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
+                                           @Override
+                                           public void okButton() {
+                                               setListners();
+                                           }
+
+                                           @Override
+                                           public void cancelButton() {
+
+                                           }
+                                       });
+                                   }
+                               } else {
+                                   objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
+                                       @Override
+                                       public void okButton() {
+                                           setListners();
+                                       }
+
+                                       @Override
+                                       public void cancelButton() {
+
+                                       }
+                                   });
+                               }
+                           }
+
+                           @Override
+                           public void failure(RetrofitError error) {
+
+                               if (prog.isShowing()) {
+                                   prog.dismiss();
+                               }
+                               objDialog.okDialog("Error", mContext.getResources().getString(R.string.error_server_down));
+                           }
+                       });
+                   } else {
+                       objDialog.noInternet(new ConfirmationDialogs.okCancel() {
+                           @Override
+                           public void okButton() {
+                               setListners();
+                           }
+
+                           @Override
+                           public void cancelButton() {
+
+                           }
+                       });
+                   }
+               }
+               else
+               {
+                   final AlertDialog alert = new AlertDialog.Builder(mContext).create();
+                   alert.setMessage(mContext.getResources().getString(R.string.error_input_field5));
+                   alert.setCancelable(false);
+
+                   alert.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                       @Override
+                       public void onClick(DialogInterface dialogInterface, int i) {
+                           alert.dismiss();
+                       }
+                   });
+
+                   alert.show();
+               }
             }
         });
     }

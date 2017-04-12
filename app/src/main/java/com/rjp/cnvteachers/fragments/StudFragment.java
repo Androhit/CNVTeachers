@@ -1,7 +1,9 @@
 package com.rjp.cnvteachers.fragments;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -15,9 +17,11 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.rjp.cnvteachers.R;
 import com.rjp.cnvteachers.adapters.ClassListAdapter;
+import com.rjp.cnvteachers.adapters.DivisionListAdapter;
 import com.rjp.cnvteachers.adapters.StudentListAdapter;
 import com.rjp.cnvteachers.api.API;
 import com.rjp.cnvteachers.api.RetrofitClient;
@@ -178,7 +182,8 @@ public class StudFragment extends Fragment {
                             objdiv.setDivision_name("Select Division");
                             arrDiv = apiResults.getDivison_list();
                             arrDiv.add(0, objdiv);
-                            ArrayAdapter<DivisonBean> adapter = new ArrayAdapter<DivisonBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrDiv);
+                          //  ArrayAdapter<DivisonBean> adapter = new ArrayAdapter<DivisonBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrDiv);
+                            DivisionListAdapter adapter = new DivisionListAdapter(getActivity(), R.layout.div_list_items, R.id.tvDiv, arrDiv);
                             spnDivision.setAdapter(adapter);
                         } else {
                             if (apiResults.getResult() != null) {
@@ -229,6 +234,8 @@ public class StudFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                Toast.makeText(mContext,"Please Select Class and Division !!", Toast.LENGTH_LONG).show();
+                return;
             }
         });
 
@@ -240,7 +247,8 @@ public class StudFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Divisionid="";
+                Toast.makeText(mContext,"Please Select Class and Division !!", Toast.LENGTH_LONG).show();
+                return;
             }
         });
 
@@ -248,76 +256,79 @@ public class StudFragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-                    if(NetworkUtility.isOnline(mContext)) {
+
+
+                String StudName = etStudName.getText().toString();
+                //String ClassName = spnClassName.getOnItemSelectedListener().toString();
+
+
+                if(objClass != null && (!(objClass.getClass_id().equals("0")))) {
+                    Classid = objClass.getClass_id();
+                }
+                else if(objClass.getClass_id().equals("0"))
+                {
+                    Classid = "0";
+                }
+
+
+                Divisionid="";
+                if(objDiv != null && (!(objDiv.getDiv_id().equals("0")))) {
+                    Divisionid = objDiv.getDivision_name();
+                }
+                else if(objDiv.getDiv_id().equals("0"))
+                {
+                    Divisionid = "";
+                }
+
+                String Admno = etAdmno.getText().toString();
+
+                if(((!Classid.equals("0")) && (!Divisionid.equals("Select Division"))) || (StudName.length()!=0) || (Admno.length()!=0)) {
+
+                    if (NetworkUtility.isOnline(mContext)) {
                         final ProgressDialog prog = new ProgressDialog(mContext);
                         prog.setMessage("Loading...");
                         prog.setCancelable(false);
 
                         prog.show();
 
-                        String StudName = etStudName.getText().toString();
-                        //String ClassName = spnClassName.getOnItemSelectedListener().toString();
+
+                        retrofitApi.getStudent_list(AppPreferences.getInstObj(mContext).getCode(), StudName, Classid, Divisionid, Admno, new Callback<ApiResults>() {
+                            @Override
+                            public void success(ApiResults apiResults, Response response) {
 
 
-                        if(objClass != null && (!(objClass.getClass_id().equals("0")))) {
-                            Classid = objClass.getClass_id();
-                        }
-                        else if(objClass.getClass_id().equals("0"))
-                        {
-                            Classid = "0";
-                        }
-
-
-                        Divisionid="";
-                        if(objDiv != null && (!(objDiv.getDiv_id().equals("0")))) {
-                            Divisionid = objDiv.getDivision_name();
-                        }
-                        else if(objDiv.getDiv_id().equals("0"))
-                        {
-                            Divisionid = "";
-                        }
-
-                        String Admno = etAdmno.getText().toString();
-
-                         retrofitApi.getStudent_list(AppPreferences.getInstObj(mContext).getCode(), StudName, Classid, Divisionid, Admno, new Callback<ApiResults>() {
-                                    @Override
-                                    public void success(ApiResults apiResults, Response response) {
-
-
-                                        if (prog.isShowing()) {
-                                            prog.dismiss();
-                                        }
-                                        if (apiResults != null) {
-                                            arrList = apiResults.getStudent_list();
-                                            generateList();
-                                        }
-                                        else {
-                                            objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
-                                                @Override
-                                                public void okButton() {
-                                                    setListners();
-                                                }
-
-                                                @Override
-                                                public void cancelButton() {
-
-                                                }
-                                            });
-                                        }
-                                    }
-
-                                    @Override
-                                    public void failure(RetrofitError error) {
-
-                                        if (prog.isShowing()) {
-                                            prog.dismiss();
+                                if (prog.isShowing()) {
+                                    prog.dismiss();
+                                }
+                                if (apiResults != null) {
+                                    arrList = apiResults.getStudent_list();
+                                    generateList();
+                                } else {
+                                    objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
+                                        @Override
+                                        public void okButton() {
+                                            setListners();
                                         }
 
-                                        objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
-                                    }
-                                });
-                    }
-                    else {
+                                        @Override
+                                        public void cancelButton() {
+
+                                        }
+                                    });
+                                }
+                            }
+
+                            @Override
+                            public void failure(RetrofitError error) {
+
+                                if (prog.isShowing()) {
+                                    prog.dismiss();
+                                }
+
+                                objDialog.okDialog("Error", mContext.getResources().getString(R.string.error_server_down));
+                            }
+                        });
+                    } else {
                         objDialog.noInternet(new ConfirmationDialogs.okCancel() {
                             @Override
                             public void okButton() {
@@ -330,6 +341,21 @@ public class StudFragment extends Fragment {
                             }
                         });
                     }
+                }
+                else {
+                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
+                    alert.setMessage(mContext.getResources().getString(R.string.error_input_field4));
+                    alert.setCancelable(false);
+
+                    alert.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            alert.dismiss();
+                        }
+                    });
+
+                    alert.show();
+                }
             }
         });
     }

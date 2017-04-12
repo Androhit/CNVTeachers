@@ -1,7 +1,9 @@
 package com.rjp.cnvteachers.fragments;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -213,40 +215,49 @@ public class CircularFragment extends Fragment {
         retrofitApi = RetrofitClient.getRetrofitClient();
     }
 
-    private void getNoticeService()
-    {
-        try {
-            if(NetworkUtility.isOnline(mContext))
-            {
-                final ProgressDialog prog = new ProgressDialog(mContext);
-                prog.setMessage("Loading...");
-                prog.setCancelable(false);
-                prog.show();
-                refreshView.setRefreshing(true);
+    private void getNoticeService() {
+        if (objClass != null) {
+            Class = objClass.getClass_id();
+        }
 
-                if(objClass != null) {
-                    Class = objClass.getClass_id();
-                }
+        if (!Class.equals("0")) {
 
-                retrofitApi.get_Circular( AppPreferences.getInstObj(mContext).getCode(),AppPreferences.getLoginObj(mContext).getBr_id(), AppPreferences.getAcademicYear(mContext), Class , new Callback<ApiResults>() {
-                    @Override
-                    public void success(ApiResults apiResults, Response response)
-                    {
-                        if(prog.isShowing())
-                        {
-                            prog.dismiss();
-                        }
-                        refreshView.setRefreshing(false);
-                        if(apiResults !=null)
-                        {
-                            ArrayList<CircularBean> arr = apiResults.getCircular_info();
+            try {
+                if (NetworkUtility.isOnline(mContext)) {
+                    final ProgressDialog prog = new ProgressDialog(mContext);
+                    prog.setMessage("Loading...");
+                    prog.setCancelable(false);
+                    prog.show();
+                    refreshView.setRefreshing(true);
 
-                            if(arr.size()>0)
-                            {
-                                generateNoticeList(arr);
-                                AppPreferences.setCircularCount(mContext,0);
+
+                    retrofitApi.get_Circular(AppPreferences.getInstObj(mContext).getCode(), AppPreferences.getLoginObj(mContext).getBr_id(), AppPreferences.getAcademicYear(mContext), Class, new Callback<ApiResults>() {
+                        @Override
+                        public void success(ApiResults apiResults, Response response) {
+                            if (prog.isShowing()) {
+                                prog.dismiss();
                             }
-                            else {
+                            refreshView.setRefreshing(false);
+                            if (apiResults != null) {
+                                ArrayList<CircularBean> arr = apiResults.getCircular_info();
+
+                                if (arr.size() > 0) {
+                                    generateNoticeList(arr);
+                                    AppPreferences.setCircularCount(mContext, 0);
+                                } else {
+                                    objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
+                                        @Override
+                                        public void okButton() {
+                                            getNoticeService();
+                                        }
+
+                                        @Override
+                                        public void cancelButton() {
+
+                                        }
+                                    });
+                                }
+                            } else {
                                 objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
                                     @Override
                                     public void okButton() {
@@ -260,53 +271,49 @@ public class CircularFragment extends Fragment {
                                 });
                             }
                         }
-                        else {
-                            objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
-                                @Override
-                                public void okButton() {
-                                    getNoticeService();
-                                }
 
-                                @Override
-                                public void cancelButton() {
+                        @Override
+                        public void failure(RetrofitError error) {
+                            refreshView.setRefreshing(false);
 
-                                }
-                            });
+                            if (prog.isShowing()) {
+                                prog.dismiss();
+                            }
+                            Log.e(TAG, "Retrofit Error " + error);
+
+                            objDialog.okDialog("Error", mContext.getResources().getString(R.string.error_server_down));
                         }
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error)
-                    {
-                        refreshView.setRefreshing(false);
-
-                        if(prog.isShowing())
-                        {
-                            prog.dismiss();
+                    });
+                } else {
+                    objDialog.noInternet(new ConfirmationDialogs.okCancel() {
+                        @Override
+                        public void okButton() {
+                            getNoticeService();
                         }
-                        Log.e(TAG,"Retrofit Error "+error);
 
-                        objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
-                    }
-                });
+                        @Override
+                        public void cancelButton() {
+
+                        }
+                    });
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            else
-            {
-                objDialog.noInternet(new ConfirmationDialogs.okCancel() {
-                    @Override
-                    public void okButton()
-                    {
-                        getNoticeService();
-                    }
+        } else
+        {
+            final AlertDialog alert = new AlertDialog.Builder(mContext).create();
+            alert.setMessage(mContext.getResources().getString(R.string.error_input_field5));
+            alert.setCancelable(false);
 
-                    @Override
-                    public void cancelButton() {
+            alert.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    alert.dismiss();
+                }
+            });
 
-                    }
-                });
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            alert.show();
         }
     }
 

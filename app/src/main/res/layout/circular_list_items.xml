@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:elevation="2dp"
+    android:layout_margin="5dp"
     android:padding="5dp">
 
     <LinearLayout
@@ -22,11 +23,11 @@
                 android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:typeface="serif"
                 android:padding="3dp"
-                android:text="10"/>
+                android:text="10"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textStyle="bold"
+                android:typeface="serif" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -39,24 +40,23 @@
                     android:id="@+id/tvMonth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:typeface="serif"
-                    android:textSize="10sp"
                     android:padding="3dp"
-                    android:text="Dec"/>
+                    android:text="Dec"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="10sp"
+                    android:typeface="serif" />
 
                 <TextView
                     android:id="@+id/tvYear"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    android:typeface="serif"
                     android:padding="3dp"
-                    android:text="2016"/>
+                    android:text="2016"
+                    android:textSize="10sp"
+                    android:typeface="serif" />
             </LinearLayout>
 
         </LinearLayout>
-
 
 
         <LinearLayout
@@ -68,14 +68,14 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/circle_dark_red"/>
+                android:src="@drawable/circle_dark_red" />
 
             <View
                 android:layout_width="3dp"
                 android:layout_height="wrap_content"
-                android:background="@color/grey_500"
                 android:layout_gravity="center"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp"
+                android:background="@color/grey_500" />
 
         </LinearLayout>
 
@@ -83,10 +83,10 @@
             android:id="@+id/layMain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:layout_marginRight="5dp">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -98,11 +98,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:typeface="monospace"
-                    android:textStyle="bold"
-                    android:text="Title"
                     android:padding="3dp"
+                    android:text="Title"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold"
+                    android:typeface="monospace"
 
                     />
 
@@ -113,24 +113,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:typeface="sans"
                 android:padding="3dp"
                 android:text=""
-                />
+                android:typeface="sans" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/orange_100"/>
+                android:background="@color/orange_100" />
 
             <TextView
                 android:id="@+id/tvMore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/amber_900"
                 android:padding="3dp"
                 android:text="read more >>"
-                />
+                android:textColor="@color/amber_900" />
 
         </LinearLayout>
 
@@ -139,7 +137,7 @@
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:src="@drawable/download_icon"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
     </LinearLayout>
 

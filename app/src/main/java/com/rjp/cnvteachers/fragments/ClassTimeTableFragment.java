@@ -1,8 +1,10 @@
 package com.rjp.cnvteachers.fragments;
 
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -14,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import com.rjp.cnvteachers.R;
 import com.rjp.cnvteachers.adapters.ClassListAdapter;
 import com.rjp.cnvteachers.adapters.ClassTimeTableAdapter;
+import com.rjp.cnvteachers.adapters.DivisionListAdapter;
 import com.rjp.cnvteachers.api.API;
 import com.rjp.cnvteachers.api.RetrofitClient;
 import com.rjp.cnvteachers.beans.ApiResults;
@@ -152,7 +154,8 @@ public class ClassTimeTableFragment extends Fragment{
                             objdiv.setDivision_name("Select Division");
                             arrDiv = apiResults.getDivison_list();
                             arrDiv.add(0, objdiv);
-                            ArrayAdapter<DivisonBean> adapter = new ArrayAdapter<DivisonBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrDiv);
+                            // ArrayAdapter<DivisonBean> adapter = new ArrayAdapter<DivisonBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrDiv);
+                            DivisionListAdapter adapter=new DivisionListAdapter(getActivity(),R.layout.div_list_items,R.id.tvDiv,arrDiv);
                             spnDivision.setAdapter(adapter);
                         } else {
                             if (apiResults.getResult() != null) {
@@ -267,10 +270,27 @@ public class ClassTimeTableFragment extends Fragment{
     private void getClassTimeTableService() {
 
 
+
+
         btSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (spnClass != null && spnDivision!=null) {
+
+
+                if (objClass != null) {
+                    Class = objClass.getClass_id();
+                } else {
+                    Class = "0";
+                }
+
+
+                if (objDiv != null) {
+                    Division = objDiv.getDivision_name();
+                } else {
+                    Division = "";
+                }
+
+                if ((!Class.equals("0")) && (!Division.equals("Select Division"))) {
 
                 if (NetworkUtility.isOnline(mContext)) {
                     final ProgressDialog prog = new ProgressDialog(mContext);
@@ -278,18 +298,6 @@ public class ClassTimeTableFragment extends Fragment{
                     prog.setCancelable(false);
                     prog.show();
 
-                    if (objClass != null) {
-                        Class = objClass.getClass_id();
-                    } else {
-                        Class = "";
-                    }
-
-
-                    if (objDiv != null) {
-                        Division = objDiv.getDivision_name();
-                    } else {
-                        Division = "";
-                    }
 
                     String br_id = AppPreferences.getLoginObj(mContext).getBr_id();
                     String acadyear = AppPreferences.getAcademicYear(mContext);
@@ -391,7 +399,18 @@ public class ClassTimeTableFragment extends Fragment{
 
             else
              {
-                 objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_input_field2));
+                 final AlertDialog alert = new AlertDialog.Builder(mContext).create();
+                 alert.setMessage(mContext.getResources().getString(R.string.error_input_field2));
+                 alert.setCancelable(false);
+
+                 alert.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                     @Override
+                     public void onClick(DialogInterface dialogInterface, int i) {
+                         alert.dismiss();
+                     }
+                 });
+
+                 alert.show();
             }
           }
         });

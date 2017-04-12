@@ -1,7 +1,9 @@
 package com.rjp.cnvteachers.fragments;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -20,6 +22,7 @@ import android.widget.Spinner;
 
 import com.rjp.cnvteachers.R;
 import com.rjp.cnvteachers.adapters.ClassListAdapter;
+import com.rjp.cnvteachers.adapters.DivisionListAdapter;
 import com.rjp.cnvteachers.adapters.ExamAdapter;
 import com.rjp.cnvteachers.adapters.PerformanceAdapter;
 import com.rjp.cnvteachers.api.API;
@@ -182,96 +185,104 @@ public class PerformanceFragment extends Fragment
         btSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (NetworkUtility.isOnline(mContext)) {
-                    final ProgressDialog prog = new ProgressDialog(mContext);
-                    prog.setMessage("Loading...");
-                    prog.setCancelable(false);
-                    prog.show();
 
-
-                    if(objClass != null && (!(objClass.getClass_id().equals("0")))) {
-                        Classid = objClass.getClass_id();
-                    }
-                    else if(objClass.getClass_id().equals("0"))
-                    {
-                        Classid = "0";
-                    }
-
-
-                    Division="";
-                    if(objDiv != null && (!(objDiv.getDiv_id().equals("0")))) {
-                        Division = objDiv.getDivision_name();
-                    }
-                    else if(objDiv.getDiv_id().equals("0"))
-                    {
-                        Division = "";
-                    }
-
-
-                    if(objAcadYr != null && (!(objAcadYr.getAcad_year().equals("Academic Year")))) {
-                        AcadYr = objAcadYr.getAcad_year();
-                    }
-
-                    if(objAdmYr != null && (!(objAdmYr.getAdm_yr().equals("Admission Year")))) {
-                        AdmYr = objAdmYr.getAdm_yr();
-                    }
-
-                    if(objExam != null && (!(objExam.getExam_id().equals("0")))) {
-                        ExamName = objExam.getExam_id();
-                    }
-
-                    retrofitApi.getPerformance(AppPreferences.getInstObj(mContext).getCode(), Classid, Division, AppPreferences.getLoginObj(mContext).getBr_id(), AcadYr, AdmYr,ExamName, new Callback<ApiResults>() {
-                        @Override
-                        public void success(ApiResults apiResults, Response response) {
-                            if(prog.isShowing())
-                            {
-                                prog.dismiss();
-                            }
-
-                            if(apiResults.getExam() != null)
-                            {
-                                arrExam=apiResults.getExam();
-                                generateExamList();
-                            }
-                            else {
-                                objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
-                                    @Override
-                                    public void okButton() {
-                                        setListners();
-                                    }
-
-                                    @Override
-                                    public void cancelButton() {
-
-                                    }
-                                });
-                            }
-                        }
-
-                        @Override
-                        public void failure(RetrofitError error) {
-                            if(prog.isShowing())
-                            {
-                                prog.dismiss();
-                            }
-                        }
-                    });
-
-
+                if(objClass != null && (!(objClass.getClass_id().equals("0")))) {
+                    Classid = objClass.getClass_id();
+                }
+                else if(objClass.getClass_id().equals("0"))
+                {
+                    Classid = "0";
                 }
 
-                else {
-                    objDialog.noInternet(new ConfirmationDialogs.okCancel() {
-                        @Override
-                        public void okButton() {
-                            setListners();
-                        }
 
-                        @Override
-                        public void cancelButton() {
+                Division="";
+                if(objDiv != null && (!(objDiv.getDiv_id().equals("0")))) {
+                    Division = objDiv.getDivision_name();
+                }
 
+                if(objAcadYr != null && (!(objAcadYr.getAcad_year().equals("Academic Year")))) {
+                    AcadYr = objAcadYr.getAcad_year();
+                }
+
+                if(objAdmYr != null && (!(objAdmYr.getAdm_yr().equals("Admission Year")))) {
+                    AdmYr = objAdmYr.getAdm_yr();
+                }
+
+                if(objExam != null && (!(objExam.getExam_id().equals("0")))) {
+                    ExamName = objExam.getExam_id();
+                }
+
+                if((!Classid.equals("0")) && (!Division.equals("Select Division")) && (!AcadYr.equals("Academic Year")) && (!AdmYr.equals("Admission Year")) && (!ExamName.equals("0"))) {
+
+                    if (NetworkUtility.isOnline(mContext)) {
+                        final ProgressDialog prog = new ProgressDialog(mContext);
+                        prog.setMessage("Loading...");
+                        prog.setCancelable(false);
+                        prog.show();
+
+
+                        retrofitApi.getPerformance(AppPreferences.getInstObj(mContext).getCode(), Classid, Division, AppPreferences.getLoginObj(mContext).getBr_id(), AcadYr, AdmYr, ExamName, new Callback<ApiResults>() {
+                            @Override
+                            public void success(ApiResults apiResults, Response response) {
+                                if (prog.isShowing()) {
+                                    prog.dismiss();
+                                }
+
+                                if (apiResults.getExam() != null) {
+                                    arrExam = apiResults.getExam();
+                                    generateExamList();
+                                } else {
+                                    objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
+                                        @Override
+                                        public void okButton() {
+                                            setListners();
+                                        }
+
+                                        @Override
+                                        public void cancelButton() {
+
+                                        }
+                                    });
+                                }
+                            }
+
+                            @Override
+                            public void failure(RetrofitError error) {
+                                if (prog.isShowing()) {
+                                    prog.dismiss();
+                                }
+                            }
+                        });
+
+
+                    } else {
+                        objDialog.noInternet(new ConfirmationDialogs.okCancel() {
+                            @Override
+                            public void okButton() {
+                                setListners();
+                            }
+
+                            @Override
+                            public void cancelButton() {
+
+                            }
+                        });
+                    }
+                }
+                else
+                {
+                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
+                    alert.setMessage(mContext.getResources().getString(R.string.error_input_field6));
+                    alert.setCancelable(false);
+
+                    alert.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            alert.dismiss();
                         }
                     });
+
+                    alert.show();
                 }
 
             }
@@ -306,7 +317,8 @@ public class PerformanceFragment extends Fragment
                             objdiv.setDivision_name("Select Division");
                             arrDiv = apiResults.getDivison_list();
                             arrDiv.add(0, objdiv);
-                            ArrayAdapter<DivisonBean> adapter = new ArrayAdapter<DivisonBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrDiv);
+                     //       ArrayAdapter<DivisonBean> adapter = new ArrayAdapter<DivisonBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrDiv);
+                            DivisionListAdapter adapter = new DivisionListAdapter(getActivity(), R.layout.div_list_items, R.id.tvDiv, arrDiv);
                             spnDivision.setAdapter(adapter);
                         } else {
                             if (apiResults.getResult() != null) {
