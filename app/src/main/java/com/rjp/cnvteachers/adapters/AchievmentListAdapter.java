@@ -154,6 +154,4 @@ public class AchievmentListAdapter extends RecyclerView.Adapter<AchievmentListAd
         }
         notifyDataSetChanged();
     }
-
-
 }

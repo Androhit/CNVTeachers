@@ -16,6 +16,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,8 +24,10 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.itextpdf.text.DocumentException;
 import com.rjp.cnvteachers.R;
 import com.rjp.cnvteachers.adapters.AchievmentListAdapter;
+import com.rjp.cnvteachers.adapters.PdfAdapter;
 import com.rjp.cnvteachers.api.API;
 import com.rjp.cnvteachers.api.RetrofitClient;
 import com.rjp.cnvteachers.beans.AchievementsBean;
@@ -35,6 +38,7 @@ import com.rjp.cnvteachers.common.ConfirmationDialogs;
 import com.rjp.cnvteachers.utils.AppPreferences;
 import com.rjp.cnvteachers.utils.NetworkUtility;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import retrofit.Callback;
@@ -63,6 +67,7 @@ public class AchievmentFragment extends Fragment {
     private ArrayList<StudentBean> arrStud = new ArrayList<StudentBean>();
     private ArrayList<AdmissionBean> arrStudAdm = new ArrayList<AdmissionBean>();
     private FloatingActionButton fabpdf;
+    ArrayList<AchievementsBean> arr;
 
 
     @Override
@@ -146,7 +151,7 @@ public class AchievmentFragment extends Fragment {
             });
         }
 
-        auto_StudName.setOnClickListener(new View.OnClickListener() {
+        auto_StudName.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 auto_StudName.showDropDown();
@@ -218,7 +223,7 @@ public class AchievmentFragment extends Fragment {
             });
         }
 
-        auto_admno.setOnClickListener(new View.OnClickListener() {
+        auto_admno.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 auto_admno.showDropDown();
@@ -236,7 +241,6 @@ public class AchievmentFragment extends Fragment {
 
 
     private void setListners() {
-
 
         refreshView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -270,7 +274,8 @@ public class AchievmentFragment extends Fragment {
         });
 
 
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
+
+        btnSubmit.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 String Name = auto_StudName.getText().toString();
@@ -297,12 +302,15 @@ public class AchievmentFragment extends Fragment {
                                 if (prog.isShowing()) {
                                     prog.dismiss();
                                 }
+                                fabpdf.setVisibility(View.VISIBLE);
                                 refreshView.setRefreshing(false);
-                                ArrayList<AchievementsBean> arr = apiResults.getSpecial_achiv();
-                                if (arr != null) {
+
+                                if (apiResults != null) {
+                                    arr = apiResults.getSpecial_achiv();
                                     if (arr.size() > 0) {
                                         generateGoodNewsList(arr);
                                         AppPreferences.setAchievementCount(mContext, 0);
+
                                     } else {
                                         objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
                                             @Override
@@ -375,13 +383,22 @@ public class AchievmentFragment extends Fragment {
             }
         });
 
+        fabpdf.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PdfAdapter adapter = new PdfAdapter(getActivity(), R.layout.pdf_items, R.id.tvDiv, arr);
+                try {
+                    adapter.create_pdf(arr);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (DocumentException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
 
-    private void create_pdf() {
-
-
-
-    }
 
     private void init(View view)
     {
@@ -393,7 +410,7 @@ public class AchievmentFragment extends Fragment {
         auto_admno=(AutoCompleteTextView)view.findViewById(R.id.autoadmno);
         auto_StudName=(AutoCompleteTextView)view.findViewById(R.id.autoStudName);
         btnSubmit=(Button)view.findViewById(R.id.btnSubmit);
-      //  fabpdf=(FloatingActionButton) view.findViewById(R.id.fabpdf);
+        fabpdf=(FloatingActionButton) view.findViewById(R.id.fabpdf);
     }
 
     private void generateGoodNewsList(ArrayList<AchievementsBean> arr) {
