@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.rjp.cnvteachers.HomeScreen">
 
@@ -20,11 +21,32 @@
         android:textColor="@color/white"
         android:id="@+id/textView3" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvExamTT"
+
+<android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvExamTT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabpdf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_margin="@dimen/fab_margin"
         android:padding="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:scaleType="centerCrop"
+        android:src="@drawable/pdf"
+        app:backgroundTint="@color/white" />
+
+
+
+</android.support.v7.widget.CardView>
+
+
+
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_view_task"
@@ -33,5 +55,7 @@
         >
 
     </android.support.v4.widget.SwipeRefreshLayout>
+
+
 
 </LinearLayout>

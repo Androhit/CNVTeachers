@@ -3,14 +3,17 @@ package com.rjp.cnvteachers;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rjp.cnvteachers.adapters.PdfCreater;
 import com.rjp.cnvteachers.adapters.ResultListAdapter;
 import com.rjp.cnvteachers.api.API;
 import com.rjp.cnvteachers.api.RetrofitClient;
@@ -43,6 +46,7 @@ public class ExamResult extends AppCompatActivity{
     RecyclerView rvExamResults;
     TextView tvMarks,tvOutOff,tvGrade;
     private TextView tvPer;
+    private FloatingActionButton fabpdf;
 
 
     @Override
@@ -103,6 +107,7 @@ public class ExamResult extends AppCompatActivity{
                             tvPer.setText("" + obj.getTotal_percentage());
 
                             getResult();
+                            getpdf();
                         }
                         else {
                             obj = null;
@@ -145,6 +150,24 @@ public class ExamResult extends AppCompatActivity{
 
     }
 
+
+    private void getpdf() {
+        fabpdf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                try {
+                    PdfCreater adapter = new PdfCreater(mContext);
+                    adapter.create_pdf_performance(obj.getData_array());
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+    }
+
     private void init() {
 
         objDialog = new ConfirmationDialogs(mContext);
@@ -154,6 +177,8 @@ public class ExamResult extends AppCompatActivity{
         tvOutOff = (TextView)findViewById(R.id.tvOutOff);
         tvGrade = (TextView)findViewById(R.id.tvGrade);
         tvPer=(TextView)findViewById(R.id.tvPer);
+        fabpdf=(FloatingActionButton) findViewById(R.id.fabpdf);
+
     }
 
 }

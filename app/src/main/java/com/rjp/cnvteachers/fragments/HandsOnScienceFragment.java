@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -28,6 +29,7 @@ import com.rjp.cnvteachers.R;
 import com.rjp.cnvteachers.adapters.ClassListAdapter;
 import com.rjp.cnvteachers.adapters.DivisionListAdapter;
 import com.rjp.cnvteachers.adapters.HandsOnScienceListAdapter;
+import com.rjp.cnvteachers.adapters.PdfCreater;
 import com.rjp.cnvteachers.api.API;
 import com.rjp.cnvteachers.api.RetrofitClient;
 import com.rjp.cnvteachers.beans.AdmissionBean;
@@ -76,7 +78,7 @@ public class HandsOnScienceFragment extends Fragment{
     public static AdmissionBean objStudAdm=null;
     private ArrayList<StudentBean> arrStud = new ArrayList<StudentBean>();
     private ArrayList<AdmissionBean> arrStudAdm = new ArrayList<AdmissionBean>();
-
+    private FloatingActionButton fabpdf;
 
 
     @Override
@@ -278,6 +280,7 @@ public class HandsOnScienceFragment extends Fragment{
         AutoName=(AutoCompleteTextView)v.findViewById(R.id.etStudName);
         spnClass=(Spinner)v.findViewById(R.id.spnClass);
         spnDivision=(Spinner)v.findViewById(R.id.spnDivision);
+        fabpdf=(FloatingActionButton) v.findViewById(R.id.fabpdf);
         btSubmit=(Button)v.findViewById(R.id.btSubmit);
     }
 
@@ -469,12 +472,14 @@ public class HandsOnScienceFragment extends Fragment{
                                 if (prog.isShowing()) {
                                     prog.dismiss();
                                 }
+                                fabpdf.setVisibility(View.VISIBLE);
                                 arrList = apiResultses.getHos_info();
                                 if (arrList != null) {
 
                                     if (arrList.size() > 0) {
                                         Log.e(TAG, "Size One Frag" + arrList.size());
                                         generateCurriculumList(arrList);
+                                        getpdf();
                                     } else {
                                         objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
                                             @Override
@@ -548,6 +553,23 @@ public class HandsOnScienceFragment extends Fragment{
                     alert.show();
                 }
 
+
+            }
+        });
+    }
+
+    private void getpdf() {
+        fabpdf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                try {
+                    PdfCreater adapter = new PdfCreater(mContext);
+                    adapter.create_pdf_handson(arrList);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             }
         });

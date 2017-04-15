@@ -152,6 +152,17 @@
             app:cardCornerRadius="3dp"
             android:layout_margin="10dp"
             >
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabpdf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/pdf"
+                android:layout_gravity="top|right"
+                app:backgroundTint="@color/white"
+                android:padding="5dp"
+                android:visibility="invisible"
+                android:scaleType="centerCrop"
+                android:layout_margin="@dimen/fab_margin"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvSearchResult"

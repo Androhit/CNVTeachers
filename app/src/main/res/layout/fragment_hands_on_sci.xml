@@ -164,7 +164,7 @@
         >
         <EditText
             android:id="@+id/etSearch"
-            android:layout_width="match_parent"
+            android:layout_width="308dp"
             android:layout_height="wrap_content"
             android:hint="Search here..."
             android:drawableLeft="@android:drawable/ic_menu_search"
@@ -173,6 +173,19 @@
             android:padding="5dp"
             android:textColor="@color/colorPrimaryDark"
             />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabpdf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/pdf"
+            android:layout_gravity="top|right"
+            app:backgroundTint="@color/white"
+            android:padding="5dp"
+            android:visibility="invisible"
+            android:scaleType="centerCrop"
+            android:layout_margin="@dimen/fab_margin"/>
+
+
 
     </android.support.v7.widget.CardView>
 

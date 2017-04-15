@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,6 +24,7 @@ import com.rjp.cnvteachers.R;
 import com.rjp.cnvteachers.adapters.AttendanceClassFragmentAdapter;
 import com.rjp.cnvteachers.adapters.ClassListAdapter;
 import com.rjp.cnvteachers.adapters.DivisionListAdapter;
+import com.rjp.cnvteachers.adapters.PdfCreater;
 import com.rjp.cnvteachers.api.API;
 import com.rjp.cnvteachers.api.RetrofitClient;
 import com.rjp.cnvteachers.beans.ApiResults;
@@ -75,6 +77,7 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
     private int mMonth;
     private int mDay;
     private int DATE_DIALOG_ID = 0;
+    private FloatingActionButton fabpdf;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -312,9 +315,13 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
                                 if (prog.isShowing()) {
                                     prog.dismiss();
                                 }
+
+                                fabpdf.setVisibility(View.VISIBLE);
+
                                 if (apiResults != null) {
                                     arrList = apiResults.getClass_att();
                                     generateList();
+                                    getpdf();
 
                                 }
                                 else {
@@ -393,6 +400,24 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
                 DATE_DIALOG_ID = 1;
                 DatePickerDialog dialog = new DatePickerDialog(mContext, mDateSetListener, mYear, mMonth, mDay);
                 dialog.show();
+            }
+        });
+
+    }
+
+    private void getpdf() {
+        fabpdf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                try {
+                    PdfCreater objPDFCreater = new PdfCreater(mContext);
+                    objPDFCreater.create_pdf_attendance(arrList);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
         });
 
@@ -480,7 +505,7 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
         tvFromDate = (TextView) v.findViewById(R.id.tvAttendanceFromDate);
         tvToDate = (TextView) v.findViewById(R.id.tvAttendanceToDate);
         btSearch = (Button) v.findViewById(R.id.btSearch);
-
+        fabpdf=(FloatingActionButton) v.findViewById(R.id.fabpdf);
         spnClassName=(Spinner) v.findViewById(R.id.spnClassName);
         spnDivision=(Spinner) v.findViewById(R.id.tvDivision);
     }

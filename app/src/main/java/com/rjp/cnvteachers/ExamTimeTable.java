@@ -3,6 +3,7 @@ package com.rjp.cnvteachers;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -11,9 +12,11 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.rjp.cnvteachers.adapters.ExamDetailsListAdapter;
+import com.rjp.cnvteachers.adapters.PdfCreater;
 import com.rjp.cnvteachers.api.API;
 import com.rjp.cnvteachers.api.RetrofitClient;
 import com.rjp.cnvteachers.beans.ApiResults;
@@ -41,6 +44,7 @@ public class ExamTimeTable extends AppCompatActivity {
     private SwipeRefreshLayout refreshView;
     private ArrayList<ExamDetailsBeans> arrList = new ArrayList<ExamDetailsBeans>();
     private ExamBean objExam = null;
+    private FloatingActionButton fabpdf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +96,8 @@ public class ExamTimeTable extends AppCompatActivity {
         rvExamTT = (RecyclerView)findViewById(R.id.rvExamTT);
         refreshView = (SwipeRefreshLayout)findViewById(R.id.swipe_refresh_view_task);
         refreshView.setColorSchemeResources(R.color.cyan_900,R.color.colorAccent,R.color.yellow_500,R.color.red_900);
+        fabpdf=(FloatingActionButton) findViewById(R.id.fabpdf);
+
     }
 
     private void getExamDataService(final ExamBean objExam)
@@ -110,6 +116,7 @@ public class ExamTimeTable extends AppCompatActivity {
                         if (prog.isShowing()) {
                             prog.dismiss();
                         }
+                        fabpdf.setVisibility(View.VISIBLE);
                         arrList = apiResultses.getExamdetails_list();
                         refreshView.setRefreshing(false);
                         if (arrList != null) {
@@ -117,6 +124,7 @@ public class ExamTimeTable extends AppCompatActivity {
                             if (arrList.size() > 0) {
                                 Log.e(TAG, "Size One Frag" + arrList.size());
                                 generateExamList(arrList);
+                                getpdf();
                             }
                             else {
                                 objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
@@ -164,6 +172,23 @@ public class ExamTimeTable extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void getpdf() {
+        fabpdf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                try {
+                    PdfCreater adapter = new PdfCreater(mContext);
+                    adapter.create_pdf_examtimetable(arrList);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
     }
 
     private void generateExamList(ArrayList<ExamDetailsBeans> arr) {

@@ -188,7 +188,7 @@ public class HomeScreen extends AppCompatActivity
 
         switch (id) {
             case R.id.nav_dashboard:
-             //   fragmentClass = EmployeeFragment.class;
+             //   fragmentClass = DashboardFragment.class;
                 break;
             case R.id.nav_profile  :
                 fragmentClass = EmployeeFragment.class;

@@ -107,10 +107,14 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         >
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="1">
         <EditText
             android:id="@+id/etSearch"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:hint="Search here..."
             android:drawableLeft="@android:drawable/ic_menu_search"
@@ -118,23 +122,25 @@
             android:textSize="14sp"
             android:padding="5dp"
             android:textColor="@color/colorPrimaryDark"
-            />
+            android:layout_weight="1.02" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabpdf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/pdf"
+            android:layout_gravity="bottom|right"
+            app:backgroundTint="@color/white"
+            android:visibility="invisible"
+            android:padding="5dp"
+            android:scaleType="centerCrop"
+            android:layout_margin="@dimen/fab_margin"/>
+</LinearLayout>
 
     </android.support.v7.widget.CardView>
 
 
 
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabpdf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/pdf"
-            android:layout_gravity="bottom|right"
-            app:backgroundTint="@color/white"
-            android:visibility="invisible"
-            android:scaleType="centerCrop"
-            android:layout_margin="@dimen/fab_margin"/>
 
 
         <android.support.v7.widget.RecyclerView

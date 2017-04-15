@@ -24,10 +24,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.itextpdf.text.DocumentException;
 import com.rjp.cnvteachers.R;
 import com.rjp.cnvteachers.adapters.AchievmentListAdapter;
-import com.rjp.cnvteachers.adapters.PdfAdapter;
+import com.rjp.cnvteachers.adapters.PdfCreater;
 import com.rjp.cnvteachers.api.API;
 import com.rjp.cnvteachers.api.RetrofitClient;
 import com.rjp.cnvteachers.beans.AchievementsBean;
@@ -38,7 +37,6 @@ import com.rjp.cnvteachers.common.ConfirmationDialogs;
 import com.rjp.cnvteachers.utils.AppPreferences;
 import com.rjp.cnvteachers.utils.NetworkUtility;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import retrofit.Callback;
@@ -309,6 +307,7 @@ public class AchievmentFragment extends Fragment {
                                     arr = apiResults.getSpecial_achiv();
                                     if (arr.size() > 0) {
                                         generateGoodNewsList(arr);
+                                        getpdf();
                                         AppPreferences.setAchievementCount(mContext, 0);
 
                                     } else {
@@ -376,27 +375,30 @@ public class AchievmentFragment extends Fragment {
                             alert.dismiss();
                         }
                     });
-
                     alert.show();
                 }
-
             }
         });
 
+
+
+    }
+
+    private void getpdf() {
         fabpdf.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                PdfAdapter adapter = new PdfAdapter(getActivity(), R.layout.pdf_items, R.id.tvDiv, arr);
+
                 try {
-                    adapter.create_pdf(arr);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (DocumentException e) {
+                    PdfCreater adapter = new PdfCreater(mContext);
+                    adapter.create_pdf_achievement(arr);
+
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
+
             }
         });
-
     }
 
 

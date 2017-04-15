@@ -181,7 +181,7 @@ public class ExamDetailsListAdapter extends RecyclerView.Adapter<ExamDetailsList
     class ExamResultListAdapter extends RecyclerView.Adapter<ExamResultListAdapter.MyViewHolder>
     {
 
-        private ArrayList<ExamResults> taskList;
+        private ArrayList<ExamResults> taskListAtten;
         private ArrayList<ExamResults> arraylist;
         private TextView tvMarks,tvOutOff;
         private Context mContext;
@@ -210,7 +210,7 @@ public class ExamDetailsListAdapter extends RecyclerView.Adapter<ExamDetailsList
         }
 
         public ExamResultListAdapter(Context cont, ArrayList<ExamResults> arrList,TextView tvMarks,TextView tvOutOff) {
-            this.taskList = arrList;
+            this.taskListAtten = arrList;
             this.arraylist = new ArrayList<ExamResults>();
             this.arraylist.addAll(arrList);
             this.mContext = cont;
@@ -228,7 +228,7 @@ public class ExamDetailsListAdapter extends RecyclerView.Adapter<ExamDetailsList
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
-            final ExamResults objStud = taskList.get(position);
+            final ExamResults objStud = taskListAtten.get(position);
             holder.subject.setText(objStud.getSub_name());
             holder.marks.setText(objStud.getMarks());
             holder.outoff.setText(objStud.getMax_marks());
@@ -259,7 +259,7 @@ public class ExamDetailsListAdapter extends RecyclerView.Adapter<ExamDetailsList
 
         @Override
         public int getItemCount() {
-            return taskList.size();
+            return taskListAtten.size();
         }
 
     }

@@ -75,13 +75,19 @@
     </LinearLayout>
 
 </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvAcademics"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="3dp" />
-
+        </android.support.v7.widget.CardView>
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>
