@@ -12,6 +12,8 @@ public class ApiResults
     public ArrayList<LoginBean> login_det;
     public ArrayList<StudentBean> student_list;
     public ArrayList<StudentBean> student;
+    public ArrayList<StudentBean> stud;
+    public ArrayList<StudentBean> studList;
     public ArrayList<AdmissionBean> admno_no;
     public ArrayList<ClassBean> class_list;
     public ArrayList<DivisonBean> divison_list;
@@ -24,6 +26,7 @@ public class ApiResults
     public ArrayList<AttendanceBean> class_att;
     public ArrayList<ExamResultsBean> exm_all_sub;
     public String total_grade;
+    public String empname;
     public ArrayList<ExamDetailsBeans> examdetails_list;
     public ArrayList<ExamBean> exam_list;
     public ArrayList<ExamBean> all_exam_name;
@@ -35,7 +38,16 @@ public class ApiResults
     public ArrayList<HandsOnScienceBeans> hos_info;
     public ArrayList<AdmissionYearBean> adm_yr_list;
     public ArrayList<AcademicYearBean> acad_yr_list;
+    public ArrayList<WorksheetBean> worksheet_list;
     public String total_percentage,total_marks,obtained_marks;
+
+    public String getEmpname() {
+        return empname;
+    }
+
+    public void setEmpname(String empname) {
+        this.empname = empname;
+    }
 
     public ExamResultsBean getStud_result() {
         return stud_result;
@@ -298,4 +310,27 @@ public class ApiResults
         this.my_timetable = my_timetable;
     }
 
+    public ArrayList<StudentBean> getStud() {
+        return stud;
+    }
+
+    public void setStud(ArrayList<StudentBean> stud) {
+        this.stud = stud;
+    }
+
+    public ArrayList<WorksheetBean> getWorksheet_list() {
+        return worksheet_list;
+    }
+
+    public void setWorksheet_list(ArrayList<WorksheetBean> worksheet_list) {
+        this.worksheet_list = worksheet_list;
+    }
+
+    public ArrayList<StudentBean> getStudList() {
+        return studList;
+    }
+
+    public void setStudList(ArrayList<StudentBean> studList) {
+        this.studList = studList;
+    }
 }

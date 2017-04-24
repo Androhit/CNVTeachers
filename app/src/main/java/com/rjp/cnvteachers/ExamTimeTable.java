@@ -50,7 +50,7 @@ public class ExamTimeTable extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exam_time_table);
-        getSupportActionBar();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mContext = this;
         init();
         initRetrofitClient();
@@ -181,7 +181,7 @@ public class ExamTimeTable extends AppCompatActivity {
 
                 try {
                     PdfCreater adapter = new PdfCreater(mContext);
-                    adapter.create_pdf_examtimetable(arrList);
+                    adapter.create_pdf_examtimetable(arrList,objExam);
 
                 } catch (Exception e) {
                     e.printStackTrace();

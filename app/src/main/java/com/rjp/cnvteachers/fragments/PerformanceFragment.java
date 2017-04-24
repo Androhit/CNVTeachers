@@ -314,7 +314,7 @@ public class PerformanceFragment extends Fragment
                         if (apiResults.getDivison_list() != null) {
                             DivisonBean objdiv = new DivisonBean();
                             objdiv.setDiv_id("0");
-                            objdiv.setDivision_name("Select Division");
+                            objdiv.setDivision_name("Select Division\n" + "_______________");
                             arrDiv = apiResults.getDivison_list();
                             arrDiv.add(0, objdiv);
                      //       ArrayAdapter<DivisonBean> adapter = new ArrayAdapter<DivisonBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrDiv);
@@ -407,8 +407,8 @@ public class PerformanceFragment extends Fragment
                         if (apiResults.getAll_exam_name() != null) {
                             ExamBean objExam = new ExamBean();
                             objExam.setExam_id("0");
-                            objExam.setExam_name("Exam Name");
-                            objExam.setExam_types("");
+                            objExam.setExam_name("----------------------------");
+                            objExam.setExam_types("Exam Name");
                             arrExam = apiResults.getAll_exam_name();
                             arrExam.add(0, objExam);
                             ExamAdapter adapter = new ExamAdapter(getActivity(), R.layout.exam_items, R.id.tvName, arrExam);
@@ -456,8 +456,8 @@ public class PerformanceFragment extends Fragment
                         if (apiResults.getClass_list() != null) {
                             ClassBean objclas = new ClassBean();
                             objclas.setClass_id("0");
-                            objclas.setClasses("Select Class");
-                            objclas.setDept_name("");
+                            objclas.setClasses("----------------------------");
+                            objclas.setDept_name("Select Class");
                             arrClass = apiResults.getClass_list();
                             arrClass.add(0, objclas);
                             //ArrayAdapter<ClassBean> adapter = new ArrayAdapter<ClassBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrClass);

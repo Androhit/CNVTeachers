@@ -46,27 +46,56 @@
         <activity
             android:name=".ExamTimeTable"
             android:label="ExamTimeTable"
-            android:theme="@style/AppTheme.NoActionBar">
+            >
         </activity>
         <activity android:name=".ExamResult"
             android:label="ExamTimeTable"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            />
 
 
         <activity android:name=".LoginActivity"
         android:exported="true"
         android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar"/>
+        />
 
         <activity android:name=".NoticeDetailView"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            />
 
+        <activity android:name=".AddWorksheet"
+            android:exported="true"
+            android:screenOrientation="portrait"
+          />
+        <activity android:name=".WorksheetDetails"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".SchoolGallery"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".ViewDocument"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".DisplayImage"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            />
 
+        <activity android:name=".PermissionsActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            />
 
-      <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <activity android:name=".TakeAttendance"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            />
+
+        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+       App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

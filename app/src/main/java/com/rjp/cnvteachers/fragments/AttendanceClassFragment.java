@@ -68,6 +68,9 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
     private ArrayList<ClassBean> arrClass = new ArrayList<ClassBean>();
     private ArrayList<DivisonBean> arrDiv = new ArrayList<DivisonBean>();
 
+    ClassBean objC;
+    DivisonBean objD;
+    AttendanceBean objA;
 
     String Division;
     String Classid;
@@ -171,8 +174,8 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
                         if (apiResults.getClass_list() != null) {
                             ClassBean objclas = new ClassBean();
                             objclas.setClass_id("0");
-                            objclas.setClasses("Select Class");
-                            objclas.setDept_name("");
+                            objclas.setClasses("----------------------------");
+                            objclas.setDept_name("Select Class");
                             arrClass = apiResults.getClass_list();
                             arrClass.add(0, objclas);
                          //   ArrayAdapter<ClassBean> adapter = new ArrayAdapter<ClassBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrClass);
@@ -223,8 +226,6 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
     }
 
     private void setListners() {
-
-
         spnClassName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -289,6 +290,16 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
 
                     FromDate = tvFromDate.getText().toString();
                     ToDate = tvToDate.getText().toString();
+
+                    objC=new ClassBean();
+                    objC.setClasses(objClass.getclasses());
+
+                    objD=new DivisonBean();
+                    objD.setDivision_name(Division);
+
+                    objA = new AttendanceBean();
+                    objA.setFrom_date(FromDate);
+                    objA.setTo_date(ToDate);
 
                     if ((!Classid.equals("0")) && (!Division.equals("Select Division")) && (!FromDate.equals(" From Date")) && (!ToDate.equals(" To Date"))) {
 
@@ -412,7 +423,7 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
 
                 try {
                     PdfCreater objPDFCreater = new PdfCreater(mContext);
-                    objPDFCreater.create_pdf_attendance(arrList);
+                    objPDFCreater.create_pdf_attendance(arrList,objC,objD,objA);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -448,7 +459,7 @@ public class AttendanceClassFragment extends Fragment implements DatePickerDialo
                         if (apiResults.getDivison_list() != null) {
                             DivisonBean objdiv = new DivisonBean();
                             objdiv.setDiv_id("0");
-                            objdiv.setDivision_name("Select Division");
+                            objdiv.setDivision_name("Select Division\n" + "_______________\n");
                             arrDiv = apiResults.getDivison_list();
                             arrDiv.add(0, objdiv);
                            // ArrayAdapter<DivisonBean> adapter = new ArrayAdapter<DivisonBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrDiv);

@@ -1,9 +1,11 @@
 package com.rjp.cnvteachers.adapters;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -18,11 +20,17 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.rjp.cnvteachers.Permission.PermissionsChecker;
 import com.rjp.cnvteachers.beans.AchievementsBean;
 import com.rjp.cnvteachers.beans.AttendanceBean;
+import com.rjp.cnvteachers.beans.ClassBean;
+import com.rjp.cnvteachers.beans.DivisonBean;
+import com.rjp.cnvteachers.beans.ExamBean;
 import com.rjp.cnvteachers.beans.ExamDetailsBeans;
 import com.rjp.cnvteachers.beans.ExamResultsBean;
 import com.rjp.cnvteachers.beans.HandsOnScienceBeans;
+import com.rjp.cnvteachers.beans.StudentBean;
+import com.rjp.cnvteachers.common.DateOperations;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -42,15 +50,19 @@ public class PdfCreater {
     public Context mContext;
     File myFile;
     AchievementsBean obj;
+    private PermissionsChecker checker;
+
     Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,Font.BOLD);
+    Font TitleFont = new Font(Font.FontFamily.TIMES_ROMAN, 20,Font.BOLD);
     Font tabFont = new Font(Font.FontFamily.TIMES_ROMAN, 16,Font.BOLD);
+    private static final String[] PERMISSIONS_READ_STORAGE = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE};
 
     public PdfCreater(Context context) // for Achievements
     {
         this.mContext = context;
     }
 
-     public void create_pdf_achievement(ArrayList<AchievementsBean> arr) throws FileNotFoundException, DocumentException {
+     public void create_pdf_achievement(ArrayList<AchievementsBean> arr, StudentBean obj) throws FileNotFoundException, DocumentException {
         File pdfFolder = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DOCUMENTS), "pdfdemo");
         if (!pdfFolder.exists()) {
@@ -70,18 +82,31 @@ public class PdfCreater {
         Log.e(LOG_TAG, "Pdf File opening"+myFile);
         document.open();
 
-         Paragraph p=new Paragraph("Achievement Report",catFont);
-         p.setAlignment(Element.ALIGN_CENTER);
-
-         Paragraph p1=new Paragraph("  ");
+         Paragraph p1=new Paragraph(" Achievment Report",TitleFont);
          p1.setAlignment(Element.ALIGN_CENTER);
+
+         Paragraph p0=new Paragraph("    \n      ");
+
+         Paragraph p,p3;
+
+         p = new Paragraph("  Student name :  " + obj.getName(), catFont);
+             // p.setAlignment(Element.ALIGN_CENTER);
+         p3 = new Paragraph("  Admission no. :  " + obj.getAdmno(), catFont);
+
+
+         Paragraph p2=new Paragraph("   \n    ");
+         p2.setAlignment(Element.ALIGN_CENTER);
+
 
          Chapter catPart = new Chapter(1);
 
-         catPart.add(p);
          catPart.add(p1);
+         catPart.add(p0);
+         catPart.add(p);
+         catPart.add(p3);
+         catPart.add(p2);
        // createTable(subCatPart,arr);
-        PdfPTable table = new PdfPTable(4);
+        PdfPTable table = new PdfPTable(5);
 
         PdfPCell c1 = new PdfPCell(new Phrase("Achievment",tabFont));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -91,7 +116,11 @@ public class PdfCreater {
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("Venue",tabFont));
+         c1 = new PdfPCell(new Phrase("Event Date",tabFont));
+         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+         table.addCell(c1);
+
+         c1 = new PdfPCell(new Phrase("Venue",tabFont));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
 
@@ -105,6 +134,7 @@ public class PdfCreater {
 
             table.addCell(new Paragraph(wp.getAchivement()));
             table.addCell(new Paragraph(wp.getEvent_name()));
+            table.addCell(new Paragraph(DateOperations.convertToyyyyMMdd(wp.getEvent_date())));
             table.addCell(new Paragraph(wp.getVenu()));
             table.addCell(new Paragraph(wp.getOrganized_by()));
         }
@@ -119,7 +149,7 @@ public class PdfCreater {
         promptForNextAction();
     }
 
-    public void create_pdf_attendance(ArrayList<AttendanceBean> arr) throws FileNotFoundException, DocumentException {
+    public void create_pdf_attendance(ArrayList<AttendanceBean> arr, ClassBean objC, DivisonBean objD,AttendanceBean objA) throws FileNotFoundException, DocumentException {
         File pdfFolder = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DOCUMENTS), "pdfdemo");
         if (!pdfFolder.exists()) {
@@ -139,15 +169,28 @@ public class PdfCreater {
         PdfWriter.getInstance(document, output);
         Log.e(LOG_TAG, "Pdf File opening"+myFile);
         document.open();
-        Paragraph p=new Paragraph("Attendance Report",catFont);
-        p.setAlignment(Element.ALIGN_CENTER);
 
-        Paragraph p1=new Paragraph("  ");
+
+        Paragraph p0=new Paragraph(" Attendance Report ",TitleFont);
+        p0.setAlignment(Element.ALIGN_CENTER);
+        Paragraph p5=new Paragraph("    \n     ");
+
+        Paragraph p=new Paragraph(" Class : "+objC.getclasses()+"   Division : "+objD.getDivision_name(),catFont);
+     //  p.setAlignment(Element.ALIGN_CENTER);
+
+        Paragraph p3=new Paragraph(" From Date : "+DateOperations.convertToyyyyMMdd(objA.getFrom_date()),catFont);
+        Paragraph p4=new Paragraph(" To Date : "+DateOperations.convertToyyyyMMdd(objA.getTo_date()),catFont);
+
+        Paragraph p1=new Paragraph("   \n   ");
         p1.setAlignment(Element.ALIGN_CENTER);
 
         Chapter catPart = new Chapter(1);
 
+        catPart.add(p0);
+        catPart.add(p5);
         catPart.add(p);
+        catPart.add(p3);
+        catPart.add(p4);
         catPart.add(p1);
 
         // createTable(subCatPart,arr);
@@ -179,7 +222,7 @@ public class PdfCreater {
 
             table.addCell(new Paragraph(wp.getName()));
             table.addCell(new Paragraph(wp.getWorking_days()));
-            table.addCell(new Paragraph(wp.getPercent()));
+            table.addCell(new Paragraph(wp.getPresent_day()));
             table.addCell(new Paragraph(wp.getAbsent_days()));
             table.addCell(new Paragraph(wp.getPercent()));
         }
@@ -195,7 +238,7 @@ public class PdfCreater {
 
     }
 
-    public void create_pdf_handson(ArrayList<HandsOnScienceBeans> arr) throws FileNotFoundException, DocumentException {
+    public void create_pdf_handson(ArrayList<HandsOnScienceBeans> arr,StudentBean objS,ClassBean objC) throws FileNotFoundException, DocumentException {
         File pdfFolder = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DOCUMENTS), "pdfdemo");
         if (!pdfFolder.exists()) {
@@ -215,16 +258,32 @@ public class PdfCreater {
         PdfWriter.getInstance(document, output);
         Log.e(LOG_TAG, "Pdf File opening"+myFile);
         document.open();
-        Paragraph p=new Paragraph("Hands On Science Report",catFont);
-        p.setAlignment(Element.ALIGN_CENTER);
 
-        Paragraph p1=new Paragraph("  ");
-        p1.setAlignment(Element.ALIGN_CENTER);
+        Paragraph p0=new Paragraph(" Hands On Science Report",TitleFont);
+        p0.setAlignment(Element.ALIGN_CENTER);
+
+        Paragraph p4=new Paragraph("   \n     ");
+        p4.setAlignment(Element.ALIGN_CENTER);
+
+        Paragraph p=new Paragraph("  Student name :   "+objS.getName(),catFont);
+        //p.setAlignment(Element.ALIGN_CENTER);
+
+        Paragraph p3= new Paragraph("  Admission No. :   "+objS.getAdmno(),catFont);
+
+        Paragraph p1=new Paragraph("   Class : "+objC.getclasses()+"   Division : "+objS.getDivision(),catFont);
+       // p1.setAlignment(Element.ALIGN_CENTER);
+
+        Paragraph p2=new Paragraph("    \n    ");
+        p2.setAlignment(Element.ALIGN_CENTER);
 
         Chapter catPart = new Chapter(1);
 
+        catPart.add(p0);
+        catPart.add(p4);
         catPart.add(p);
+        catPart.add(p3);
         catPart.add(p1);
+        catPart.add(p2);
 
 
         // createTable(subCatPart,arr);
@@ -254,8 +313,8 @@ public class PdfCreater {
 
         for (HandsOnScienceBeans wp : arr) {
 
-            table.addCell(new Paragraph(wp.getFrom_date()));
-            table.addCell(new Paragraph(wp.getTo_date()));
+            table.addCell(new Paragraph(DateOperations.convertToyyyyMMdd(wp.getFrom_date())));
+            table.addCell(new Paragraph(DateOperations.convertToyyyyMMdd(wp.getTo_date())));
             table.addCell(new Paragraph(wp.getProj_title()));
             table.addCell(new Paragraph(wp.getProj_aim()));
             table.addCell(new Paragraph(wp.getProj_disc()));
@@ -271,14 +330,13 @@ public class PdfCreater {
         promptForNextAction();
 
     }
-    public void create_pdf_examtimetable(ArrayList<ExamDetailsBeans> arr) throws FileNotFoundException, DocumentException {
+    public void create_pdf_examtimetable(ArrayList<ExamDetailsBeans> arr, ExamBean obj) throws FileNotFoundException, DocumentException {
         File pdfFolder = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DOCUMENTS), "pdfdemo");
         if (!pdfFolder.exists()) {
             pdfFolder.mkdir();
             Log.e(LOG_TAG, "Pdf Directory created"+pdfFolder);
         }
-
         //Create time stamp
         Date date = new Date() ;
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(date);
@@ -294,16 +352,24 @@ public class PdfCreater {
         //Anchor anchor = new Anchor("Exam Time table",catFont);
       //  anchor.setName("PDF");
 
-        Paragraph p=new Paragraph("Exam Time table",catFont);
-        p.setAlignment(Element.ALIGN_CENTER);
+        Paragraph p0=new Paragraph(" Exam time table ",catFont);
+        p0.setAlignment(Element.ALIGN_CENTER);
 
-        Paragraph p1=new Paragraph("  ");
-        p1.setAlignment(Element.ALIGN_CENTER);
+        Paragraph p1=new Paragraph("   \n   ");
+
+        Paragraph p=new Paragraph("  Exam : "+obj.getExam_name(),catFont);
+        Paragraph p3=new Paragraph("  Class : "+obj.getClass_name(),catFont);
+        //p.setAlignment(Element.ALIGN_CENTER);
+
+        Paragraph p2=new Paragraph("   \n    ");
+        //p2.setAlignment(Element.ALIGN_CENTER);
 
         Chapter catPart = new Chapter(1);
-
-        catPart.add(p);
+        catPart.add(p0);
         catPart.add(p1);
+        catPart.add(p);
+        catPart.add(p3);
+        catPart.add(p2);
 
         // createTable(subCatPart,arr);
         PdfPTable table = new PdfPTable(4);
@@ -327,9 +393,8 @@ public class PdfCreater {
         table.setHeaderRows(1);
 
         for (ExamDetailsBeans wp : arr) {
-
             table.addCell(new Paragraph(wp.getSub_name()));
-            table.addCell(new Paragraph(wp.getExam_date()));
+            table.addCell(new Paragraph(DateOperations.convertToyyyyMMdd(wp.getExam_date())));
             table.addCell(new Paragraph(wp.getTime_from()));
             table.addCell(new Paragraph(wp.getTime_to()));
         }
@@ -344,7 +409,7 @@ public class PdfCreater {
         promptForNextAction();
 
     }
-    public void create_pdf_performance(ArrayList<ExamResultsBean> arr) throws FileNotFoundException, DocumentException {
+    public void create_pdf_performance(ArrayList<ExamResultsBean> arr,ExamResultsBean obj,ExamBean objE) throws FileNotFoundException, DocumentException {
         File pdfFolder = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DOCUMENTS), "pdfdemo");
         if (!pdfFolder.exists()) {
@@ -364,16 +429,29 @@ public class PdfCreater {
         PdfWriter.getInstance(document, output);
         Log.e(LOG_TAG, "Pdf File opening"+myFile);
         document.open();
-        Paragraph p=new Paragraph("Performance Report",catFont);
-        p.setAlignment(Element.ALIGN_CENTER);
 
-        Paragraph p1=new Paragraph("  ");
-        p1.setAlignment(Element.ALIGN_CENTER);
+        Paragraph p4= new Paragraph(" Performance Report",TitleFont);
+
+        Paragraph p5=new Paragraph("   \n    ");
+        p5.setAlignment(Element.ALIGN_CENTER);
+
+        Paragraph p=new Paragraph("  Student name : "+objE.getStud_name(),catFont);
+        Paragraph p0=new Paragraph("  Admission No. : "+objE.getAdmno(),catFont);
+        Paragraph p2=new Paragraph(" Exam : "+objE.getExam_name(),catFont);
+        Paragraph p1=new Paragraph(" Class : "+objE.getClass_name()+"   Division : "+objE.getDivision(),catFont);
+
+        Paragraph p3=new Paragraph("  \n    ");
+        p3.setAlignment(Element.ALIGN_CENTER);
 
         Chapter catPart = new Chapter(1);
 
+        catPart.add(p4);
+        catPart.add(p5);
+        catPart.add(p2);
         catPart.add(p);
+        catPart.add(p0);
         catPart.add(p1);
+        catPart.add(p3);
 
         // createTable(subCatPart,arr);
         PdfPTable table = new PdfPTable(5);
@@ -399,7 +477,7 @@ public class PdfCreater {
         table.addCell(c1);
 
         table.setHeaderRows(1);
-        String obtained_marks="",total="",per="",grade="";
+        int obtained_marks=0,total=0;
         for (ExamResultsBean wp : arr) {
 
             table.addCell(new Paragraph(wp.getSub_name()));
@@ -408,17 +486,23 @@ public class PdfCreater {
             table.addCell(new Paragraph(wp.getPercentage()));
             table.addCell(new Paragraph(wp.getGrade()));
 
-            obtained_marks=wp.getObtained_marks();
-            total=wp.getTotal_marks();
-            per=wp.getTotal_percentage();
-            grade=wp.getTotal_grade();
+            obtained_marks= obtained_marks + Integer.parseInt(wp.getMarks());
+            total= total + Integer.parseInt(wp.getMax_marks());
         }
 
         table.addCell(new Paragraph("Total",tabFont));
-        table.addCell(new Paragraph(obtained_marks,tabFont));
-        table.addCell(new Paragraph(total,tabFont));
-        table.addCell(new Paragraph(per,tabFont));
-        table.addCell(new Paragraph(grade,tabFont));
+        table.addCell(new Paragraph(obj.getObtained_marks(),tabFont));
+        table.addCell(new Paragraph(obj.getTotal_marks(),tabFont));
+        table.addCell(new Paragraph(obj.getTotal_percentage(),tabFont));
+        table.addCell(new Paragraph(obj.getTotal_grade(),tabFont));
+/*
+        double perc= (100*obtained_marks)/total;
+        table.addCell(new Paragraph("Total",tabFont));
+        table.addCell(new Paragraph(String.valueOf(obtained_marks),tabFont));
+        table.addCell(new Paragraph(String.valueOf(total),tabFont));
+        table.addCell(new Paragraph(String.valueOf(perc),tabFont));
+        table.addCell(new Paragraph("",tabFont));
+*/
         catPart.add(table);
         document.add(catPart);
 
@@ -454,10 +538,35 @@ public class PdfCreater {
     }
 
     public void viewPdf(){
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(myFile), "application/pdf");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        mContext.startActivity(intent);
+
+        try {
+            if (checker.lacksPermissions(PERMISSIONS_READ_STORAGE)) {
+                startPermissionsActivity(PERMISSIONS_READ_STORAGE);
+            }
+            else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setDataAndType(Uri.fromFile(myFile), "application/pdf");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    mContext.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setDataAndType(Uri.fromFile(myFile), "application/pdf");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    mContext.startActivity(intent);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+
+    private void startPermissionsActivity(String[] permission) {
+       // PermissionsActivity.startActivityForResult(mContext, 0, permission);
+       // PermissionsActivity.startActivityForResult(this, 0, permission);
     }
 
 }

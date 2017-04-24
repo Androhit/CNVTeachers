@@ -78,5 +78,4 @@ public class SchoolGallery extends AppCompatActivity{
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

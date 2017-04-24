@@ -1,6 +1,7 @@
 package com.rjp.cnvteachers.adapters;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +18,22 @@ import java.util.ArrayList;
  */
 
 public class DivisionListAdapter extends ArrayAdapter<DivisonBean> {
-    LayoutInflater flater;
+    private Context mContext;
+    private LayoutInflater flater;
 
     public DivisionListAdapter(Activity context, int resouceId, int textviewId, ArrayList<DivisonBean> list) {
 
         super(context, resouceId, textviewId, list);
         flater = context.getLayoutInflater();
     }
+
+    public DivisionListAdapter(Context context, int resouceId, int textviewId, ArrayList<DivisonBean> list) {
+
+        super(context, resouceId, textviewId, list);
+        this.mContext= context;
+        flater = LayoutInflater.from(context);
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 

@@ -72,6 +72,8 @@ public class HandsOnScienceFragment extends Fragment{
     private DivisonBean objDiv;
     String Classid,Division,Name,Admno;
     private Button btSubmit;
+    StudentBean objS;
+    ClassBean objC;
 
 
     public static StudentBean objStud=null;
@@ -303,8 +305,8 @@ public class HandsOnScienceFragment extends Fragment{
                         if (apiResults.getClass_list() != null) {
                             ClassBean objclas = new ClassBean();
                             objclas.setClass_id("0");
-                            objclas.setClasses("Select Class");
-                            objclas.setDept_name("");
+                            objclas.setClasses("----------------------------");
+                            objclas.setDept_name("Select Class");
                             arrClass = apiResults.getClass_list();
                             arrClass.add(0, objclas);
                             //ArrayAdapter<ClassBean> adapter = new ArrayAdapter<ClassBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrClass);
@@ -364,7 +366,7 @@ public class HandsOnScienceFragment extends Fragment{
             @Override
             public void onRefresh()
             {
-            //    getHosDataDataService();
+                setListners();
             }
         });
 
@@ -446,6 +448,15 @@ public class HandsOnScienceFragment extends Fragment{
                 {
                     Division = "";
                 }
+
+
+                objS=new StudentBean();
+                objS.setName(Name);
+                objS.setAdmno(Admno);
+                objS.setDivision(Division);
+
+                objC=new ClassBean();
+                objC.setClasses(objClass.getclasses());
 
                 if((!Classid.equals("0")) && (!Division.equals("Select Division")) || (Name.length()!=0) || (Admno.length()!=0))
 
@@ -565,7 +576,7 @@ public class HandsOnScienceFragment extends Fragment{
 
                 try {
                     PdfCreater adapter = new PdfCreater(mContext);
-                    adapter.create_pdf_handson(arrList);
+                    adapter.create_pdf_handson(arrList,objS,objC);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -600,7 +611,7 @@ public class HandsOnScienceFragment extends Fragment{
                         if (apiResults.getDivison_list() != null) {
                             DivisonBean objdiv = new DivisonBean();
                             objdiv.setDiv_id("0");
-                            objdiv.setDivision_name("Select Division");
+                            objdiv.setDivision_name("Select Division\n" + "_______________");
                             arrDiv = apiResults.getDivison_list();
                             arrDiv.add(0, objdiv);
                            // ArrayAdapter<DivisonBean> adapter = new ArrayAdapter<DivisonBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrDiv);

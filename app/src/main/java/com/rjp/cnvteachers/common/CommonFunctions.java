@@ -3,14 +3,24 @@ package com.rjp.cnvteachers.common;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.rjp.cnvteachers.R;
 import com.rjp.cnvteachers.ViewDocument;
+import com.thin.downloadmanager.DefaultRetryPolicy;
+import com.thin.downloadmanager.DownloadRequest;
+import com.thin.downloadmanager.DownloadStatusListener;
+import com.thin.downloadmanager.ThinDownloadManager;
+
+import java.io.File;
 
 /**
  * Created by Shraddha on 3/27/2017.
@@ -28,7 +38,7 @@ public class CommonFunctions {
         return (double) tmp / factor;
     }
 
-/*
+
     public static void downloadFile(final Context mContext, final String fileUrl, final String fileName)
     {
         try {
@@ -83,7 +93,7 @@ public class CommonFunctions {
         catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
-    }*/
+    }
 
 
 

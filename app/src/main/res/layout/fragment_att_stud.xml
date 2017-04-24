@@ -12,10 +12,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-<android.support.v7.widget.CardView
-    android:layout_width="match_parent"
-    android:layout_margin="10dp"
-    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,98 +35,95 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:completionThreshold="1"
+            android:textSize="14sp"
             android:hint="Enter Student Name"
-            android:padding="3dp"
-            android:textSize="14sp" />
+            android:padding="10dp"
+            android:layout_marginTop="5dp"
+             />
 
     </LinearLayout>
 
-</android.support.v7.widget.CardView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OR"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/colorPrimary"/>
 
 
 
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp">
-
-    <LinearLayout
+            <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="OR"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/colorPrimary"/>
+
+                <AutoCompleteTextView
+                    android:id="@+id/etAdmno"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:completionThreshold="1"
+                    android:hint="Enter Admission No."
+                    android:padding="10dp"
+                    android:textSize="14sp"
+                    android:layout_marginTop="5dp" />
 
 
-        <AutoCompleteTextView
-            android:id="@+id/etAdmno"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:padding="5dp"
-            android:hint="Enter Admission No."
-            android:completionThreshold="1"/>
-
-    </LinearLayout>
-    </android.support.v7.widget.CardView>
+            </LinearLayout>
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="3dp">
+                <android.support.v7.widget.CardView
+                    app:cardCornerRadius="3dp"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:padding="3dp">
-        <android.support.v7.widget.CardView
-            app:cardCornerRadius="3dp"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/tvAttendanceFromDate"
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:text=" From Date"
-                android:drawableLeft="@drawable/date"
-                android:padding="10dp"
-                android:layout_weight="0.29"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/colorPrimary"/>
-        </android.support.v7.widget.CardView>
+                    <TextView
+                        android:id="@+id/tvAttendanceFromDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/date"
+                        android:padding="10dp"
+                        android:text=" From Date"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/colorPrimary" />
+                </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
-            app:cardCornerRadius="3dp"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <android.support.v7.widget.CardView
+                    app:cardCornerRadius="3dp"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tvAttendanceToDate"
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:text=" To Date"
-                android:layout_weight="0.29"
-                android:padding="10dp"
-                android:drawableLeft="@drawable/date"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/colorPrimary"/>
-        </android.support.v7.widget.CardView>
+                    <TextView
+                        android:id="@+id/tvAttendanceToDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=" To Date"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        android:drawableLeft="@drawable/date"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/colorPrimary"/>
+                </android.support.v7.widget.CardView>
 
 
-    </LinearLayout>
+            </LinearLayout>
 
 
 
-    <android.support.v7.widget.CardView
+
+            <android.support.v7.widget.CardView
         android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -144,21 +147,9 @@
     </LinearLayout>
     </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/colorPrimary"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
+
 
 <android.support.v7.widget.CardView
     android:layout_width="match_parent"
@@ -177,37 +168,46 @@
         >
 
         <TextView
-            android:layout_width="80dp"
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/colorPrimaryDark"
             android:padding="1dp"
-            android:text="Working "/>
+            android:text="Working "
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/colorPrimaryDark" />
 
         <TextView
-            android:layout_width="80dp"
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/colorPrimaryDark"
+            android:layout_weight="1"
             android:padding="1dp"
-            android:text="Present"/>
+            android:gravity="center"
+            android:text="Present"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/colorPrimaryDark" />
 
         <TextView
-            android:layout_width="80dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/colorPrimaryDark"
             android:padding="1dp"
+            android:gravity="center"
+            android:layout_weight="1"
             android:text="Absent"/>
 
 
         <TextView
-            android:layout_width="130dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/colorPrimaryDark"
             android:padding="1dp"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="Attendance (%)"
             android:id="@+id/textView6" />
 
@@ -219,7 +219,8 @@
 
         <TextView
             android:id="@+id/tvTotalDays"
-            android:layout_width="80dp"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/colorPrimaryDark"
@@ -231,7 +232,8 @@
 
         <TextView
             android:id="@+id/tvPresentDays"
-            android:layout_width="80dp"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/colorPrimaryDark"
@@ -244,7 +246,8 @@
 
         <TextView
             android:id="@+id/tvAbsentDays"
-            android:layout_width="80dp"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/colorPrimaryDark"
@@ -256,7 +259,8 @@
 
         <TextView
             android:id="@+id/tvAttendance"
-            android:layout_width="120dp"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/colorPrimaryDark"

@@ -11,7 +11,12 @@ public class StudentBean implements Serializable {
     private String class_name,address1,address2,emergencontact,caste,division,fee_category;
     private String year_admission,birthdate,phone,state,father_mobile,mother_mobile,nationality;
     private String username,password,admno,photo_url,grno,birth_place,parent_email,foccupation,moccupation,foffice_add,moffice_add,bgroup;
+    private boolean selected;
 
+    public StudentBean()
+    {
+        selected = false;
+    }
 
     public String getName() {
         return name;
@@ -304,5 +309,13 @@ public class StudentBean implements Serializable {
 
     public void setBgroup(String bgroup) {
         this.bgroup = bgroup;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }

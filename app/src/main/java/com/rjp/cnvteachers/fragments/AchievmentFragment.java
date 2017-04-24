@@ -66,6 +66,7 @@ public class AchievmentFragment extends Fragment {
     private ArrayList<AdmissionBean> arrStudAdm = new ArrayList<AdmissionBean>();
     private FloatingActionButton fabpdf;
     ArrayList<AchievementsBean> arr;
+    StudentBean obj;
 
 
     @Override
@@ -279,6 +280,10 @@ public class AchievmentFragment extends Fragment {
                 String Name = auto_StudName.getText().toString();
                 String admno = auto_admno.getText().toString();
 
+                obj=new StudentBean();
+                obj.setName(Name);
+                obj.setAdmno(admno);
+
                 if (Name.length()!=0 || admno.length()!=0) {
 
                     if (NetworkUtility.isOnline(mContext)) {
@@ -391,12 +396,11 @@ public class AchievmentFragment extends Fragment {
 
                 try {
                     PdfCreater adapter = new PdfCreater(mContext);
-                    adapter.create_pdf_achievement(arr);
+                    adapter.create_pdf_achievement(arr,obj);
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
         });
     }

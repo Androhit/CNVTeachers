@@ -86,6 +86,25 @@ public class DateOperations
         return  strDate;
     }
 
+
+
+    public static String convertToyyyyMMdd(String strDate)
+    {
+
+        Date date = null;
+        try {
+            date = yyyyMMdd.parse(strDate);
+            //System.out.println(ddMMMyy.format(examType));
+            strDate =  ddMMMyyyy.format(date);
+        } catch (ParseException e)
+        {
+            e.printStackTrace();
+        }
+        return  strDate;
+    }
+
+
+
     public static String getYear(String strDate)
     {
 

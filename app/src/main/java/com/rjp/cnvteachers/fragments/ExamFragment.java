@@ -252,10 +252,11 @@ public class ExamFragment extends Fragment {
                         if (apiResults.getClass_list() != null) {
                             ClassBean objclas = new ClassBean();
                             objclas.setClass_id("0");
-                            objclas.setClasses("Select Class");
+                            objclas.setDept_name("Select Class");
+                            objclas.setClasses("----------------------------");
                             arrClass = apiResults.getClass_list();
                             arrClass.add(0, objclas);
-                            objclas.setDept_name("");
+
                             //ArrayAdapter<ClassBean> adapter = new ArrayAdapter<ClassBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrClass);
                             ClassListAdapter adapter=new ClassListAdapter(getActivity(),R.layout.class_list_items,R.id.tvClass,arrClass);
                             spnClass.setAdapter(adapter);

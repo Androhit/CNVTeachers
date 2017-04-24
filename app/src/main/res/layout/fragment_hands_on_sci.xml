@@ -13,16 +13,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <Spinner
                 android:id="@+id/spnClass"
@@ -36,18 +40,6 @@
                 android:textColor="@color/white"
                 />
 
-
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-        <android.support.v7.widget.CardView
-            android:layout_margin="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
                 <Spinner
                     android:id="@+id/spnDivision"
                     android:layout_width="match_parent"
@@ -65,26 +57,21 @@
 
             </LinearLayout>
 
-        </android.support.v7.widget.CardView>
 
-           <android.support.v7.widget.CardView
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="OR"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorPrimary"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="OR"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/colorPrimary"/>
 
             <AutoCompleteTextView
                 android:id="@+id/etStudName"
@@ -97,14 +84,15 @@
 
         </LinearLayout>
 
-
-    </android.support.v7.widget.CardView>
-
-
-    <android.support.v7.widget.CardView
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="OR"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold" />
 
 
         <LinearLayout
@@ -112,16 +100,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             >
-
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="OR"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold" />
 
             <AutoCompleteTextView
                 android:id="@+id/etAdmno"
@@ -134,12 +112,6 @@
 
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -153,26 +125,19 @@
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:padding="3dp"
+                android:layout_margin="10dp"
                 android:elevation="0dp" />
         </LinearLayout>
-    </android.support.v7.widget.CardView>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         >
-        <EditText
-            android:id="@+id/etSearch"
-            android:layout_width="308dp"
-            android:layout_height="wrap_content"
-            android:hint="Search here..."
-            android:drawableLeft="@android:drawable/ic_menu_search"
-            android:background="@color/white"
-            android:textSize="14sp"
-            android:padding="5dp"
-            android:textColor="@color/colorPrimaryDark"
-            />
+
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabpdf"
             android:layout_width="match_parent"
@@ -185,6 +150,16 @@
             android:scaleType="centerCrop"
             android:layout_margin="@dimen/fab_margin"/>
 
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="308dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:drawableLeft="@android:drawable/ic_menu_search"
+            android:hint="Search here..."
+            android:padding="5dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
 
 
     </android.support.v7.widget.CardView>

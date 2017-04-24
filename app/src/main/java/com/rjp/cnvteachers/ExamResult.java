@@ -9,6 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,13 +49,12 @@ public class ExamResult extends AppCompatActivity{
     private TextView tvPer;
     private FloatingActionButton fabpdf;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_performance);
         mContext = this;
-        getSupportActionBar();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         init();
         initRetrofitClient();
         initIntents();
@@ -93,7 +93,7 @@ public class ExamResult extends AppCompatActivity{
                 @Override
                 public void success(ApiResults apiResults, Response response) {
                     if (prog.isShowing()) {
-                        prog.dismiss();
+                         prog.dismiss();
                     }
                     if(apiResults != null)
                     {
@@ -114,7 +114,6 @@ public class ExamResult extends AppCompatActivity{
                             Toast.makeText(mContext, "Result data not found", Toast.LENGTH_SHORT).show();
                         }
                     }
-
                 }
 
                 @Override
@@ -155,15 +154,12 @@ public class ExamResult extends AppCompatActivity{
         fabpdf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 try {
                     PdfCreater adapter = new PdfCreater(mContext);
-                    adapter.create_pdf_performance(obj.getData_array());
-
+                    adapter.create_pdf_performance(obj.getData_array(),obj,objExam);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
         });
     }
@@ -180,5 +176,12 @@ public class ExamResult extends AppCompatActivity{
         fabpdf=(FloatingActionButton) findViewById(R.id.fabpdf);
 
     }
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home)
+        {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

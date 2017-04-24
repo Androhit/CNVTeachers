@@ -15,61 +15,41 @@
         android:orientation="vertical">
 
         <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:cardCornerRadius="3dp"
-            android:layout_weight="1">
-
-             </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:cardCornerRadius="3dp"
             android:layout_margin="10dp"
-            android:layout_weight="1">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="3dp"
                 >
 
                 <Spinner
                     android:id="@+id/spnClassName"
+                    android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="wrap_content"/>
 
-
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
                 <Spinner
                     android:id="@+id/tvDivision"
+                    android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
-        </android.support.v7.widget.CardView>
 
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="3dp"
-            android:layout_weight="1">
 
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:padding="3dp">
@@ -81,12 +61,12 @@
                     android:layout_height="match_parent">
                 <TextView
                     android:id="@+id/tvAttendanceFromDate"
-                    android:layout_width="160dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text=" From Date"
                     android:drawableLeft="@drawable/date"
                     android:padding="10dp"
-                    android:layout_weight="0.29"
+                    android:layout_weight="1"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/colorPrimary"/>
                 </android.support.v7.widget.CardView>
@@ -100,10 +80,10 @@
 
                 <TextView
                     android:id="@+id/tvAttendanceToDate"
-                    android:layout_width="160dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text=" To Date"
-                    android:layout_weight="0.29"
+                    android:layout_weight="1"
                     android:padding="10dp"
                     android:drawableLeft="@drawable/date"
                     android:textAppearance="?android:attr/textAppearanceMedium"
@@ -113,7 +93,6 @@
 
             </LinearLayout>
 
-        </android.support.v7.widget.CardView>
 
 
 
@@ -144,6 +123,9 @@
         </LinearLayout>
             </android.support.v7.widget.CardView>
 
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
 
 
         <android.support.v7.widget.CardView

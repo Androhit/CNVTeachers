@@ -225,4 +225,63 @@ public interface API
             @Field("branch_id") String branch_id,
             @Field("acad_year") String acad_year,
             Callback<ApiResults> leaveList);
+
+    @FormUrlEncoded
+    @POST("/get_worksheet.php?method_name=getWorksheet")
+    void getWorksheet(
+            @Field("code") String code,
+            @Field("class_id") String classid,
+            @Field("division_name") String division,
+            @Field("branch_id") String br_id,
+            @Field("acad_year") String acadyear,
+            @Field("empid") String empid,
+            Callback<ApiResults> error);
+
+    @FormUrlEncoded
+    @POST("/addWorksheet.php")
+    void add_Worksheet(
+            @Field("method_name") String method_name,
+            @Field("code") String code,
+            @Field("obj") String obj,
+            Callback<ApiResults> error);
+
+    @FormUrlEncoded
+    @POST("/getStudent.php?method_name=Stud")
+    void get_student(
+            @Field("code") String code,
+            @Field("classid") String classid,
+            @Field("division") String division,
+            Callback<ApiResults> error);
+
+    @FormUrlEncoded
+    @POST("/getStudList.php?method_name=StudList")
+    void get_studList(
+                @Field("code") String code,
+                @Field("id") String id,
+                Callback<ApiResults> error);
+
+    @FormUrlEncoded
+    @POST("/chk_AttTaken.php?method_name=Attendance")
+    void chk_attTaken(
+            @Field("code") String code,
+            @Field("date") String date,
+            @Field("class") String Class,
+            @Field("div") String div,
+            @Field("br_id") String br_id,
+            @Field("acad_year") String acad_year,
+            Callback<ApiResults> error);
+
+    @FormUrlEncoded
+    @POST("/attendance_op.php?method_name=InsertAtt")
+    void insert_att(
+            @Field("code") String code,
+            @Field("chk") String chk,
+            @Field("date") String date,
+            @Field("class") String Class,
+            @Field("div") String div,
+            @Field("empid") String empid,
+            @Field("br_id") String br_id,
+            @Field("acad_year") String acad_year,
+            Callback<ApiResults> error);
+
 }

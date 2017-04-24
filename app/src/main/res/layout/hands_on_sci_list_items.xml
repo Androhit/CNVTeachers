@@ -9,10 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="5dp"
-        >
+        android:padding="5dp">
 
-          <LinearLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -26,15 +25,19 @@
                     android:id="@+id/tvAim"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="bottom"
+                    android:text="Title"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:gravity="bottom"
-                    android:typeface="serif"
-                    android:text="Title"
-                    />
+                    android:typeface="serif" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
 
 
@@ -42,21 +45,33 @@
                     android:id="@+id/tvTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginBottom="5dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textStyle="bold"
+                    android:layout_weight="1"
                     android:gravity="bottom"
-                    android:typeface="serif"
+                    android:text="Title"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/colorPrimaryDark"
-                    android:text="Title"/>
+                    android:textStyle="bold"
+                    android:typeface="serif" />
+
+                <ImageView
+                    android:id="@+id/ivAttachment"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@android:drawable/stat_sys_download"
+                    android:tint="@color/black"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:padding="5dp"
+                    android:layout_alignParentEnd="true" />
+                    </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:layout_marginTop="3dp"
                     android:layout_marginBottom="3dp"
-                    android:background="@color/orange_500"/>
+                    android:layout_marginTop="3dp"
+                    android:background="@color/orange_500" />
 
             </LinearLayout>
 
@@ -69,10 +84,10 @@
                     android:id="@+id/tvDesc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/blue_grey_500"
                     android:maxLength="100"
                     android:padding="5dp"
-                    android:text="Description"/>
+                    android:text="Description"
+                    android:textColor="@color/blue_grey_500" />
 
             </LinearLayout>
 
@@ -80,28 +95,26 @@
                 android:id="@+id/tvMore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/amber_900"
                 android:padding="5dp"
                 android:text="read more >>"
-                android:visibility="gone"/>
+                android:textColor="@color/amber_900"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="18 Jan 2017"
-                android:padding="5dp"
-                android:layout_gravity="right"
-                android:textColor="#354f82"
-                android:drawableLeft="@drawable/hos_dark"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="right"
+                android:drawableLeft="@drawable/hos_dark"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="18 Jan 2017"
+                android:textColor="#354f82" />
 
         </LinearLayout>
-
-
 
 
     </LinearLayout>

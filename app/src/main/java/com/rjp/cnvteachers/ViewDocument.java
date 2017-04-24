@@ -15,6 +15,8 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.rjp.cnvteachers.common.CommonFunctions;
+
 /**
  * Created by Shraddha on 3/27/2017.
  */
@@ -35,7 +37,7 @@ public class ViewDocument extends AppCompatActivity{
         setContentView(R.layout.activity_view_document);
         mContext = this;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+       // setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         init();
@@ -50,7 +52,7 @@ public class ViewDocument extends AppCompatActivity{
                         requestPermissions(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 11);
                         //After this point you wait for callback in onRequestPermissionsResult(int, String[], int[]) overriden method
                     } else {
-                       // CommonFunctions.downloadFile(mContext,FILE_URL,FILE_NAME);
+                        CommonFunctions.downloadFile(mContext,FILE_URL,FILE_NAME);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -118,7 +120,7 @@ public class ViewDocument extends AppCompatActivity{
         if (requestCode == 11) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission is granted
-               // CommonFunctions.downloadFile(mContext,FILE_URL,FILE_NAME);
+                CommonFunctions.downloadFile(mContext,FILE_URL,FILE_NAME);
             } else {
                 Toast.makeText(mContext, "Until you grant the permission, we can not display the images", Toast.LENGTH_SHORT).show();
             }

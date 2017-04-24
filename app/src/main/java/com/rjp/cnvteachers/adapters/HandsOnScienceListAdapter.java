@@ -1,6 +1,7 @@
 package com.rjp.cnvteachers.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,8 +13,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.rjp.cnvteachers.R;
+import com.rjp.cnvteachers.SchoolGallery;
 import com.rjp.cnvteachers.api.RetrofitClient;
 import com.rjp.cnvteachers.beans.HandsOnScienceBeans;
+import com.rjp.cnvteachers.common.CommonFunctions;
 import com.rjp.cnvteachers.common.ItemClickListener;
 
 import java.util.ArrayList;
@@ -34,7 +37,7 @@ public class HandsOnScienceListAdapter   extends RecyclerView.Adapter<HandsOnSci
         public TextView date; public TextView desc,tvMore;
         public TextView title,tvAim;
         private ItemClickListener clickListener;
-        private ImageView ivGallery;
+        private ImageView ivGallery,ivAttachment;
 
 
         public MyViewHolder(View view)
@@ -46,6 +49,7 @@ public class HandsOnScienceListAdapter   extends RecyclerView.Adapter<HandsOnSci
             desc = (TextView) view.findViewById(R.id.tvDesc);
             tvMore = (TextView) view.findViewById(R.id.tvMore);
             ivGallery = (ImageView)view.findViewById(R.id.ivGallery);
+            ivAttachment = (ImageView)view.findViewById(R.id.ivAttachment);
 
             itemView.setOnClickListener(this);
         }
@@ -132,7 +136,7 @@ public class HandsOnScienceListAdapter   extends RecyclerView.Adapter<HandsOnSci
 
                 }
 
-         /*       holder.ivGallery.setOnClickListener(new View.OnClickListener() {
+                holder.ivGallery.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (objStud.getCount().size() > 0) {
@@ -141,7 +145,7 @@ public class HandsOnScienceListAdapter   extends RecyclerView.Adapter<HandsOnSci
                             mContext.startActivity(it);
                         }
                     }
-                });*/
+                });
 
                 holder.tvMore.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -153,6 +157,27 @@ public class HandsOnScienceListAdapter   extends RecyclerView.Adapter<HandsOnSci
                         }
                     }
                 });
+
+                if(objStud.getAttachment()!=null)
+                {
+                    holder.ivAttachment.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    holder.ivAttachment.setVisibility(View.GONE);
+                }
+
+                holder.ivAttachment.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            CommonFunctions.viewAttachmentFile(mContext,objStud.getAttachment());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
                 break;
             case GALLERY_UNAVAILABLE:
 
@@ -188,6 +213,27 @@ public class HandsOnScienceListAdapter   extends RecyclerView.Adapter<HandsOnSci
                         }
                     }
                 });
+
+                if(objStud.getAttachment()!=null)
+                {
+                    holder.ivAttachment.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    holder.ivAttachment.setVisibility(View.GONE);
+                }
+
+                holder.ivAttachment.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            CommonFunctions.viewAttachmentFile(mContext,objStud.getAttachment());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
                 break;
         }
 

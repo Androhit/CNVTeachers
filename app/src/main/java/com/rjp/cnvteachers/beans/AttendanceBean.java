@@ -10,7 +10,16 @@ public class AttendanceBean implements Serializable
 {
     private String present_day,absent_days,working_days,percent,from_date,to_date,month;
     private String name,admno;
+    private String empname,chklist;
     private String tot_present_day,tot_absent_days,tot_working_days,tot_percent,month_name;
+
+    public String getChklist() {
+        return chklist;
+    }
+
+    public void setChklist(String chklist) {
+        this.chklist = chklist;
+    }
 
     ArrayList<AttendanceBean> data_array = new ArrayList<>();
 
@@ -134,5 +143,13 @@ public class AttendanceBean implements Serializable
 
     public void setMonth_name(String month_name) {
         this.month_name = month_name;
+    }
+
+    public String getEmpname() {
+        return empname;
+    }
+
+    public void setEmpname(String empname) {
+        this.empname = empname;
     }
 }

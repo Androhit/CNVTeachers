@@ -21,4 +21,6 @@
 
     <string name="error_server_down">Internet unavailable or the server is down, This may take a while. Please try again some times later.</string>
     <string name="company_addr">Designed and developed by Cloud Next Vision Systems. Copyright © 2017 All rights reserved.</string>
+    <string name="NoStud">No students are assigned for this project.</string>
+    <string name="error_input">Please enter Project Aim, Title, Description and Select Class,Division,From date, To date to find the correct result. </string>
 </resources>

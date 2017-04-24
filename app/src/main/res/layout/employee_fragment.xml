@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="10dp"
     tools:context=".HomeScreen">
 
@@ -33,6 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/student_icon"
+                android:layout_margin="10dp"
                 android:scaleType="fitCenter"/>
 
         </android.support.design.widget.CollapsingToolbarLayout>

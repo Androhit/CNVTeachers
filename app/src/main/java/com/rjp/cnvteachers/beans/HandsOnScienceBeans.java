@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class HandsOnScienceBeans implements Serializable{
 
-    private String id,proj_aim,proj_title,proj_disc,proj_id,from_date,to_date,guided_by;
+    private String id,proj_aim,proj_title,proj_disc,proj_id,from_date,to_date,guided_by,attachment;
     private ArrayList<String> count;
 
     public ArrayList<String> getCount() {
@@ -83,4 +83,11 @@ public class HandsOnScienceBeans implements Serializable{
         this.guided_by = guided_by;
     }
 
+    public String getAttachment() {
+        return attachment;
+    }
+
+    public void setAttachment(String attachment) {
+        this.attachment = attachment;
+    }
 }

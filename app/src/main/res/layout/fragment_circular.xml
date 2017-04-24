@@ -13,11 +13,16 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        >
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,7 +32,7 @@
 
         <Spinner
             android:id="@+id/spnClass"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
             android:padding="10dp"
@@ -38,7 +43,6 @@
             android:layout_weight="0.93" />
 
     </LinearLayout>
-    </android.support.v7.widget.CardView>
         <android.support.v7.widget.CardView
             android:layout_margin="10dp"
             android:layout_width="match_parent"
@@ -57,6 +61,8 @@
 
         </android.support.v7.widget.CardView>
 
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -81,10 +87,10 @@
             android:id="@+id/rvNotice"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="10dp"
             android:layout_marginTop="15dp"
             android:clipToPadding="false"
             android:padding="3dp"
-            android:layout_margin="10dp"
             android:scrollbars="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 

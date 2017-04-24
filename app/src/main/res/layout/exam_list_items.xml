@@ -32,23 +32,23 @@
                     android:id="@+id/tvExamName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
                     android:layout_weight="1"
-                    android:textStyle="bold"
-                    android:typeface="serif"
-                    android:textColor="@color/colorPrimary"
                     android:padding="5dp"
-                    android:text="FA1"/>
+                    android:text="FA1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    android:typeface="serif" />
 
                 <TextView
                     android:id="@+id/tvExamType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:typeface="monospace"
-                    android:textStyle="bold"
                     android:padding="3dp"
-                    android:text="Main Exam"/>
+                    android:text="Main Exam"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:typeface="monospace" />
 
             </LinearLayout>
 
@@ -62,15 +62,15 @@
                     android:id="@+id/tvTimetable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
                     android:drawableLeft="@drawable/exam_timetable"
                     android:drawablePadding="5dp"
-                    android:padding="5dp"
-                    android:layout_gravity="right"
-                    android:textColor="@color/grey_500"
                     android:gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:text="Time-Table"/>
+                    android:padding="5dp"
+                    android:text="Time-Table"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/grey_500" />
 
             </LinearLayout>
 
@@ -83,19 +83,20 @@
                     android:id="@+id/tvDuration"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:drawableLeft="@drawable/calendar"
-                    android:drawableTint="@color/grey_500"
-                    android:drawablePadding="5dp"
-                    android:padding="5dp"
                     android:layout_gravity="right"
-                    android:textColor="@color/grey_500"
-                    android:gravity="center_vertical"
                     android:layout_weight="1"
-                    android:typeface="serif"
-                    android:text="16 Oct To 25 Oct"/>
+                    android:drawableLeft="@drawable/calendar"
+                    android:drawablePadding="5dp"
+                    android:drawableTint="@color/grey_500"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
+                    android:text="16 Oct To 25 Oct"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/grey_500"
+                    android:typeface="serif" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -104,28 +105,27 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Class Name:"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:drawablePadding="5dp"
-                    android:padding="5dp"
                     android:layout_gravity="right"
+                    android:drawablePadding="5dp"
                     android:gravity="center_vertical"
-                    />
+                    android:padding="5dp"
+                    android:text="Class Name:"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
                     android:id="@+id/tvClass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:drawableTint="@color/grey_500"
-                    android:drawablePadding="5dp"
-                    android:padding="5dp"
                     android:layout_gravity="right"
-                    android:textColor="@color/grey_500"
-                    android:gravity="center_vertical"
                     android:layout_weight="1"
-                    android:typeface="serif"
-                    android:text="Class Name"/>
+                    android:drawablePadding="5dp"
+                    android:drawableTint="@color/grey_500"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
+                    android:text="Class Name"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/grey_500"
+                    android:typeface="serif" />
 
             </LinearLayout>
 

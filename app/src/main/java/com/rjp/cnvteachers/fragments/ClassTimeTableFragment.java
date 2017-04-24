@@ -151,7 +151,7 @@ public class ClassTimeTableFragment extends Fragment{
                         if (apiResults.getDivison_list() != null) {
                             DivisonBean objdiv = new DivisonBean();
                             objdiv.setDiv_id("0");
-                            objdiv.setDivision_name("Select Division");
+                            objdiv.setDivision_name("Select Division\n" + "_______________");
                             arrDiv = apiResults.getDivison_list();
                             arrDiv.add(0, objdiv);
                             // ArrayAdapter<DivisonBean> adapter = new ArrayAdapter<DivisonBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrDiv);
@@ -214,8 +214,8 @@ public class ClassTimeTableFragment extends Fragment{
                         if (apiResults.getClass_list() != null) {
                             ClassBean objclas = new ClassBean();
                             objclas.setClass_id("0");
-                            objclas.setClasses("Select Class");
-                            objclas.setDept_name("");
+                            objclas.setClasses("----------------------------");
+                            objclas.setDept_name("Select Class");
                             arrClass = apiResults.getClass_list();
                             arrClass.add(0, objclas);
                             //ArrayAdapter<ClassBean> adapter = new ArrayAdapter<ClassBean>(mContext, android.R.layout.simple_spinner_dropdown_item, arrClass);

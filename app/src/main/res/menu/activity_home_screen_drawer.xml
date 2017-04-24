@@ -10,6 +10,12 @@
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_menu_gallery"
             android:title="My Profile" />
+
+        <item
+            android:id="@+id/nav_takeatt"
+            android:icon="@drawable/attend"
+            android:title="Take Attendance" />
+
         <item
             android:id="@+id/nav_studdetails"
             android:icon="@drawable/ic_menu_studdetails"
@@ -33,7 +39,7 @@
         <item
             android:id="@+id/nav_att"
             android:icon="@drawable/attend"
-            android:title="Attendance" />
+            android:title="Attendance Report" />
 
         <item
             android:id="@+id/nav_exam_tt"
@@ -53,6 +59,11 @@
             android:id="@+id/nav_perform"
             android:icon="@drawable/perform"
             android:title="Performances" />
+
+        <item
+            android:id="@+id/nav_worksheet"
+            android:icon="@drawable/worksheet"
+            android:title="Worksheet" />
 
        <item
             android:id="@+id/nav_logout"

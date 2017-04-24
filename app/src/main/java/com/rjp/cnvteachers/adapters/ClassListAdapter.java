@@ -1,6 +1,7 @@
 package com.rjp.cnvteachers.adapters;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +20,19 @@ import java.util.ArrayList;
 
 public class ClassListAdapter extends ArrayAdapter<ClassBean> {
 
-    LayoutInflater flater;
+    private LayoutInflater flater;
+    private Context mContext;
 
     public ClassListAdapter(Activity context, int resouceId, int textviewId, ArrayList<ClassBean> list){
 
         super(context,resouceId,textviewId, list);
         flater = context.getLayoutInflater();
+    }
+    public ClassListAdapter(Context context, int resouceId, int textviewId, ArrayList<ClassBean> list){
+
+        super(context,resouceId,textviewId, list);
+        this.mContext=context;
+        flater = LayoutInflater.from(context);
     }
 
     @Override

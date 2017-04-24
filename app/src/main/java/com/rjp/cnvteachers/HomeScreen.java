@@ -36,6 +36,8 @@ import com.rjp.cnvteachers.fragments.HandsOnScienceFragment;
 import com.rjp.cnvteachers.fragments.MyTimeTableFragment;
 import com.rjp.cnvteachers.fragments.PerformanceFragment;
 import com.rjp.cnvteachers.fragments.StudFragment;
+import com.rjp.cnvteachers.fragments.TakeAttendanceFragment;
+import com.rjp.cnvteachers.fragments.WorksheetFragment;
 import com.rjp.cnvteachers.utils.AppPreferences;
 import com.squareup.picasso.Picasso;
 
@@ -70,7 +72,7 @@ public class HomeScreen extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        fragmentClass = EmployeeFragment.class;
+        fragmentClass = MyTimeTableFragment.class;
         try {
             fragment = (Fragment) fragmentClass.newInstance();
         } catch (InstantiationException e) {
@@ -154,12 +156,10 @@ public class HomeScreen extends AppCompatActivity
         }
     }
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home_screen, menu);
+   //     getMenuInflater().inflate(R.menu.home_screen, menu);
         return true;
     }
 
@@ -189,6 +189,7 @@ public class HomeScreen extends AppCompatActivity
         switch (id) {
             case R.id.nav_dashboard:
              //   fragmentClass = DashboardFragment.class;
+                fragmentClass = MyTimeTableFragment.class;
                 break;
             case R.id.nav_profile  :
                 fragmentClass = EmployeeFragment.class;
@@ -208,6 +209,10 @@ public class HomeScreen extends AppCompatActivity
 
             case R.id.nav_att :
                fragmentClass = AttendanceFragment.class;
+                break;
+
+            case R.id.nav_takeatt :
+                fragmentClass = TakeAttendanceFragment.class;
                 break;
 
             case R.id.nav_exam_tt :
@@ -230,6 +235,10 @@ public class HomeScreen extends AppCompatActivity
                 fragmentClass = PerformanceFragment.class;
                 break;
 
+            case R.id.nav_worksheet :
+                fragmentClass = WorksheetFragment.class;
+                break;
+
             case R.id.nav_logout :  logout(); break;
             }
 
@@ -241,7 +250,7 @@ public class HomeScreen extends AppCompatActivity
              }
 
         if(fragment!=null) {
-            fabback.setVisibility(View.VISIBLE);
+       //     fabback.setVisibility(View.VISIBLE);
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.replace(R.id.flContent, fragment );
