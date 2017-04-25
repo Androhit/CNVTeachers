@@ -26,7 +26,7 @@ public class ApiResults
     public ArrayList<AttendanceBean> class_att;
     public ArrayList<ExamResultsBean> exm_all_sub;
     public String total_grade;
-    public String empname;
+    public String empname,empid,att_id;
     public ArrayList<ExamDetailsBeans> examdetails_list;
     public ArrayList<ExamBean> exam_list;
     public ArrayList<ExamBean> all_exam_name;
@@ -47,6 +47,22 @@ public class ApiResults
 
     public void setEmpname(String empname) {
         this.empname = empname;
+    }
+
+    public String getAtt_id() {
+        return att_id;
+    }
+
+    public void setAtt_id(String att_id) {
+        this.att_id = att_id;
+    }
+
+    public String getEmpid() {
+        return empid;
+    }
+
+    public void setEmpid(String empid) {
+        this.empid = empid;
     }
 
     public ExamResultsBean getStud_result() {

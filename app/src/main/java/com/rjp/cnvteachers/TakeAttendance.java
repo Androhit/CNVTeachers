@@ -46,6 +46,8 @@ public class TakeAttendance extends AppCompatActivity{
     private TextView tvMsg;
     private List<String> studList;
     private String TAG="Take Attendance";
+    private Button btnUpdate;
+    String att_id="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class TakeAttendance extends AppCompatActivity{
         init();
         search_isTaken();
         initIntent();
+        initData();
         setListners();
     }
 
@@ -67,6 +70,16 @@ public class TakeAttendance extends AppCompatActivity{
                 insert();
             }
             });
+
+
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               update();
+            }
+        });
+
 
     }
 
@@ -82,7 +95,7 @@ public class TakeAttendance extends AppCompatActivity{
             tvdiv.setText(Division);
             tvdate.setText(DateOperations.convertToddMMMyyyy(AttDate));
             search_isTaken();
-            initData();
+
         }
         else
         {
@@ -110,13 +123,19 @@ public class TakeAttendance extends AppCompatActivity{
                             tvempname.setVisibility(View.VISIBLE);
                             tvMsg.setVisibility(View.VISIBLE);
                             tvempname.setText(apiResults.getEmpname());
-                            initData();
-                            update();
+                            att_id=apiResults.getAtt_id();
+
+
+                        //    objDialog.okDialog("Already Taken","The attendance is already taken by "+apiResults.getEmpname());
+
+                            btnUpdate.setVisibility(View.VISIBLE);
+                            //update();
                         }
                         else
                         {
-                            initData();
-                            insert();
+
+                            btnok.setVisibility(View.VISIBLE);
+                            //insert();
                         }
                     }
                     else
@@ -151,7 +170,7 @@ public class TakeAttendance extends AppCompatActivity{
             chk=chkId.length() > 0 ? chkId.substring(0, chkId.length()-1) : "";
         }
 
-        btnok.setVisibility(View.VISIBLE);
+
 
 
         if (NetworkUtility.isOnline(mContext)) {
@@ -193,11 +212,95 @@ public class TakeAttendance extends AppCompatActivity{
             });
 
         }
+        else
+        {
+            objDialog.noInternet(new ConfirmationDialogs.okCancel() {
+                @Override
+                public void okButton()
+                {
+                    setListners();
+                }
 
+                @Override
+                public void cancelButton() {
+
+                }
+            });
+        }
     }
 
     private void update() {
-        Toast.makeText(mContext,"Updating.........",Toast.LENGTH_LONG).show();
+        StringBuilder chkId=new StringBuilder();
+        String chk="";
+        studList = adapt.get_Student();
+
+        if(adapt!=null){
+            for(String obj: studList)
+            {
+                chkId.append(obj);
+                chkId.append(",");
+            }
+            Log.e(TAG,"ChkList"+chkId);
+            chk=chkId.length() > 0 ? chkId.substring(0, chkId.length()-1) : "";
+        }
+
+        if (NetworkUtility.isOnline(mContext)) {
+            final ProgressDialog prog = new ProgressDialog(mContext);
+            prog.setTitle("Loading");
+            prog.setMessage("Please wait");
+            prog.show();
+            String br_id = AppPreferences.getLoginObj(mContext).getBr_id();
+
+            retrofitApi.update_att(AppPreferences.getInstObj(mContext).getCode(),att_id, chk, AttDate, Class, Division, AppPreferences.getLoginObj(mContext).getEmpid(),br_id, AppPreferences.getAcademicYear(mContext), new Callback<ApiResults>() {
+                @Override
+                public void success(ApiResults apiResults, Response response) {
+                    prog.dismiss();
+
+                    if(apiResults!=null)
+                    {
+                        if(!apiResults.getResult().equals("false"))
+                        {
+                            objDialog.successDialog(mContext,"Attendance Updated successfully");
+                            finish();
+                            //makeDisabled();
+                        }
+                        else
+                        {
+                            Toast.makeText(mContext,"Error1 While updating, Please check internet connectivity.",Toast.LENGTH_LONG).show();
+                            Log.e(TAG,"Success"+apiResults.getResult());
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(mContext,"Error2 While updating, Please check internet connectivity.",Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    prog.dismiss();
+                    objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_server_down));
+                }
+            });
+
+        }
+
+        else
+        {
+            objDialog.noInternet(new ConfirmationDialogs.okCancel() {
+                @Override
+                public void okButton()
+                {
+                    setListners();
+                }
+
+                @Override
+                public void cancelButton() {
+
+                }
+            });
+        }
+
 
     }
 
@@ -214,7 +317,6 @@ public class TakeAttendance extends AppCompatActivity{
                     if (prog.isShowing()) {
                         prog.dismiss();
                     }
-                    btnok.setVisibility(View.VISIBLE);
                     if (apiResults != null) {
 
                         if (apiResults.getStud().size() > 0) {
@@ -324,6 +426,7 @@ public class TakeAttendance extends AppCompatActivity{
         tvempname=(TextView) findViewById(R.id.tvEmpName);
         tvMsg=(TextView) findViewById(R.id.tvMsg);
         btnok=(Button) findViewById(R.id.btnSubmit);
+        btnUpdate=(Button) findViewById(R.id.btnUpdate);
     }
 
     @Override

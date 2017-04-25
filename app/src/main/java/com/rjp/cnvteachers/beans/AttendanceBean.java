@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class AttendanceBean implements Serializable
 {
     private String present_day,absent_days,working_days,percent,from_date,to_date,month;
-    private String name,admno;
-    private String empname,chklist;
+    private String name,admno,att_id;
+    private String empname,chklist,empid,att_date;
     private String tot_present_day,tot_absent_days,tot_working_days,tot_percent,month_name;
 
     public String getChklist() {
@@ -151,5 +151,29 @@ public class AttendanceBean implements Serializable
 
     public void setEmpname(String empname) {
         this.empname = empname;
+    }
+
+    public String getEmpid() {
+        return empid;
+    }
+
+    public void setEmpid(String empid) {
+        this.empid = empid;
+    }
+
+    public String getAtt_date() {
+        return att_date;
+    }
+
+    public void setAtt_date(String att_date) {
+        this.att_date = att_date;
+    }
+
+    public String getAtt_id() {
+        return att_id;
+    }
+
+    public void setAtt_id(String att_id) {
+        this.att_id = att_id;
     }
 }

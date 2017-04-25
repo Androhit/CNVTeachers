@@ -284,4 +284,18 @@ public interface API
             @Field("acad_year") String acad_year,
             Callback<ApiResults> error);
 
+    @FormUrlEncoded
+    @POST("/attendance_update.php?method_name=UpdateAtt")
+    void update_att(
+            @Field("code") String code,
+            @Field("att_id") String att_id,
+            @Field("chk") String chk,
+            @Field("date") String date,
+            @Field("class") String Class,
+            @Field("div") String div,
+            @Field("empid") String empid,
+            @Field("br_id") String br_id,
+            @Field("acad_year") String acad_year,
+            Callback<ApiResults> error);
+
 }
