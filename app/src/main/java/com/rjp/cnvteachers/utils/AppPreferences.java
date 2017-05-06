@@ -22,7 +22,11 @@ public class AppPreferences {
     public static final String PREF_KEY_ACADEMIC_YEAR = "PREF_KEY_ACADEMIC_YEAR";
     public static final String CIRCULAR_COUNT = "CIRCULAR_COUNT";
     public static final String ACHIEVEMENT_COUNT = "ACHIEVEMENT_COUNT";
-
+    public static final String NOTIFICATION_COUNT = "NOTIFICATION_COUNT";
+    public static final String COMMUNICATION_COUNT = "COMMUNICATION_COUNT";
+    public static final String WORKSHEET_COUNT = "WORKSHEET_COUNT";
+    public static final String EVENT_COUNT = "EVENT_COUNT";
+    public static final String ACTIVITY_COUNT = "ACTIVITY_COUNT";
 
     private Context context;
 
@@ -111,6 +115,49 @@ public class AppPreferences {
         setString(context, PREF_KEY_ACADEMIC_YEAR, academicYear);
     }
 
+    public static int getCommunicationCount(Context context)
+    {
+        return  getInt(context,COMMUNICATION_COUNT,0);
+    }
+
+    public static void setCommunicationCount(Context context,int val)
+    {
+        setInt(context,COMMUNICATION_COUNT,val);
+    }
+
+
+    public static int getWorksheetCount(Context context)
+    {
+        return  getInt(context,WORKSHEET_COUNT,0);
+    }
+
+    public static void setWorksheetCount(Context context,int val)
+    {
+        setInt(context,WORKSHEET_COUNT,val);
+    }
+
+    // notification count
+    public static int getNotificationCount(Context context)
+    {
+        return  getInt(context,NOTIFICATION_COUNT,0);
+    }
+
+    public static void setNotificationCount(Context context,int val)
+    {
+        setInt(context,NOTIFICATION_COUNT,val);
+    }
+
+    // event count
+    public static int getEventCount(Context context)
+    {
+        return  getInt(context,EVENT_COUNT,0);
+    }
+
+    public static void setEventCount(Context context,int val)
+    {
+        setInt(context,EVENT_COUNT,val);
+    }
+
 
     // circular count
     public static int getCircularCount(Context context)
@@ -121,6 +168,17 @@ public class AppPreferences {
     public static void setCircularCount(Context context,int val)
     {
         setInt(context,CIRCULAR_COUNT,val);
+    }
+
+    // activity count
+    public static int getActivityCount(Context context)
+    {
+        return  getInt(context,ACTIVITY_COUNT,0);
+    }
+
+    public static void setActivityCount(Context context,int val)
+    {
+        setInt(context,ACTIVITY_COUNT,val);
     }
 
     /******************** GET SET METHODS *************************/
@@ -276,6 +334,8 @@ public class AppPreferences {
         e.putLong(key, val);
         e.commit();
     }
+
+
 
 
     public static int getAchievementCount(Context context)

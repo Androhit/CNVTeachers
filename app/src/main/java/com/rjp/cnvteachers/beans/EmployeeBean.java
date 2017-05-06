@@ -7,7 +7,7 @@ public class EmployeeBean
 {
     private String user_name,name,firstname,middlename,lastname,fathername,sex,br_id,department,bgroup,Nationality,biometric_empid;
     private String email,address,city,country,zip,phone, birthdate,reg_date,caste,religion,qualification,empid, emg_phone, experience;
-    private String designation,photo_url,permanent_address;
+    private String designation,photo_url,permanent_address,designation_id;
 
     public String getName() {
         return name;
@@ -255,5 +255,13 @@ public class EmployeeBean
 
     public void setPermanent_address(String permanent_address) {
         this.permanent_address = permanent_address;
+    }
+
+    public String getDesignation_id() {
+        return designation_id;
+    }
+
+    public void setDesignation_id(String designation_id) {
+        this.designation_id = designation_id;
     }
 }

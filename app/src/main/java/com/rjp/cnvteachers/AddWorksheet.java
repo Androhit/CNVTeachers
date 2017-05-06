@@ -38,6 +38,7 @@ import com.rjp.cnvteachers.api.RetrofitClient;
 import com.rjp.cnvteachers.beans.ApiResults;
 import com.rjp.cnvteachers.beans.ClassBean;
 import com.rjp.cnvteachers.beans.DivisonBean;
+import com.rjp.cnvteachers.beans.NotificationBeans;
 import com.rjp.cnvteachers.beans.StudentBean;
 import com.rjp.cnvteachers.beans.WorksheetBean;
 import com.rjp.cnvteachers.common.ConfirmationDialogs;
@@ -93,6 +94,8 @@ public class AddWorksheet extends AppCompatActivity{
     private List<String> studList;
     private TextView tvpath;
     ClassListAdapter adapter;
+    private ProgressDialog prog;
+    private ArrayList<NotificationBeans> arr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +129,7 @@ public class AddWorksheet extends AppCompatActivity{
             etDesc.setText(obj.getDesc());
             tvFromDate.setText(obj.getFromDate());
             tvToDate.setText(obj.getToDate());
+          //  String result = obj.getAttachment().substring(obj.getAttachment().lastIndexOf("/") + 1);
             tvpath.setText(obj.getAttachment());
         }
         else
@@ -365,6 +369,7 @@ public class AddWorksheet extends AppCompatActivity{
 
     }
 
+
     private void update_worksheet() {
         Classid = "";
         if (objClass != null || (!(objClass.getClass_id().equals("0")))) {
@@ -533,8 +538,26 @@ public class AddWorksheet extends AppCompatActivity{
                         }
                         btnAdd.setVisibility(View.VISIBLE);
                         if (apiResults != null) {
+                            int i,j;
 
                             if (apiResults.getStud().size() > 0) {
+
+                                if(obj != null){
+
+                                     for(i=0;i< apiResults.getStud().size();i++)
+                                     {
+                                         for(j=0;j<obj.getStudent_array().size();j++)
+                                         {
+                                             String Admno = apiResults.getStud().get(i).getAdmno();
+                                             String admno = obj.getStudent_array().get(j);
+                                             if(admno.equals(Admno))
+                                             {
+                                                 apiResults.getStud().get(i).setSelected(true);
+                                                 break;
+                                             }
+                                         }
+                                     }
+                                }
                                 adapt = new StudentAdapter(mContext, apiResults.getStud());
                                 rvStud.setAdapter(adapt);
                                 rvStud.setVisibility(View.VISIBLE);
@@ -924,7 +947,6 @@ public class AddWorksheet extends AppCompatActivity{
                 }
             });
         }
-
     }
 
     private void init() {
@@ -947,6 +969,7 @@ public class AddWorksheet extends AppCompatActivity{
 
         tvEmpName.setText(""+AppPreferences.getLoginObj(mContext).getFirstname()+" "+AppPreferences.getLoginObj(mContext).getLastname());
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == android.R.id.home)

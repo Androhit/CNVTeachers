@@ -632,7 +632,6 @@ public class AttendanceStudentFragment extends Fragment {
     private ArrayList<String> getXAxisValues() {
         ArrayList<String> xAxis = new ArrayList<>();
 
-
         xAxis.add("JUN");
         xAxis.add("JUL");
         xAxis.add("AUG");

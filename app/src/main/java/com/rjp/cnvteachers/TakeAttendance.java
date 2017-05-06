@@ -48,6 +48,8 @@ public class TakeAttendance extends AppCompatActivity{
     private String TAG="Take Attendance";
     private Button btnUpdate;
     String att_id="";
+    String chklist="";
+    int UPDATE_FLAG=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,7 @@ public class TakeAttendance extends AppCompatActivity{
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initRetrofitClient();
         init();
-        search_isTaken();
+     //   search_isTaken();
         initIntent();
         initData();
         setListners();
@@ -66,21 +68,19 @@ public class TakeAttendance extends AppCompatActivity{
     private void setListners() {
         btnok.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                insert();
+            public void onClick(View view)
+            {
+                Log.e(TAG,"Flag"+UPDATE_FLAG);
+                if(UPDATE_FLAG==0)
+                {
+                    insert();
+                }
+                else if(UPDATE_FLAG==1)
+                {
+                    update();
+                }
             }
             });
-
-
-
-        btnUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               update();
-            }
-        });
-
-
     }
 
     private void initIntent() {
@@ -90,12 +90,11 @@ public class TakeAttendance extends AppCompatActivity{
         AttDate =  getIntent().getStringExtra("AttDate");
         if ((!Class.equals("0")) && (!Division.equals("Select Division")) && (!AttDate.equals(" Attendance Date")))
         {
-         //   setTitle(""+obj.getTitle());
+            setTitle("Attendance");
             tvclass.setText(Classname);
             tvdiv.setText(Division);
-            tvdate.setText(DateOperations.convertToddMMMyyyy(AttDate));
+            tvdate.setText(DateOperations.convertToyyyyMMdd(AttDate));
             search_isTaken();
-
         }
         else
         {
@@ -124,23 +123,26 @@ public class TakeAttendance extends AppCompatActivity{
                             tvMsg.setVisibility(View.VISIBLE);
                             tvempname.setText(apiResults.getEmpname());
                             att_id=apiResults.getAtt_id();
-
-
-                        //    objDialog.okDialog("Already Taken","The attendance is already taken by "+apiResults.getEmpname());
-
-                            btnUpdate.setVisibility(View.VISIBLE);
-                            //update();
+                            chklist=apiResults.getChklist();
+                            UPDATE_FLAG=1;
                         }
                         else
                         {
-
-                            btnok.setVisibility(View.VISIBLE);
-                            //insert();
+                            UPDATE_FLAG=0;
                         }
                     }
-                    else
-                    {
+                    else {
+                        objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
+                            @Override
+                            public void okButton() {
 
+                            }
+
+                            @Override
+                            public void cancelButton() {
+
+                            }
+                        });
                     }
                 }
 
@@ -169,9 +171,6 @@ public class TakeAttendance extends AppCompatActivity{
             Log.e(TAG,"ChkList"+chkId);
             chk=chkId.length() > 0 ? chkId.substring(0, chkId.length()-1) : "";
         }
-
-
-
 
         if (NetworkUtility.isOnline(mContext)) {
             final ProgressDialog prog = new ProgressDialog(mContext);
@@ -318,10 +317,26 @@ public class TakeAttendance extends AppCompatActivity{
                         prog.dismiss();
                     }
                     if (apiResults != null) {
+                        int i,j;
+
+                        String[] chkstudent = chklist.split(",");
 
                         if (apiResults.getStud().size() > 0) {
+
+                            for(i=0; i<apiResults.getStud().size(); i++)
+                            {
+                                for(String admno : chkstudent)
+                                {
+                                    String Admno = apiResults.getStud().get(i).getAdmno();
+                                    if(admno.equals(Admno))
+                                    {
+                                        apiResults.getStud().get(i).setSelected(true);
+                                        break;
+                                    }
+                                }
+                            }
+
                             adapt = new StudentAdapter(mContext, apiResults.getStud());
-                            rvStud.setAdapter(adapt);
                             rvStud.setVisibility(View.VISIBLE);
                             setListViewHeightBasedOnItems(rvStud);
                             rvStud.setAdapter(adapt);
@@ -330,12 +345,12 @@ public class TakeAttendance extends AppCompatActivity{
                             objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
                                 @Override
                                 public void okButton() {
-                                    setListners();
+                                    finish();
                                 }
 
                                 @Override
                                 public void cancelButton() {
-
+                                    finish();
                                 }
                             });
                         }
@@ -344,12 +359,12 @@ public class TakeAttendance extends AppCompatActivity{
                         objDialog.dataNotAvailable(new ConfirmationDialogs.okCancel() {
                             @Override
                             public void okButton() {
-                                setListners();
+                                finish();
                             }
 
                             @Override
                             public void cancelButton() {
-
+                                finish();
                             }
                         });
                     }
@@ -380,7 +395,7 @@ public class TakeAttendance extends AppCompatActivity{
     }
 
     private Boolean setListViewHeightBasedOnItems(ListView rvStud) {
-        ListAdapter listAdapter = rvStud.getAdapter();
+              ListAdapter listAdapter = rvStud.getAdapter();
         if (listAdapter != null) {
 
             int numberOfItems = listAdapter.getCount();
@@ -426,7 +441,6 @@ public class TakeAttendance extends AppCompatActivity{
         tvempname=(TextView) findViewById(R.id.tvEmpName);
         tvMsg=(TextView) findViewById(R.id.tvMsg);
         btnok=(Button) findViewById(R.id.btnSubmit);
-        btnUpdate=(Button) findViewById(R.id.btnUpdate);
     }
 
     @Override

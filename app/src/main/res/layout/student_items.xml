@@ -2,7 +2,7 @@
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
 
     <LinearLayout
@@ -13,23 +13,31 @@
         <CheckBox
             android:id="@+id/chkselected"
             android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:layout_marginLeft="5dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp" />
+            android:orientation="vertical">
 
-        <TextView
-            android:text="tvAdmno"
-            android:textStyle="bold"
-            android:padding="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvAdmno"/>
-        <TextView
-            android:padding="10dp"
-            android:textStyle="bold"
-            android:text="Student Name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvStudName"/>
+            <TextView
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:text="Student Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvStudName"/>
+
+            <TextView
+                android:text="Admno"
+                android:textStyle="bold"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvAdmno"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

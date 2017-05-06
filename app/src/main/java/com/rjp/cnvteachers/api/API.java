@@ -12,6 +12,7 @@ import retrofit.http.POST;
 /**
  * Created by Rohit
  */
+
 public interface API
 {
 
@@ -298,4 +299,135 @@ public interface API
             @Field("acad_year") String acad_year,
             Callback<ApiResults> error);
 
+
+    @FormUrlEncoded
+    @POST("/getTopicList.php?method_name=TopicList")
+    void getTopic_list(
+            @Field("code") String code,
+            @Field("class") String Class,
+            @Field("subject") String subject,
+            Callback<ApiResults> callback);
+
+    @FormUrlEncoded
+    @POST("/getRemark.php?method_name=RemarkList")
+    void getRemark(
+            @Field("code") String code,
+            Callback<ApiResults> callback);
+
+    @FormUrlEncoded
+    @POST("/getSubjectList.php?method_name=SubjectList")
+    void getSubjectList(
+            @Field("code") String code,
+            @Field("empid")String empid,
+            @Field("class") String Class,
+            @Field("div") String div,
+            @Field("acad_year") String acad_year,
+            @Field("br_id") String br_id,
+            Callback<ApiResults> callback);
+
+    @FormUrlEncoded
+    @POST("/NotebookInsert.php?method_name=InsertNotebook")
+    void insert_Notebook(
+            @Field("code") String code,
+            @Field("chk") String chk,
+            @Field("subjectid") String subjectid,
+            @Field("empid") String empid,
+            @Field("classid") String classid,
+            @Field("division") String division,
+            @Field("date") String date,
+            @Field("topicid") String topicid,
+            @Field("br_id") String br_id,
+            @Field("academicYear") String academicYear,
+            Callback<ApiResults> callback);
+
+    @FormUrlEncoded
+    @POST("/instant_messages.php?method_name=recent_chats")
+    void getRecentChats(
+            @Field("code") String code,
+            @Field("user_id") String sender_id,
+            @Field("user_type") int sender_type,
+            @Field("msg_type") int msg_type,
+            Callback<ApiResults> taskResults);
+
+    @FormUrlEncoded
+    @POST("/AllParents.php?method_name=parents")
+    void get_parents(
+            @Field("code") String code,
+            @Field("classid") String classid,
+            @Field("division") String division,
+            Callback<ApiResults> callback);
+
+    @FormUrlEncoded
+    @POST("/register_fcm_token.php")
+    void register_fcm_token(
+            @Field("code") String code,
+            @Field("user_id") String user_id,
+            @Field("user_cat") int user_cat, // 0- for student, 1- for employee
+            @Field("token_key") String token_key,
+            @Field("app_name") String app_name,
+            Callback<ApiResults> taskResults);
+
+    @FormUrlEncoded
+    @POST("/fcm_notifications.php")
+    void getNotificationsList(@Field("empid") String empid,
+                              @Field("br_id") String branch_id,
+                              @Field("academic_year") String academicyear,
+                              Callback<ApiResults> leaveList);
+
+
+    @FormUrlEncoded
+    @POST("/instant_messages.php?method_name=send_message")
+    void sendMessage(
+            @Field("code") String code,
+            @Field("obj") String user_id,
+            Callback<ApiResults> taskResults);
+
+    @FormUrlEncoded
+    @POST("/instant_messages.php?method_name=message_list")
+    void getMessagesList(
+            @Field("code") String code,
+            @Field("sender_id") String sender_id,
+            @Field("sender_type") int sender_type,
+            @Field("receiver_id") String receiver_id,
+            @Field("receiver_type") int receiver_type,
+            @Field("msg_type") int msg_type,
+            Callback<ApiResults> taskResults);
+
+    @FormUrlEncoded
+    @POST("/instant_messages.php?method_name=titles_list")
+    void getTitleList(
+            @Field("code") String code,
+            Callback<ApiResults> taskResults);
+
+    @FormUrlEncoded
+    @POST("/instant_messages.php?method_name=add_title")
+    void addTitle(
+            @Field("code") String code,
+            @Field("title") String Title,
+            @Field("desc") String Desc,
+            Callback<ApiResults> taskResults);
+
+    @FormUrlEncoded
+    @POST("/send_fcm_message.php")
+    void send_fcm_message(
+            @Field("code") String code,
+            @Field("empid") String empid,
+            @Field("title")String title,
+            @Field("message") String message,
+            Callback<ApiResults> taskResults);
+
+    @FormUrlEncoded
+    @POST("/ManagementDashboard.php?method_name=TotalStudents")
+    void getTotStud(
+            @Field("code") String code,
+            @Field("academicYear") String academicYear,
+            Callback<ApiResults> callback);
+
+
+    @FormUrlEncoded
+    @POST("/ManagementDashboard.php?method_name=ClassWiseStudent")
+    void getClassStud(
+            @Field("code") String code,
+            @Field("academicYear") String academicYear,
+            Callback<ApiResults> callback);
 }

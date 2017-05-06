@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.rjp.cnvteachers.HomeScreen;
+import com.rjp.cnvteachers.Permission.PermissionsChecker;
 import com.rjp.cnvteachers.R;
 import com.rjp.cnvteachers.adapters.AchievmentListAdapter;
 import com.rjp.cnvteachers.adapters.PdfCreater;
@@ -67,7 +70,8 @@ public class AchievmentFragment extends Fragment {
     private FloatingActionButton fabpdf;
     ArrayList<AchievementsBean> arr;
     StudentBean obj;
-
+    private static final String[] PERMISSIONS_READ_STORAGE = new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE};
+    private PermissionsChecker checker;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -285,7 +289,6 @@ public class AchievmentFragment extends Fragment {
                 obj.setAdmno(admno);
 
                 if (Name.length()!=0 || admno.length()!=0) {
-
                     if (NetworkUtility.isOnline(mContext)) {
 
                         final ProgressDialog prog = new ProgressDialog(mContext);
@@ -393,10 +396,12 @@ public class AchievmentFragment extends Fragment {
         fabpdf.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 try {
+                    Intent it = new Intent(mContext, HomeScreen.class);
+                  //  PermissionsActivity.startActivityForResult(it,0);
                     PdfCreater adapter = new PdfCreater(mContext);
-                    adapter.create_pdf_achievement(arr,obj);
+                    adapter.create_pdf_achievement(arr, obj);
+
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -404,6 +409,22 @@ public class AchievmentFragment extends Fragment {
             }
         });
     }
+//
+//    private boolean checkExternalMedia() {
+//        boolean mExternalStorageAvailable = false;
+//        boolean mExternalStorageWriteable = false;
+//        String state = Environment.getExternalStorageState();
+//
+//        if (Environment.MEDIA_MOUNTED.equals(state)) {
+//            // Can read and write the media
+//            mExternalStorageAvailable = mExternalStorageWriteable = true;
+//            return true;
+//        }  else {
+//            // Can't read or write
+//            mExternalStorageAvailable = mExternalStorageWriteable = false;
+//            return false;
+//        }
+//    }
 
 
     private void init(View view)

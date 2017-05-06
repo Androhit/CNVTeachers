@@ -1,6 +1,7 @@
 package com.rjp.cnvteachers.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by Shraddha on 3/8/2017.
@@ -8,10 +9,31 @@ import java.io.Serializable;
 
 public class StudentBean implements Serializable {
     private String name,firstname,lastname,middlename,fathername,mothername,sex,rollno,religion,stu_class;
-    private String class_name,address1,address2,emergencontact,caste,division,fee_category;
+    private String class_name,address1,address2,emergencontact,caste,division,fee_category,TOTAL;
     private String year_admission,birthdate,phone,state,father_mobile,mother_mobile,nationality;
     private String username,password,admno,photo_url,grno,birth_place,parent_email,foccupation,moccupation,foffice_add,moffice_add,bgroup;
     private boolean selected;
+
+    private ArrayList<RemarkBean> RemarkArray;
+    private ArrayList<String> AdmnoArray;
+    private ArrayList<StudentBean> class_array;
+
+
+    public ArrayList<String> getAdmnoArray() {
+        return AdmnoArray;
+    }
+
+    public void setAdmnoArray(ArrayList<String> admnoArray) {
+        AdmnoArray = admnoArray;
+    }
+
+    public ArrayList<RemarkBean> getRemarkArray() {
+        return RemarkArray;
+    }
+
+    public void setRemarkArray(ArrayList<RemarkBean> remarkArray) {
+        RemarkArray = remarkArray;
+    }
 
     public StudentBean()
     {
@@ -317,5 +339,21 @@ public class StudentBean implements Serializable {
 
     public void setSelected(boolean selected) {
         this.selected = selected;
+    }
+
+    public String getTOTAL() {
+        return TOTAL;
+    }
+
+    public void setTOTAL(String TOTAL) {
+        this.TOTAL = TOTAL;
+    }
+
+    public ArrayList<StudentBean> getClass_array() {
+        return class_array;
+    }
+
+    public void setClass_array(ArrayList<StudentBean> class_array) {
+        this.class_array = class_array;
     }
 }

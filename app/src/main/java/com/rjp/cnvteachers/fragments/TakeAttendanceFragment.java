@@ -86,7 +86,6 @@ public class TakeAttendanceFragment extends Fragment implements DatePickerDialog
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
-
         // display the current date
         updateDisplay();
 
@@ -170,7 +169,7 @@ public class TakeAttendanceFragment extends Fragment implements DatePickerDialog
                 Classid = "";
                 if (objClass != null || (!(objClass.getClass_id().equals("0")))) {
                     Classid = objClass.getClass_id();
-                    Classname=objClass.getclasses();
+                    Classname = objClass.getclasses();
                 }
 
                 Division = "";
@@ -182,21 +181,39 @@ public class TakeAttendanceFragment extends Fragment implements DatePickerDialog
                 AttDate = tvDate.getText().toString();
 
 
-                final ProgressDialog prog = new ProgressDialog(mContext);
-                prog.setMessage("Wait...");
-                prog.show();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        prog.dismiss();
-                        Intent it = new Intent(mContext, TakeAttendance.class);
-                        it.putExtra("Class",Classid);
-                        it.putExtra("Classname",Classname);
-                        it.putExtra("Division",Division);
-                        it.putExtra("AttDate",AttDate);
-                        mContext.startActivity(it);
-                    }
-                }, 500);
+                if ((!Classid.equals("0")) && (!Division.equals("Select Division")) && (!AttDate.equals(" Attendance Date")))
+                {
+                    final ProgressDialog prog = new ProgressDialog(mContext);
+                    prog.setMessage("Wait...");
+                    prog.show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            prog.dismiss();
+                            Intent it = new Intent(mContext, TakeAttendance.class);
+                            it.putExtra("Class", Classid);
+                            it.putExtra("Classname", Classname);
+                            it.putExtra("Division", Division);
+                            it.putExtra("AttDate", AttDate);
+                            mContext.startActivity(it);
+                        }
+                    }, 500);
+                 }
+                else
+                {
+                    //objDialog.okDialog("Error",mContext.getResources().getString(R.string.error_input_field1));
+                    final AlertDialog alert = new AlertDialog.Builder(mContext).create();
+                    alert.setMessage(mContext.getResources().getString(R.string.error_input_field9));
+                    alert.setCancelable(false);
+
+                    alert.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            alert.dismiss();
+                        }
+                    });
+                    alert.show();
+                }
             }
         });
     }

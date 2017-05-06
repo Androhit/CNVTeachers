@@ -14,7 +14,12 @@
     <string name="error_input_field0">Please enter  Name or Admission No.  and From Date and To date value to find correct result.</string>
     <string name="error_input_field2">Please select Class and Division  to find correct result.</string>
     <string name="error_input_field5">Please select Class to find correct result.</string>
+    <string name="error_input_field7">Please select Division to find correct result.</string>
+    <string name="error_input_field01">Please select Subject to find correct result.</string>
+    <string name="error_input_field02">Please select Topic to find correct result.</string>
     <string name="error_input_field1">Please select Class , Division , FromDate , ToDate to find correct result.</string>
+    <string name="error_input_field9">Please select Class , Division , Attendance Date to find correct result.</string>
+    <string name="error_input_field8">Please select Class , Division , Subject, Topic, Notebook Correction Date to find correct result.</string>
     <string name="error_input_field3">Please select FromDate , ToDate to find correct result.</string>
     <string name="error_input_field4">Please enter atleast Name or Admission No. or Class and division value to find correct result.</string>
     <string name="error_input_field6">Please select Academic Year and Admission Year and Class and Division and Exam name value to find correct result.</string>
@@ -22,5 +27,6 @@
     <string name="error_server_down">Internet unavailable or the server is down, This may take a while. Please try again some times later.</string>
     <string name="company_addr">Designed and developed by Cloud Next Vision Systems. Copyright © 2017 All rights reserved.</string>
     <string name="NoStud">No students are assigned for this project.</string>
+    <string name="Error">Please enter Title and Description for Chat Activity.</string>
     <string name="error_input">Please enter Project Aim, Title, Description and Select Class,Division,From date, To date to find the correct result. </string>
 </resources>

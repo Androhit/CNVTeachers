@@ -17,6 +17,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,22 +25,34 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.rjp.cnvteachers.api.API;
+import com.rjp.cnvteachers.api.RetrofitClient;
+import com.rjp.cnvteachers.beans.ApiResults;
 import com.rjp.cnvteachers.beans.InstitutesBean;
 import com.rjp.cnvteachers.common.ConfirmationDialogs;
 import com.rjp.cnvteachers.fragments.AchievmentFragment;
 import com.rjp.cnvteachers.fragments.AttendanceFragment;
 import com.rjp.cnvteachers.fragments.CircularFragment;
 import com.rjp.cnvteachers.fragments.ClassTimeTableFragment;
+import com.rjp.cnvteachers.fragments.CommunicationFragment;
 import com.rjp.cnvteachers.fragments.EmployeeFragment;
 import com.rjp.cnvteachers.fragments.ExamFragment;
 import com.rjp.cnvteachers.fragments.HandsOnScienceFragment;
+import com.rjp.cnvteachers.fragments.ManagementDashboard;
 import com.rjp.cnvteachers.fragments.MyTimeTableFragment;
+import com.rjp.cnvteachers.fragments.NotebookCorrectionFragment;
 import com.rjp.cnvteachers.fragments.PerformanceFragment;
 import com.rjp.cnvteachers.fragments.StudFragment;
 import com.rjp.cnvteachers.fragments.TakeAttendanceFragment;
 import com.rjp.cnvteachers.fragments.WorksheetFragment;
 import com.rjp.cnvteachers.utils.AppPreferences;
+import com.rjp.cnvteachers.utils.NetworkUtility;
 import com.squareup.picasso.Picasso;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class HomeScreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -72,23 +85,58 @@ public class HomeScreen extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        fragmentClass = MyTimeTableFragment.class;
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.flContent, fragment );
-        transaction.addToBackStack(null);
-        transaction.commit();
+//        fragmentClass = MyTimeTableFragment.class;
+//        try {
+//            fragment = (Fragment) fragmentClass.newInstance();
+//        } catch (InstantiationException e) {
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction transaction = fragmentManager.beginTransaction();
+//        transaction.replace(R.id.flContent, fragment );
+//        transaction.addToBackStack(null);
+//        transaction.commit();
 
 
         initDrawerSecond(toolbar,AppPreferences.getInstObj(mContext));
         initListners();
+        registerFCMToken();
+    }
+
+    private void registerFCMToken() {
+        if(NetworkUtility.isOnline(mContext))
+        {
+            //if(AppPreferences.getFcmKey(mContext)==null) {
+            Log.e(TAG,"FCM Token checking");
+            if (AppPreferences.getLoginObj(mContext).getEmpid() != null) {
+                RetrofitClient.initRetrofitClient();
+                API retrofitApi = RetrofitClient.getRetrofitClient();
+                // 2 : for parents login
+                final String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+                Log.e(TAG, "Registered token: " + refreshedToken);
+                if (refreshedToken != null) {
+                    retrofitApi.register_fcm_token(AppPreferences.getInstObj(mContext).getCode(),AppPreferences.getLoginObj(mContext).getEmpid(),0,refreshedToken, getApplicationContext().getResources().getString(R.string.app_name), new Callback<ApiResults>() {
+
+                        @Override
+                        public void success(ApiResults apiResults, Response response) {
+                            if (apiResults.getResult().equalsIgnoreCase("false")) {
+                                Log.e("FCM ", "Token Reg failed");
+                                AppPreferences.setFcmKey(mContext, null);
+                            } else {
+                                AppPreferences.setFcmKey(mContext, refreshedToken);
+                                Log.e("FCM ", "" + apiResults.getResult());
+                            }
+                        }
+                        @Override
+                        public void failure(RetrofitError error) {
+                            Log.e("FCM ", "Token Reg failed " + error);
+                        }
+                    });
+                }
+            }
+        }
     }
 
     private void initDrawerSecond(Toolbar toolbar, InstitutesBean instObj) {
@@ -188,8 +236,15 @@ public class HomeScreen extends AppCompatActivity
 
         switch (id) {
             case R.id.nav_dashboard:
-             //   fragmentClass = DashboardFragment.class;
-                fragmentClass = MyTimeTableFragment.class;
+
+                if(AppPreferences.getLoginObj(mContext).getDesignation_id().equals("1"))
+                {
+                    fragmentClass = ManagementDashboard.class;
+                }
+                else
+                {
+               //     fragmentClass = TeacherDashboard.class;
+                }
                 break;
             case R.id.nav_profile  :
                 fragmentClass = EmployeeFragment.class;
@@ -227,6 +282,10 @@ public class HomeScreen extends AppCompatActivity
                 fragmentClass = AchievmentFragment.class;
                 break;
 
+            case R.id.nav_notebook :
+                fragmentClass = NotebookCorrectionFragment.class;
+                break;
+
             case R.id.nav_hos :
                 fragmentClass = HandsOnScienceFragment.class;
                 break;
@@ -238,6 +297,12 @@ public class HomeScreen extends AppCompatActivity
             case R.id.nav_worksheet :
                 fragmentClass = WorksheetFragment.class;
                 break;
+
+            case R.id.nav_comm :
+                fragmentClass = CommunicationFragment.class;
+                break;
+
+
 
             case R.id.nav_logout :  logout(); break;
             }

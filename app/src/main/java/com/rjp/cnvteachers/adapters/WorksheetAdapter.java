@@ -281,7 +281,6 @@ public class WorksheetAdapter extends RecyclerView.Adapter<WorksheetAdapter.MyVi
                             }, 500);
                         }
                     });
-
                 }
 
 

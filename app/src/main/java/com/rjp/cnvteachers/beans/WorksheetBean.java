@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class WorksheetBean implements Serializable {
     private String Aim,Desc,Title,div_id,FromDate,ToDate,empid,student,br_id,acadyear,class_id,classid,division,id,empname,chklist,attachment;
     private ArrayList<String> count;
+    private ArrayList<String> student_array;
 
     public String getClass_id() {
         return class_id;
@@ -33,6 +34,14 @@ public class WorksheetBean implements Serializable {
 
     public void setEmpid(String empid) {
         this.empid = empid;
+    }
+
+    public ArrayList<String> getStudent_array() {
+        return student_array;
+    }
+
+    public void setStudent_array(ArrayList<String> student_array) {
+        this.student_array = student_array;
     }
 
     public String getStudent() {
@@ -125,6 +134,10 @@ public class WorksheetBean implements Serializable {
 
     public ArrayList<String> getCount() {
         return count;
+    }
+
+    public void setCount(ArrayList<String> count) {
+        this.count = count;
     }
 
     public String getAttachment() {

@@ -61,9 +61,19 @@
             android:title="Performances" />
 
         <item
-            android:id="@+id/nav_worksheet"
-            android:icon="@drawable/worksheet"
-            android:title="Worksheet" />
+        android:id="@+id/nav_worksheet"
+        android:icon="@drawable/worksheet"
+        android:title="Worksheet" />
+
+        <item
+            android:id="@+id/nav_notebook"
+            android:icon="@drawable/notebook"
+            android:title="Notebook Correction" />
+
+        <item
+            android:id="@+id/nav_comm"
+            android:icon="@drawable/info"
+            android:title="Communication" />
 
        <item
             android:id="@+id/nav_logout"

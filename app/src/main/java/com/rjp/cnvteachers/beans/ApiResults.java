@@ -14,6 +14,8 @@ public class ApiResults
     public ArrayList<StudentBean> student;
     public ArrayList<StudentBean> stud;
     public ArrayList<StudentBean> studList;
+    public ArrayList<SubjectBean> Subjects;
+    public ArrayList<TopicBean> Topics;
     public ArrayList<AdmissionBean> admno_no;
     public ArrayList<ClassBean> class_list;
     public ArrayList<DivisonBean> divison_list;
@@ -26,20 +28,88 @@ public class ApiResults
     public ArrayList<AttendanceBean> class_att;
     public ArrayList<ExamResultsBean> exm_all_sub;
     public String total_grade;
-    public String empname,empid,att_id;
+    public String empname,empid,att_id,chklist;
     public ArrayList<ExamDetailsBeans> examdetails_list;
     public ArrayList<ExamBean> exam_list;
     public ArrayList<ExamBean> all_exam_name;
     public ArrayList<ExamBean> exam;
     public ExamResultsBean stud_result;
     public ArrayList<CircularBean> circular_info;
+    public ArrayList<RemarkBean> Remarks;
     public ArrayList<CircularBean> circular_info_det;
     public ArrayList<AchievementsBean> special_achiv;
     public ArrayList<HandsOnScienceBeans> hos_info;
     public ArrayList<AdmissionYearBean> adm_yr_list;
     public ArrayList<AcademicYearBean> acad_yr_list;
     public ArrayList<WorksheetBean> worksheet_list;
+    public ArrayList<ParentBean> parent_list;
     public String total_percentage,total_marks,obtained_marks;
+    public  ArrayList<FcmNotificationBean> recent_chats;
+    public  ArrayList<FcmNotificationBean> message_list;
+    public  ArrayList<MessageTitlesBean> titles_list;
+    private ArrayList<NotificationBeans> fcm_notifications;
+    private StudentBean Students_Count;
+    private String Total_stud;
+
+    public String getTotal_stud() {
+        return Total_stud;
+    }
+
+    public void setTotal_stud(String total_stud) {
+        Total_stud = total_stud;
+    }
+
+    public StudentBean getStudents_Count() {
+        return Students_Count;
+    }
+
+    public void setStudents_Count(StudentBean students_Count) {
+        Students_Count = students_Count;
+    }
+
+    public ArrayList<MessageTitlesBean> getTitles_list() {
+        return titles_list;
+    }
+
+    public void setTitles_list(ArrayList<MessageTitlesBean> titles_list) {
+        this.titles_list = titles_list;
+    }
+
+    public ArrayList<FcmNotificationBean> getMessage_list() {
+        return message_list;
+    }
+
+    public void setMessage_list(ArrayList<FcmNotificationBean> message_list) {
+        this.message_list = message_list;
+    }
+
+    public ArrayList<FcmNotificationBean> getRecent_chats() {
+        return recent_chats;
+    }
+
+    public void setRecent_chats(ArrayList<FcmNotificationBean> recent_chats) {
+        this.recent_chats = recent_chats;
+    }
+
+    public ArrayList<RemarkBean> getRemarks() {
+        return Remarks;
+    }
+
+    public void setRemarks(ArrayList<RemarkBean> remarks) {
+        Remarks = remarks;
+    }
+
+    public void setMsg(EmployeeBean msg) {
+        this.msg = msg;
+    }
+
+    public String getChklist() {
+        return chklist;
+    }
+
+    public void setChklist(String chklist) {
+        this.chklist = chklist;
+    }
 
     public String getEmpname() {
         return empname;
@@ -96,8 +166,6 @@ public class ApiResults
     public void setTotal_percentage(String total_percentage) {
         this.total_percentage = total_percentage;
     }
-
-
 
     public ArrayList<ExamBean> getAll_exam_name() {
         return all_exam_name;
@@ -317,7 +385,6 @@ public class ApiResults
         this.class_timetable = class_timetable;
     }
 
-
     public MyTimeTableBean getMy_timetable() {
         return my_timetable;
     }
@@ -348,5 +415,37 @@ public class ApiResults
 
     public void setStudList(ArrayList<StudentBean> studList) {
         this.studList = studList;
+    }
+
+    public ArrayList<SubjectBean> getSubjects() {
+        return Subjects;
+    }
+
+    public void setSubjects(ArrayList<SubjectBean> subjects) {
+        Subjects = subjects;
+    }
+
+    public ArrayList<TopicBean> getTopics() {
+        return Topics;
+    }
+
+    public void setTopics(ArrayList<TopicBean> topics) {
+        Topics = topics;
+    }
+
+    public ArrayList<ParentBean> getParent_list() {
+        return parent_list;
+    }
+
+    public void setParent_list(ArrayList<ParentBean> parent_list) {
+        this.parent_list = parent_list;
+    }
+
+    public ArrayList<NotificationBeans> getFcm_notifications() {
+        return fcm_notifications;
+    }
+
+    public void setFcm_notifications(ArrayList<NotificationBeans> fcm_notifications) {
+        this.fcm_notifications = fcm_notifications;
     }
 }

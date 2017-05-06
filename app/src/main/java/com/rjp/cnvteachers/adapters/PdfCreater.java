@@ -1,6 +1,5 @@
 package com.rjp.cnvteachers.adapters;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -55,7 +54,6 @@ public class PdfCreater {
     Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,Font.BOLD);
     Font TitleFont = new Font(Font.FontFamily.TIMES_ROMAN, 20,Font.BOLD);
     Font tabFont = new Font(Font.FontFamily.TIMES_ROMAN, 16,Font.BOLD);
-    private static final String[] PERMISSIONS_READ_STORAGE = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE};
 
     public PdfCreater(Context context) // for Achievements
     {
@@ -495,14 +493,7 @@ public class PdfCreater {
         table.addCell(new Paragraph(obj.getTotal_marks(),tabFont));
         table.addCell(new Paragraph(obj.getTotal_percentage(),tabFont));
         table.addCell(new Paragraph(obj.getTotal_grade(),tabFont));
-/*
-        double perc= (100*obtained_marks)/total;
-        table.addCell(new Paragraph("Total",tabFont));
-        table.addCell(new Paragraph(String.valueOf(obtained_marks),tabFont));
-        table.addCell(new Paragraph(String.valueOf(total),tabFont));
-        table.addCell(new Paragraph(String.valueOf(perc),tabFont));
-        table.addCell(new Paragraph("",tabFont));
-*/
+
         catPart.add(table);
         document.add(catPart);
 
@@ -527,7 +518,8 @@ public class PdfCreater {
             public void onClick(DialogInterface dialog, int which) {
                 if (options[which].equals("Preview")){
                     viewPdf();
-                }else if (options[which].equals("Cancel")){
+                }
+                else if (options[which].equals("Cancel")){
                     dialog.dismiss();
                 }
             }
@@ -537,13 +529,8 @@ public class PdfCreater {
 
     }
 
-    public void viewPdf(){
-
-        try {
-            if (checker.lacksPermissions(PERMISSIONS_READ_STORAGE)) {
-                startPermissionsActivity(PERMISSIONS_READ_STORAGE);
-            }
-            else {
+    public void viewPdf()
+    {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setDataAndType(Uri.fromFile(myFile), "application/pdf");
@@ -555,18 +542,5 @@ public class PdfCreater {
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                     mContext.startActivity(intent);
                 }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-
     }
-
-    private void startPermissionsActivity(String[] permission) {
-       // PermissionsActivity.startActivityForResult(mContext, 0, permission);
-       // PermissionsActivity.startActivityForResult(this, 0, permission);
-    }
-
 }

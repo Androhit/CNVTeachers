@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1055099488459",
+    "firebase_url": "https://fir-notification-a211c.firebaseio.com",
+    "project_id": "fir-notification-a211c",
+    "storage_bucket": "fir-notification-a211c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1055099488459:android:99c5228c4e3064e6",
+        "android_client_info": {
+          "package_name": "com.rjp.cnvteachers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1055099488459-9s72t0nl7q210dn3qp28frdbbotil6qg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeNh7KCX0-BgD-oIXSzoY3K83dg3Q0i4s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

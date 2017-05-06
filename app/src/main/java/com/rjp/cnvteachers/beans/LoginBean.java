@@ -8,7 +8,7 @@ public class LoginBean
     private String empid,result,name,user_name,user_pass, firstname, middlename, lastname, fathername,sex,br_id,department;
     private String email,address,city,country,zip,phone, birthdate,caste,religion,qualification,experience;
     private boolean status;
-    private String designation;
+    private String designation,designation_id;
     private String acadyear,photo_url;
     private LoginBean emp_details;
 
@@ -229,5 +229,13 @@ public class LoginBean
 
     public void setPhoto_url(String photo_url) {
         this.photo_url = photo_url;
+    }
+
+    public String getDesignation_id() {
+        return designation_id;
+    }
+
+    public void setDesignation_id(String designation_id) {
+        this.designation_id = designation_id;
     }
 }

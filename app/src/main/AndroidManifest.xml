@@ -93,14 +93,81 @@
             android:exported="true"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".NotebookCorrectionActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            />
+
+        <activity android:name=".ChatRoomActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            />
+
+        <activity android:name=".ParentContacts"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            />
+
+
+        <receiver
+            android:name="com.google.android.gms.analytics.AnalyticsReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.google.android.gms.analytics.AnalyticsService"
+            android:enabled="true"
+            android:exported="false" />
+
+
+        <service android:name=".fcm.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
+
+        <service android:name=".fcm.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!-- "Alarm Service" -->
+        ...
+        <receiver android:name=".service.AutoStart">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        ...
+        <service
+            android:name=".service.YourService"
+            android:enabled="true"
+            android:process=":your_service" />
+
+        <receiver android:name=".service.PopupServiceBroadcast" />
+
+        <service android:name=".service.NotificationPopupFloat" />
+
 
         <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
        App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
-
-    </application>
+     </application>
 
 </manifest>
